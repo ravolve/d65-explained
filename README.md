@@ -2,7 +2,7 @@
 
 A neutral, sourced, plain-language guide to Evanston/Skokie School District 65.
 
-- **Public site:** https://d65explained.com (Vercel, deployed from this repo's `main` branch)
+- **Public site:** https://www.d65explained.com (Vercel, deployed from this repo's `main` branch)
 - **Old preview link:** https://claude.ai/artifact/7EQwGhQKexjgxwEoq6Zbkv (claude.ai artifact; secondary, not the address to share)
 - **Owner:** Andy. Corrections: andy@paperprismstudio.com (as listed on the site)
 
@@ -28,7 +28,7 @@ This repository is the source of truth for the site. `site/` holds exactly what 
 2. If a chart's title, labels or data changed, re-take that chart's pictures:
    `python3 tools/capture-charts.py f-tax f-cush` (set `SITE_DIR` in the script to the `site/` path first). Then update that chart's sizes in `const DIM={...}` in `index.html`. If the chart also appears in the tour, update the hard-coded `width`/`height` on its `<picture>`.
 3. Run `tools/function-test.py` (set `SITE_DIR` first). Expect no script errors, no missing sources, and no horizontal overflow at 390 and 1280 px.
-4. Commit and push to `main`. Vercel deploys it to d65explained.com within about a minute. Then open https://d65explained.com to confirm it.
+4. Commit and push to `main`. Vercel deploys it to d65explained.com within about a minute. Then open https://www.d65explained.com to confirm it.
 5. Optional: also update the old claude.ai artifact (slug `3276407a-84ea-4dc4-bbdb-d5dc5fc54d0b`, `publish_files` with `shared_live: "public"` and `artifact_title: "D65 Explained"`). It isn't the shared address.
 
 Get Andy's OK on any wording change; his explicit instructions count as approval.
