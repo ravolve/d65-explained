@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>D65 Explained</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23f2b705'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#f6f7f7; --ink:#17222c; --muted:#5a6671; --faint:#8a959f; --rule:#dde2e6; --card:#eceff1; --card-2:#e3e8eb; --raised:#fff;
+  --bus:#f2b705; --bus-ink:#1d1600; --link:#1f4e8c; --up:#c4590f; --down:#2a6bc2; --bar:#9aa5ae;
+  --sheet:#17222c; --sheet-ink:#f3f5f6; --sheet-link:#f2b705;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Literata",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --col:40rem; --wide:62rem;
+  color-scheme:light;
+}
+/* dark is the default on screen; print and data-theme="light" stay light */
+@media screen{:root:not([data-theme="light"]){
+  --paper:#10171d; --ink:#e4e9ee; --muted:#a0acb7; --faint:#6d7a86; --rule:#26313b; --card:#172129; --card-2:#1e2a33; --raised:#151f27;
+  --link:#8fb8ee; --up:#e0823a; --down:#4f8fe0; --bar:#5a6875; --sheet:#05090c; --sheet-ink:#e4e9ee; color-scheme:dark;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.6;overflow-x:hidden}
+a{color:var(--link)}
+:focus-visible{outline:2px solid var(--link);outline-offset:3px;border-radius:4px}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+button{font:inherit;color:inherit}
+.nw{white-space:nowrap}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none!important}
+
+/* ---------- top bar ---------- */
+.bar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.bar .in{max-width:var(--wide);margin:0 auto;min-height:56px;display:flex;align-items:center;gap:12px;padding:0 max(18px,env(safe-area-inset-left,0px))}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--display);font-stretch:85%;font-weight:800;font-size:18px;color:var(--ink);text-decoration:none;white-space:nowrap;margin-right:auto;background:none;border:0;padding:6px 0;cursor:pointer}
+.brand::before{content:"";width:12px;height:12px;border-radius:3px;background:var(--bus)}
+.nav{display:flex;gap:2px;align-items:center}
+.nav a,.nav button{font-family:var(--display);font-stretch:88%;font-weight:650;font-size:15px;color:var(--muted);text-decoration:none;padding:8px 11px;border-radius:8px;border:0;background:none;cursor:pointer;white-space:nowrap}
+.nav a:hover,.nav button:hover{color:var(--ink);background:var(--card)}
+.nav [aria-current="page"]{color:var(--ink);background:var(--card)}
+.nav .story{color:var(--bus-ink);background:var(--bus)}
+.nav .story:hover{color:var(--bus-ink);background:color-mix(in srgb,var(--bus) 85%,var(--ink))}
+.menubtn{display:none;font-family:var(--display);font-stretch:88%;font-weight:700;font-size:15px;border:1.5px solid var(--rule);background:var(--raised);border-radius:999px;padding:8px 14px;cursor:pointer;min-height:40px}
+@media (max-width:700px){
+  .menubtn{display:inline-flex}
+  .nav{display:none;position:absolute;top:56px;right:12px;left:12px;flex-direction:column;align-items:stretch;background:var(--raised);border:1px solid var(--rule);border-radius:14px;padding:8px;box-shadow:0 14px 40px rgba(0,0,0,.14)}
+  .nav.open{display:flex}
+  .nav a,.nav button{font-size:17px;padding:12px 14px;text-align:left}
+}
+
+/* ---------- views ---------- */
+main{padding:0 max(18px,env(safe-area-inset-left,0px)) 64px}
+.view{max-width:var(--wide);margin:0 auto}
+.view:focus{outline:none}
+
+/* ---------- tour ---------- */
+.tour{min-height:calc(100svh - 57px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:28px 0 0;gap:0}
+.slides{position:relative;width:100%;max-width:38rem;flex:1 0 auto;display:grid;align-content:center;padding-bottom:18px}
+/* Back/Next stay in the same place on every slide: they sit at the bottom of the screen, and stick there when a slide is taller */
+.ctlwrap{width:100%;max-width:38rem;display:grid;justify-items:start;gap:2px;padding:12px 0 16px}
+@media (min-width:561px){.ctlwrap{position:sticky;bottom:0;z-index:5;background:var(--paper);box-shadow:0 -1px 0 var(--rule)}}
+.ctlwrap:has(#ctl[hidden]):has(#skiptour[hidden]){display:none}
+#skiptour[hidden]{display:inline-flex!important;visibility:hidden}
+.slide{display:grid;gap:18px;text-align:left}
+.slide.enter{animation:in .45s cubic-bezier(.2,.7,.2,1) both}
+.slide.back{animation:inb .45s cubic-bezier(.2,.7,.2,1) both}
+@keyframes in{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes inb{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
+.kick{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.slide h1,.slide h2{font-family:var(--display);font-stretch:78%;font-weight:800;line-height:1.02;font-size:clamp(36px,7vw,60px)}
+.slide .lede{font-size:clamp(19px,2.4vw,22px);line-height:1.5;color:var(--ink)}
+.slide .cap{font-size:17px;line-height:1.5;color:var(--muted)}
+.demo{background:var(--raised);border:1px solid var(--rule);border-radius:16px;padding:20px;display:grid;gap:12px;min-height:150px;align-content:center}
+.ctl{width:100%;max-width:38rem;display:flex;align-items:center;gap:12px}
+.dots{display:flex;gap:7px;margin-right:auto}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--faint);transition:background .2s,width .2s}
+.dots i.on{background:var(--ink);width:22px;border-radius:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;border:0;cursor:pointer;font-family:var(--display);font-stretch:88%;font-weight:750;font-size:17px;text-decoration:none;white-space:nowrap}
+.btn.pri{background:var(--ink);color:var(--paper)}
+@media (hover:hover){.btn.pri:hover{background:color-mix(in srgb,var(--ink) 85%,var(--bus))}}
+.btn.yel{background:var(--bus);color:var(--bus-ink)}
+.btn.ghost{background:transparent;color:var(--muted);padding:0 12px}
+.btn.ghost:hover{color:var(--ink)}
+.btn.out{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--rule)}
+@media (hover:hover){.btn.out:hover{box-shadow:inset 0 0 0 1.5px var(--faint)}}
+.welcome-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.small{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+
+/* demo: chat */
+.ask{display:flex;justify-content:flex-end}
+.ask p{position:relative;background:var(--card-2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule);font-family:var(--display);font-stretch:90%;font-weight:650;font-size:18px;line-height:1.3;padding:12px 16px;border-radius:18px 18px 4px 18px;max-width:85%}
+.ask p::before{content:"You";position:absolute;top:-18px;right:6px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ans{font-size:19px;line-height:1.5}
+.reveal{opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+.reveal.on{opacity:1;transform:none}
+/* demo: bars */
+.mb{display:grid;gap:10px}
+.mb .t{font-family:var(--display);font-stretch:88%;font-weight:750;font-size:16px}
+.mb .row{display:grid;grid-template-columns:110px 1fr;align-items:center;gap:10px;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.mb .row span:first-child{font-family:var(--display);font-stretch:90%;font-size:15px}
+.mb .row.us span:first-child{font-weight:750}
+.mb .tr{position:relative;height:30px}
+.mb .fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:var(--bar);width:0;transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.mb .row.us .fill{background:var(--bus)}
+.mb .v{font-style:normal;position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:13.5px;font-weight:500;opacity:0;transition:opacity .3s .6s}
+.mb.go .v{opacity:1}
+.mb .hint{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+/* demo: source */
+.srcdemo .line{font-size:19px;line-height:1.55}
+.card{border-left:3px solid var(--bus);background:var(--card);border-radius:0 10px 10px 0;padding:10px 14px;display:grid;gap:2px;font-size:15px;line-height:1.4}
+.card b{font-family:var(--display);font-stretch:88%;font-size:16px}
+.card span{color:var(--muted)}
+/* demo: labels */
+.labels{display:grid;gap:10px}
+.labels div{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:16px;line-height:1.4}
+/* "Our calculation" / "District estimate": plain labels with a small mark, not boxed like the clickable Sources tag */
+.c{display:inline-flex;align-items:center;gap:6px;font-family:var(--display);font-stretch:90%;font-style:italic;font-size:14px;line-height:1.2;white-space:nowrap;color:var(--muted)}
+.c::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.c.est::before{background:none;box-shadow:inset 0 0 0 1.5px var(--muted)}
+/* demo: layers */
+.layers{display:grid;gap:8px}
+.layers .ln{font-size:18px;line-height:1.45}
+.layers details{border-top:1px solid var(--rule);padding-top:4px}
+.layers summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:12.5px;color:var(--muted);padding:6px 0;display:inline-flex;gap:8px;min-height:32px;align-items:center}
+.layers summary::-webkit-details-marker{display:none}
+.layers summary::before{content:"+"}
+.layers details[open] summary::before{content:"–"}
+.layers details p{font-size:15px;line-height:1.5;color:var(--muted);padding:2px 0 6px}
+
+/* ---------- home ---------- */
+.hero{padding:clamp(36px,7vw,72px) 0 26px;display:grid;gap:14px;max-width:44rem}
+.hero h1{font-family:var(--display);font-stretch:78%;font-weight:800;line-height:1;font-size:clamp(40px,7.6vw,72px)}
+.hero p{font-size:clamp(19px,2.3vw,22px);color:var(--muted)}
+.hero .kick{font-size:12px}
+.paths{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;align-items:stretch}
+@media (max-width:760px){.paths{grid-template-columns:1fr}}
+.path{position:relative;display:flex;flex-direction:column;gap:10px;background:var(--raised);border:1px solid var(--rule);border-radius:18px;padding:clamp(20px,3vw,28px);text-decoration:none;color:var(--ink);transition:transform .15s ease,box-shadow .15s ease,border-color .15s;cursor:pointer;text-align:left;width:100%}
+.path:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.08);border-color:color-mix(in srgb,var(--ink) 25%,var(--rule))}
+.path h2{font-family:var(--display);font-stretch:82%;font-weight:800;font-size:clamp(26px,3.4vw,34px);line-height:1.05}
+.path p{font-size:17px;line-height:1.5;color:var(--muted)}
+.path .go{margin-top:auto;font-family:var(--display);font-stretch:88%;font-weight:750;font-size:17px;color:var(--ink);display:inline-flex;gap:6px;align-items:center;padding-top:8px}
+.path .tag{align-self:flex-start;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;background:var(--bus);color:var(--bus-ink);padding:4px 8px;border-radius:4px}
+.path.main{border:2px solid var(--ink)}
+.path.main h2{font-size:clamp(34px,5vw,46px)}
+.parts{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 2px;padding:0;list-style:none}
+.parts li{font-family:var(--display);font-stretch:90%;font-size:14px;font-weight:600;color:var(--muted);background:var(--card);border-radius:999px;padding:4px 10px}
+.side{display:grid;gap:16px}
+.peek{display:grid;gap:12px;background:var(--paper);border-radius:12px;padding:26px 16px 14px;margin:6px 0 4px}
+.peek .ask p{font-size:16px}
+.peek > p{font-size:17px;line-height:1.45;color:var(--ink)}
+.mini{display:flex;gap:6px;align-items:flex-end;height:46px;margin-top:2px}
+.mini i{width:16px;border-radius:3px 3px 0 0;background:var(--bar)}
+.mini i.us{background:var(--bus)}
+.steps{display:grid;gap:5px;margin-top:2px}
+.steps i{display:block;height:6px;border-radius:3px;background:var(--card-2)}
+.promise{margin:34px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;border-top:1px solid var(--rule);padding-top:22px}
+@media (max-width:700px){.promise{grid-template-columns:1fr}}
+.promise div{display:grid;gap:4px}
+.promise b{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:19px}
+.promise span{font-size:16px;line-height:1.45;color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:22px;font-family:var(--display);font-stretch:90%;font-size:16px}
+.links a,.links button{color:var(--muted);background:none;border:0;padding:6px 0;cursor:pointer;text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:4px}
+.links a:hover,.links button:hover{color:var(--ink);text-decoration-color:var(--bus)}
+
+/* ---------- inner pages ---------- */
+.page{max-width:var(--col);margin:0 auto;padding:clamp(28px,5vw,52px) 0 0;display:grid;gap:18px}
+.page.wide{max-width:var(--wide)}
+.crumb{font-family:var(--display);font-stretch:90%;font-size:15px;color:var(--muted);background:none;border:0;padding:4px 0;cursor:pointer;justify-self:start}
+.crumb:hover{color:var(--ink)}
+.page h1{font-family:var(--display);font-stretch:78%;font-weight:800;line-height:1.02;font-size:clamp(36px,6vw,56px)}
+.page .sub{font-size:19px;color:var(--muted)}
+ol.two{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:0;position:relative}
+ol.two::before{content:"";position:absolute;left:5px;top:14px;bottom:30px;width:2px;background:var(--rule)}
+ol.two li{position:relative;display:grid;gap:6px;padding:0 0 30px 34px}
+ol.two li::before{content:"";position:absolute;left:0;top:8px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);box-sizing:border-box}
+ol.two li > b{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:21px;line-height:1.2}
+ol.two li > span{font-size:17px;line-height:1.55;color:var(--ink)}
+ol.two .acts{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:8px}
+ol.two .acts .src{margin-left:0}
+.jump{display:inline-flex;align-items:center;font-family:var(--display);font-stretch:90%;font-weight:600;font-size:13.5px;line-height:1;color:var(--muted);background:transparent;box-shadow:inset 0 0 0 1px var(--rule);border-radius:999px;padding:7px 13px;text-decoration:none}
+.jump:hover{color:var(--ink);box-shadow:inset 0 0 0 1px var(--faint)}
+.endnote{background:var(--raised);border:1px solid var(--rule);border-radius:16px;padding:20px 22px;display:grid;gap:12px}
+.endnote p{font-size:18px;line-height:1.55;color:var(--ink)}
+.endnote p .hd{display:block;font-family:var(--display);font-stretch:82%;font-weight:800;font-size:clamp(24px,3.4vw,30px);line-height:1.1;margin-bottom:8px}
+.endnote .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.gal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:6px}
+@media (max-width:760px){.gal{grid-template-columns:1fr}}
+.gal .gl{display:flex;text-decoration:none;color:inherit;border-radius:16px}
+.gal .gl:hover figure{border-color:var(--faint);transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.2)}
+.gal .gl:focus-visible{outline:3px solid var(--bus);outline-offset:3px}
+.gal .see{color:var(--link);font-weight:500;white-space:nowrap}
+.gal .img{flex:1}
+.gal figure{flex:1;transition:transform .15s ease,box-shadow .15s ease;margin:0;background:var(--raised);border:1px solid var(--rule);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.gal .img{background:var(--raised);padding:8px 8px 0}
+@media (max-width:560px){.gal .img{padding:4px 0 0}}
+.gal img{display:block;width:100%;height:auto}
+.gal figcaption{padding:12px 16px 16px;display:grid;gap:6px;border-top:1px solid var(--rule);margin-top:auto}
+.gal figcaption p{font-size:16.5px;line-height:1.45}
+.gal figcaption small{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:2px 12px}
+.gal figcaption small .dot{display:none}
+.about h2{font-family:var(--display);font-stretch:82%;font-weight:800;font-size:28px;margin-top:14px}
+.about p,.about li{font-size:17.5px;line-height:1.6}
+.about ul{margin:0;padding-left:20px;display:grid;gap:8px}
+.ph{background:color-mix(in srgb,var(--bus) 22%,transparent);border-radius:3px;padding:0 3px}
+.toc{display:flex;flex-wrap:wrap;gap:8px}
+.toc a{font-family:var(--display);font-stretch:90%;font-size:15px;color:var(--ink);background:var(--card);border-radius:999px;padding:6px 12px;text-decoration:none}
+footer{max-width:var(--wide);margin:56px auto 0;padding:18px 0 0;border-top:1px solid var(--rule);font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* ---------- source chips and panel ---------- */
+.src{display:inline-flex;align-items:center;vertical-align:2px;margin-left:4px;font-family:var(--mono);font-size:11px;line-height:1;color:var(--muted);background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:4px 6px;cursor:pointer;white-space:nowrap}
+.src:hover{color:var(--ink);border-color:var(--muted)}
+.src.pulse{animation:pulse 1.6s ease 2}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--bus) 45%,transparent)}}
+.srcpanel{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--sheet);color:var(--sheet-ink);border-top:3px solid var(--bus);max-height:70vh;overflow:auto;padding:16px max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));transform:translateY(100%);visibility:hidden;transition:transform .25s ease,visibility .25s}
+.srcpanel.open{transform:none;visibility:visible}
+.srcpanel .in{max-width:var(--col);margin:0 auto;display:grid;gap:12px}
+.srcpanel .hd{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;color:var(--sheet-link)}
+.srcpanel button{background:transparent;border:1px solid currentColor;color:var(--sheet-ink);font-family:var(--mono);font-size:12px;padding:8px 12px;border-radius:3px;cursor:pointer}
+.srcpanel ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.srcpanel li{display:grid;gap:2px;border-left:2px solid rgba(255,255,255,.25);padding-left:12px}
+.srcpanel .sid{font-family:var(--mono);font-size:11px;opacity:.7}
+.srcpanel .t{font-family:var(--display);font-stretch:88%;font-size:17px;font-weight:700;line-height:1.25}
+.srcpanel .mm{font-size:14px;opacity:.85}
+.srcpanel a{color:var(--sheet-link);font-size:14px;overflow-wrap:anywhere}
+
+@media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.mb .v{opacity:1}}
+body.editing [data-ek]{outline:1.5px dashed color-mix(in srgb,var(--up) 60%,transparent);outline-offset:4px;border-radius:3px;cursor:text}
+body.editing [data-ek]:hover{outline-style:solid}
+body.editing [data-ek]:focus{outline:2.5px solid var(--up);outline-offset:4px}
+body.editing [data-ek].edited{box-shadow:inset 4px 0 0 var(--bus)}
+body.editing [data-ek].edited{background:color-mix(in srgb,var(--bus) 22%,transparent)}
+.editbar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:70;display:none;gap:10px;align-items:center;flex-wrap:wrap;background:var(--ink);color:var(--paper);border-radius:16px;padding:10px 12px 10px 16px;font:500 14px/1.3 var(--display);box-shadow:0 8px 28px rgb(0 0 0/.28);max-width:calc(100vw - 24px)}
+body.editing .editbar{display:flex}
+.editbar b{font-weight:700}
+.editbar .es{opacity:.7;font-size:13px}
+.editbar button{font:600 13px/1 var(--display);border:0;border-radius:999px;padding:8px 13px;cursor:pointer;background:var(--paper);color:var(--ink)}
+.editbar button.ghost{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--paper) 45%,transparent)}
+body.editing .ask p[data-ek].edited{box-shadow:0 0 0 3px var(--bus)}
+.nav .editbtn{border:1.5px solid var(--rule)!important;border-radius:999px!important;margin-left:6px}
+.nav .editbtn[aria-pressed="true"]{background:var(--ink)!important;color:var(--paper)!important;border-color:var(--ink)!important}
+
+/* welcome: two choices */
+.welcome0{gap:22px}
+.welcome0 h1{font-size:clamp(44px,7.6vw,80px)!important;line-height:.97}
+.welcome0 .line{margin:0;font-style:italic;font-size:clamp(19px,2.3vw,23px);line-height:1.45;color:var(--muted)}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%;margin-top:6px}
+.choice{display:grid;gap:5px;align-content:start;text-align:left;font:inherit;cursor:pointer;color:var(--ink);background:transparent;border:1.5px solid var(--ink);border-radius:14px;padding:18px 18px 20px}
+.choice:hover{background:var(--card)}
+.choice.primary{background:var(--ink);color:var(--paper)}
+.choice.primary:hover{opacity:.92;background:var(--ink)}
+.choice b{font-family:var(--display);font-stretch:84%;font-weight:760;font-size:24px;line-height:1.1}
+.choice span{font-family:var(--body);font-size:15.5px;line-height:1.4;opacity:.82}
+@media (max-width:560px){.choices{grid-template-columns:minmax(0,1fr)}}
+.ethos{gap:26px}
+.ethos h2,.indep h2{font-size:clamp(28px,4.4vw,42px)!important;line-height:1.06}
+.ethos .lede{font-size:clamp(20px,2.5vw,24px);color:var(--muted);max-width:34rem}
+
+/* main page: three dark boxes */
+.paths.three{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.paths.three{grid-template-columns:1fr}}
+.paths.three .path{background:var(--raised);border:1px solid var(--rule);color:var(--ink);text-align:left;font:inherit;gap:12px;padding:clamp(22px,2.6vw,28px);min-height:clamp(230px,24vw,290px)}
+.paths.three .path:hover{box-shadow:0 14px 34px rgba(0,0,0,.25);transform:translateY(-2px);border-color:var(--faint)}
+.paths.three .path h2{font-family:var(--display);font-stretch:82%;font-weight:800;font-size:clamp(28px,3vw,36px);line-height:1.02;color:var(--ink)}
+.paths.three .path p{font-size:17px;line-height:1.45;color:var(--muted)}
+.paths.three .path .go{margin-top:auto;align-self:flex-start;color:var(--ink);font-size:17px}
+.paths.three .path.lead{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.paths.three .path.lead h2{color:var(--paper)}
+.paths.three .path.lead p{color:var(--paper);opacity:.78}
+.paths.three .path.lead .tag{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:none;color:var(--paper);opacity:1;padding:0;font-size:12px;font-weight:600;letter-spacing:.08em}
+.paths.three .path.lead .tag::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--bus);flex:none}
+.paths.three .path.lead .go{background:var(--bus);color:var(--bus-ink);border-radius:999px;padding:11px 20px}
+.paths.three .path:not(.lead)::before{content:"";display:block;height:19px;flex:none}
+.paths.three .path:not(.lead) .go{padding:11px 0}
+@media (max-width:860px){.paths.three .path{min-height:0}.paths.three .path:not(.lead)::before{display:none}}
+.promise{gap:clamp(20px,4vw,48px)}
+.welcome0 .relief{margin:0;font-size:clamp(17px,1.9vw,19px);line-height:1.5;color:var(--ink);max-width:34rem}
+.excerpt{gap:14px}
+.excerpt .kick{margin-bottom:2px}
+.excerpt .ans{margin:0}
+.excerpt .ask{margin-top:8px}
+.xfig{margin:2px 0;border-radius:14px;overflow:hidden;border:1px solid var(--rule);background:var(--raised)}
+.xfig img{display:block;width:100%;height:auto}
+.slide h2.say{font-size:clamp(28px,4.4vw,42px);line-height:1.06}
+.facts{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.facts li{font-size:clamp(19px,2.3vw,23px);line-height:1.45;padding:18px 0;border-top:1px solid var(--rule)}
+.facts li:last-child{border-bottom:1px solid var(--rule)}
+.facts b{font-weight:700;text-decoration:underline;text-decoration-color:var(--bus);text-decoration-thickness:3px;text-underline-offset:5px;text-decoration-skip-ink:none}
+.stats{display:grid;grid-template-columns:minmax(0,300px);gap:12px}
+.stats div{display:grid;gap:4px;background:var(--raised);border:1px solid var(--rule);border-radius:14px;padding:16px 18px}
+.stats b{font-family:var(--display);font-stretch:78%;font-weight:800;font-size:clamp(44px,7vw,64px);line-height:1}
+.stats span{font-size:16px;color:var(--muted)}
+.sources{gap:18px}
+.sources .lede{margin:0;font-size:clamp(18px,2.1vw,21px);line-height:1.5}
+.sources .tags{display:inline-flex;gap:6px;vertical-align:middle;white-space:nowrap}
+.indep{gap:22px}
+@media (max-width:560px){.stats b{font-size:44px}.stats span{font-size:14.5px}}
+.indep .lede{font-size:clamp(20px,2.5vw,24px);max-width:36rem;margin:0}
+a.choice{text-decoration:none}
+.behind{gap:18px}
+.kinds{list-style:none;margin:0;padding:0;display:block;font-family:var(--display);font-stretch:90%;font-weight:560;font-size:16px;line-height:1.75;color:var(--muted)}
+.kinds li{display:inline}
+.kinds li+li::before{content:" · ";color:var(--faint)}
+.behind .lede{margin:0;font-size:clamp(18px,2.1vw,21px);line-height:1.5}
+html:not(.editor) #editBtn{display:none!important}
+</style>
+<script>/* editing tools show only for the author: visit with #edit once (or tap the logo 5 times on the main page); #public turns them off */
+(function(){try{localStorage.removeItem('d65editor')}catch(e){}})();</script>
+</head>
+<body>
+<div class="editbar" id="editbar" role="region" aria-label="Edit mode"><span><b>Edit mode.</b> Click any line and type. Enter or click away to save.</span><span id="editcount">No changes yet</span><span class="es" id="editstat"></span><button type="button" class="ghost" id="editcopy">Copy list</button><button type="button" id="editdone">Done</button></div>
+<header class="bar"><div class="in">
+  <button type="button" class="brand" data-go="home" aria-label="D65 Explained, main page">D65 Explained</button>
+  <button type="button" class="menubtn" id="menubtn" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a class="story" href="story.html">The story</a>
+    <button type="button" data-go="two">Two minutes</button>
+    <button type="button" data-go="charts">Charts</button>
+    <button type="button" data-go="about">About</button>
+    <button type="button" data-go="tour">Tour</button>
+    <button type="button" class="editbtn" id="editBtn" aria-pressed="false">Edit text</button>
+  </nav>
+</div></header>
+
+<main>
+
+<!-- ============ TOUR ============ -->
+<section class="view" id="v-tour" data-view="tour" tabindex="-1" aria-label="A quick tour of this guide">
+  <div class="tour">
+    <div class="slides" id="slides" aria-live="polite">
+
+      <div class="slide welcome0" data-s="0">
+        <h1>What's going on with District 65 schools?</h1>
+        <p class="line">It's a lot to follow. This guide can help.</p>
+        <div class="choices">
+          <button type="button" class="choice primary" data-next><b>First time here?</b><span>Learn how this guide works.</span></button>
+          <button type="button" class="choice" data-go="home"><b>Been here before?</b><span>Go to the main page.</span></button>
+        </div>
+      </div>
+
+      <div class="slide ethos" data-s="1" hidden>
+        <h2>More people should be able to understand what's happening in D65.</h2>
+        <p class="lede">This guide explains the situation in a neutral, calm way, one idea at a time. It's meant to help as many people as possible understand what's going on.</p>
+      </div>
+
+      <div class="slide excerpt" data-s="2" hidden>
+        <h2 class="say">We explain things in a conversational way, with helpful charts.</h2>
+        <p class="kick">A moment from the story</p>
+        <div class="ask"><p>Don't we pay really high property taxes?</p></div>
+        <p class="ans">We do. Evanston homeowners pay nearly twice the national rate and, in dollars, nearly three times the typical American's bill. <button class="src" data-id="S875 S880" type="button">Sources</button></p>
+        <figure class="xfig"><picture><source media="(max-width:560px)" srcset="img/f-tax-m.webp" width="716" height="870"><img src="img/f-tax.webp" width="1536" height="744" alt="Chart: We're taxed at almost twice the national rate. Property tax as a share of the home's value each year: United States 0.94%, big-city average 1.21%, Chicago 1.48%, Evanston 1.84%." loading="lazy"></picture></figure>
+      </div>
+
+      <div class="slide context" data-s="3" hidden>
+        <h2 class="say">We give a lot of context. Some may be new to you.</h2>
+        <ul class="facts">
+          <li class="reveal" data-r="0">D65 takes in more money per student than <b>nearly nine in ten</b> Illinois elementary districts, and nearly nine in ten U.S. elementary districts with 1,000 or more students. <button class="src" data-id="S862 S582 S870" type="button">Sources</button></li>
+          <li class="reveal" data-r="1">About <b>1 in 5</b> D65 students now has a special education plan. Ten years ago, it was about 1 in 8. <button class="src" data-id="S958 S959 S862" type="button">Sources</button></li>
+          <li class="reveal" data-r="2">Births to D65 families fell <b>31%</b> over a decade. <button class="src" data-id="S500" type="button">Sources</button></li>
+        </ul>
+      </div>
+
+      <div class="slide excerpt" data-s="4" hidden>
+        <h2 class="say">We add historical perspective.</h2>
+        <div class="ask"><p>Has this happened before?</p></div>
+        <p class="ans">Yes, in the 1970s. But then, enrollment fell because there were fewer children. This time, it's falling much faster than the number of children.</p>
+        <figure class="xfig"><picture><source media="(max-width:560px)" srcset="img/f-e19-m.webp" width="716" height="1190"><img src="img/f-e19.webp" width="1536" height="1188" alt="Chart: In the 1970s, enrollment fell along with the number of children. Since 2020, it has fallen faster. 1970s: children down 30%, students down 35%. Children, 2020 to 2024: down 5%; K-8 students, 2019-20 to 2024-25: down 20%." loading="lazy"></picture></figure>
+        <p class="cap"><button class="src" data-id="S922 S927 S928 S234 S239 S921" type="button">Sources</button></p>
+      </div>
+
+      <div class="slide sources" data-s="5" hidden>
+        <h2 class="say">It's built on very careful research.</h2>
+        <div class="stats">
+          <div class="reveal" data-r="0"><b>900+</b><span>sources gathered and catalogued</span></div>
+        </div>
+        <ul class="kinds reveal" data-r="1" aria-label="Where the facts come from">
+          <li>D65 budgets and audits</li><li>Board packets</li><li>Board meeting transcripts</li><li>Illinois State Board of Education</li><li>U.S. Census Bureau</li><li>National Center for Education Statistics</li><li>Illinois Department of Revenue</li><li>Illinois General Assembly</li><li>U.S. Attorney's Office</li><li>Lincoln Institute of Land Policy</li><li>Evanston RoundTable</li><li>Daily Northwestern</li><li>The Evanstonian</li><li>WTTW</li><li>Residents' analyses</li>
+        </ul>
+        <p class="lede reveal" data-r="2">Every fact has a Sources tag. Tap it to see the document behind it. Estimates are labeled, so you know what's on the record and what isn't. <span class="tags"><span class="c est">District estimate</span> <span class="c calc">Our calculation</span></span></p>
+      </div>
+
+      <div class="slide indep" data-s="6" hidden>
+        <h2>It's independent.</h2>
+        <p class="lede">We check the district's claims and its critics' claims the same way. We explain what's going on without telling you what to support or how to feel about it.</p>
+        <div class="choices">
+          <a class="choice primary" href="story.html"><b>Read the story</b><span>Most people start here.</span></a>
+          <button type="button" class="choice" data-go="home"><b>Go to the main page</b><span>More information.</span></button>
+        </div>
+      </div>
+
+
+</div>
+
+
+    <div class="ctlwrap">
+    <div class="ctl" id="ctl" hidden>
+      <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <button type="button" class="btn ghost" data-prev>Back</button>
+      <button type="button" class="btn pri" data-next id="nextbtn">Next</button>
+    </div>
+    <button type="button" class="btn ghost" data-go="home" id="skiptour" hidden>Skip to the guide</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOME ============ -->
+<section class="view" id="v-home" data-view="home" tabindex="-1" aria-labelledby="home-h" hidden>
+  <div class="hero">
+    <h1 id="home-h">What's going on with District 65 schools?</h1>
+    <p>It's a lot to follow. This guide can help.</p>
+  </div>
+
+  <div class="paths three">
+    <a class="path lead" href="story.html">
+      <span class="tag">Most people start here</span>
+      <h2>The story</h2>
+      <p>Why D65 is short of money, why it's closing schools, and why so many people are upset.</p>
+      <span class="go">Read the story <span aria-hidden="true">→</span></span>
+    </a>
+    <button type="button" class="path" data-go="two">
+      <h2>I only have 2 minutes</h2>
+      <p>The whole story in short steps.</p>
+      <span class="go">Start <span aria-hidden="true">→</span></span>
+    </button>
+    <button type="button" class="path" data-go="charts">
+      <h2>Show me some charts</h2>
+      <p>Twenty charts from the story.</p>
+      <span class="go">See them <span aria-hidden="true">→</span></span>
+    </button>
+  </div>
+
+  <div class="promise">
+    <div><b>Sourced</b><span>Every fact traces to a public document you can open.</span></div>
+    <div><b>Neutral</b><span>No opinions or proposals. Each side's case is explained fairly.</span></div>
+    <div><b>Independent</b><span>Not affiliated with the district, the board or any group.</span></div>
+  </div>
+</section>
+
+<!-- ============ 2 MINUTES ============ -->
+<section class="view" id="v-two" data-view="two" tabindex="-1" aria-labelledby="two-h" hidden>
+  <div class="page">
+    <button type="button" class="crumb" data-go="home">← Main page</button>
+    <h1 id="two-h">The whole story in 2 minutes</h1>
+    <p class="sub">Jump into the full story at any point, or tap a source to check it.</p>
+    <ol class="two">
+      <li><b>D65 is trying to cut spending, which is disruptive and painful.</b><span>It has already made cuts, and it's proposing more. Families are being asked to absorb a lot of change, and residents disagree about whether the changes are necessary, enough or fair.<span class="acts"><a class="jump" href="story.html#s1">Read more</a><button class="src" data-id="S004 S189 S165 S971"></button></span></span></li>
+      <li><b>D65 has more money than most districts.</b><span>It receives more money per student than nearly 90% of elementary districts in Illinois, and of U.S. elementary districts with 1,000 or more students. Most of it comes from local property taxes, and most of it pays people to work there.<span class="acts"><a class="jump" href="story.html#s2">Read more</a><button class="src" data-id="S862 S582 S190"></button></span></span></li>
+      <li><b>For the last few years, it has spent more than it takes in.</b><span>After five years of surpluses, it has spent more than it took in every year since 2022-23 except 2024-25, which was close to break-even.<span class="acts"><a class="jump" href="story.html#s3">Read more</a><button class="src" data-id="S195 S975 S191"></button></span></span></li>
+      <li><b>Its income can grow only a little each year.</b><span>State law limits how much more property tax it can collect, usually 3% or less a year.<span class="acts"><a class="jump" href="story.html#s3">Read more</a><button class="src" data-id="S386 S388 S953"></button></span></span></li>
+      <li><b>Its costs have grown faster.</b><span>Pay and benefits usually rise 4% to 6% a year. After 2019, D65 also added staff, and special education spending rose about 75%.<span class="acts"><a class="jump" href="story.html#s4">Read more</a><button class="src" data-id="S407 S954 S582 S603"></button></span></span></li>
+      <li><b>For a while, extra money hid the gap.</b><span>Surpluses from a 2017 tax increase, then federal pandemic aid. The savings were drawn down, and federal aid ended in 2024.<span class="acts"><a class="jump" href="story.html#s3">Read more</a><button class="src" data-id="S197 S200"></button></span></span></li>
+      <li><b>But D65 had little saved, and some decisions made it worse.</b><span>It kept less in reserve than its neighbors. Budgets adopted as balanced in 2022 and 2023 understated costs. And a new school is paid for out of the everyday budget.<span class="acts"><a class="jump" href="story.html#s3">Read more</a><button class="src" data-id="S578 S196 S201 S210"></button></span></span></li>
+      <li><b>So the district has been cutting.</b><span>About $26 million a year and more than 170 jobs since 2024, with about $20 million more proposed, mostly jobs.<span class="acts"><a class="jump" href="story.html#s6">Read more</a><button class="src" data-id="S004 S189 S165"></button></span></span></li>
+      <li><b>Separately, there are far fewer students.</b><span>About a quarter fewer than in 2016. That doesn't cost the district money, but it leaves the elementary schools about two-thirds full.<span class="acts"><a class="jump" href="story.html#s5">Read more</a><button class="src" data-id="S921 S862 S446"></button></span></span></li>
+      <li><b>That's why closing schools is part of the plan.</b><span>Two closed this year. Two more, Dewey and Lincolnwood, are proposed. The district estimates they would save $2.1 million a year after added busing, about $1 million each. Closures save a small part of the money, but they are what people argue about most.<span class="acts"><a class="jump" href="story.html#s6">Read more</a><button class="src" data-id="S166 S167 S165 S972"></button></span></span></li>
+      <li><b>Meanwhile, Foster was built to right a decades-old wrong.</b><span>In 1967, to integrate its schools, the district stopped running a neighborhood school in the Fifth Ward, a mostly Black neighborhood, and bused its children elsewhere. Foster opened there this August.<span class="acts"><a class="jump" href="story.html#s7">Read more</a><button class="src" data-id="S234 S239 S108"></button></span></span></li>
+      <li><b>Many don't trust D65's leadership, or its numbers.</b><span>Leaders kept changing, a former superintendent pleaded guilty to federal crimes, and the district's own figures have been corrected.<span class="acts"><a class="jump" href="story.html#s8">Read more</a><button class="src" data-id="S290 S331 S049 S750 S799"></button></span></span></li>
+    </ol>
+    <div class="endnote">
+      <p><span class="hd">What's next?</span> The board is expected to vote on the plan on Nov. 16. More decisions are coming on cuts, closures and new school boundaries. This guide will keep up.</p>
+      <div class="row">
+        <a class="btn yel" href="story.html">Read the full story <span aria-hidden="true">→</span></a>
+        <button type="button" class="btn out" data-go="charts">Show me some charts</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHARTS ============ -->
+<section class="view" id="v-charts" data-view="charts" tabindex="-1" aria-labelledby="ch-h" hidden>
+  <div class="page wide">
+    <button type="button" class="crumb" data-go="home">← Main page</button>
+    <h1 id="ch-h">Show me some charts</h1>
+    <div class="gal" id="gal"></div>
+    <div class="endnote">
+      <p>Each chart is explained in the full story.</p>
+      <div class="row">
+        <a class="btn yel" href="story.html">Read the full story <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="view about" id="v-about" data-view="about" tabindex="-1" aria-labelledby="ab-h" hidden>
+  <div class="page">
+    <button type="button" class="crumb" data-go="home">← Main page</button>
+    <h1 id="ab-h">About this guide</h1>
+    <nav class="toc" aria-label="On this page"><a href="#a-who">Who made it</a><a href="#a-built">How it's built</a><a href="#a-fair">Neutrality</a><a href="#a-fix">Corrections</a></nav>
+
+    <h2 id="a-who">Who made it</h2>
+    <p>My name is Andy Kerns. I moved to Evanston in 2024, and my daughter is in kindergarten at Lincoln Elementary.</p>
+    <p>I've been stunned by how much time, context and specialized knowledge it takes to keep up with our school district, and to hold an informed opinion about it.</p>
+    <p>I have experience with data storytelling, so I created this resource to explain what's happening with D65 in a calm, neutral, plainspoken way. It will remain free of opinions and proposals, and it's not affiliated with the district, the board or any parent group.</p>
+
+    <h2 id="a-built">How it's built</h2>
+    <ul>
+      <li><b>Every fact traces to a public source.</b> More than 900 sources, including district budgets, memos and presentations; board meeting videos and transcripts; state and federal data; local reporting; public-records requests; and analyses by residents and volunteer groups, labeled as theirs.</li>
+      <li><b>Every page is checked line by line</b> against its sources before it goes up.</li>
+      <li><b>AI helped build this.</b> I have experience using AI for research, data analysis, fact-checking and more. Both Claude and Codex were used.</li>
+    </ul>
+
+    <h2 id="a-fair">Neutrality</h2>
+    <p>This guide contains no opinions, proposals or endorsements. It is fully independent: not affiliated with or paid for by the district, the board, any union, parent group or campaign.</p>
+    <p>It strives to be accurate, clear and fair to everyone.</p>
+
+    <h2 id="a-fix">Corrections</h2>
+    <p>If something here is wrong or I've missed something important, I want to hear from you. Email: <a href="mailto:andy@paperprismstudio.com">andy@paperprismstudio.com</a></p>
+  </div>
+</section>
+
+</main>
+
+<div class="srcpanel" id="srcpanel" role="dialog" aria-label="Sources" aria-hidden="true"><div class="in"><div class="hd"><span id="srchd">Sources</span><button type="button" id="srcclose">Close</button></div><ul id="srclist"></ul></div></div>
+
+<script>
+const SRC={
+
+S971:["Video captions, Committee of the Whole, Nov. 9, 2026 (YouTube)","District 65","Nov. 9, 2026","https://www.youtube.com/watch?v=xaG2Iv5dVrk","Discussion only; no vote on the plan"],
+S975:["FY25 Annual Financial Audit, Community Consolidated School District 65","District 65 (FOIA Gras doc 21786)","Year ended June 30, 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6407273","Operating funds, modified cash basis: revenues minus spending +$873,905; after transfers and other financing, −$1,231,283"],
+S972:["Financial Sustainability Presentation, Board Committee (slides)","District 65","Nov. 9, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14665119","Revised plan totals, closure savings, corrected forecast"],
+S587:["Auditor's estimate of FY2024 Financial Profile score","District 65 auditor","Mar. 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406812"],
+S588:["Auditor's estimate of FY2025 Financial Profile score","District 65 auditor","2025",""],
+S500:["Evanston/Skokie D65 Geodemographic Study (Charles Kofron), final rev. 3-3-22","District 65 board packet","Feb. 14, 2022","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6396158"],
+S880:["50-State Property Tax Comparison Study, taxes paid in 2025","Lincoln Institute of Land Policy and Minnesota Center for Fiscal Excellence","Apr. 2026","https://www.lincolninst.edu/publications/other/50-state-property-tax-comparison-study-2025/"],
+S922:["1970 Census of Population, Vol. 1, Part 15 (Illinois), Table 24","U.S. Census Bureau","1973","https://www2.census.gov/library/publications/decennial/1970/population-volume-1/1970a_il1-02.pdf"],
+S926:["2010 Census Summary File 1, Illinois, Table P14","U.S. Census Bureau","2011","https://www2.census.gov/census_2010/04-Summary_File_1/Illinois/il2010.sf1.zip"],
+S927:["2020 Census Demographic and Housing Characteristics File, Illinois, Table P14","U.S. Census Bureau","2023","https://www2.census.gov/programs-surveys/decennial/2020/data/demographic-and-housing-characteristics-file/Illinois/il2020.dhc.zip"],
+S928:["Small Area Income and Poverty Estimates, school district 1714460","U.S. Census Bureau via Urban Institute","accessed Nov. 8, 2026","https://educationdata.urban.org/"],
+S165:["A Sustainable Path Forward: A Comprehensive Solution to the Structural Deficit","District 65","Oct. 13, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14549463"],
+S799:["Capital error put at $27.35 million; Foster lease payments left out; closure savings revised","Evanston RoundTable","Nov. 5, 2026","https://evanstonroundtable.com/2026/11/05/district-65-now-says-financial-projection-off-by-27-35-million-school-closure-savings-less-than-previously-forecasted/"],
+S189:["Financial Sustainability Presentation, \"A Sustainable Path Forward\"","District 65","Sept. 14, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14421838"],
+"S862": ["2026 Report Card Public Data Set", "Illinois State Board of Education", "Oct. 2026", "https://www.isbe.net/Documents/2026-RC-Public-Data-Set.xlsx", "Used for income (\"$ Total Revenue Source\"), enrollment, special education plans and the disability mix"], "S582": ["Operating Expense Per Pupil, FY2020–FY2025 files (average daily attendance; operating spending)", "Illinois State Board of Education", "Oct. 13, 2026", "https://www.isbe.net/Pages/Operating-Expense-Per-Pupil.aspx"], "S870": ["Annual Survey of School System Finances, 2024: individual school system data", "U.S. Census Bureau", "2026", "https://www2.census.gov/programs-surveys/school-finances/tables/2024/secondary-education-finance/elsec24.xlsx"], "S190": ["FY27 Final Budget Memo (Eric Miller)", "District 65", "Sept. 28, 2026", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14472808", "Operating revenue $179.9M: property tax $145.7M (81%), state $14.4M (8%), federal $11.1M (6%), other local about $8.7M (5%)."], "S191": ["FY27 Final Budget Report", "District 65", "Sept. 28, 2026", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14472809"], "S195": ["SDRP Phase II Update & Organizational Restructuring", "District 65", "May 5, 2025", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406875"], "S386": ["35 ILCS 200/18-185, Property Tax Extension Limitation Law", "Illinois General Assembly", "current", "https://www.ilga.gov/Documents/legislation/ilcs/documents/003502000K18-185.htm"], "S388": ["An Overview of the Property Tax Extension Limitation Law (PIO-62)", "Illinois Department of Revenue", "", "https://tax.illinois.gov/content/dam/soi/en/web/tax/research/publications/documents/pios/pio-62.pdf"], "S953": ["History of CPIs used for the tax cap (PTELL), by levy year", "Illinois Department of Revenue (figures as reproduced in Illinois school district levy presentations)", "2026", "https://tax.illinois.gov/localgovernments/property/cpihistory.html", "Levy years 2015–2021: 0.7% to 2.3%; 2022 and 2023: capped at 5% (CPI 7.0%, 6.5%); 2024: 3.4%; 2025: 2.9%; 2026: 2.7% (December 2025 CPI-U)"], "S954": ["2025 Employer Health Benefits Survey", "KFF", "Oct. 22, 2025", "https://www.kff.org/health-costs/press-release/2025-employer-health-benefits-survey/", "Family premiums +6% in 2025, after +7% in each of the two prior years; wages +4%, inflation 2.7%"], "S955": ["District 300, union OK 3-year teacher contract with 3% raises yearly", "Shaw Local (Northwest Herald)", "June 8, 2025", "https://www.shawlocal.com/northwest-herald/2025/06/08/district-300-union-approve-3-year-teacher-contract-with-3-raises-yearly"], "S956": ["Contract reached between District 99 and educators", "Patch", "2025", "https://new.patch.com/illinois/downersgrove/contract-reached-between-district-99-educators", "4.02% salary increase in the contract's first year"], "S957": ["District 211 school board approves 5-year teachers contract", "Daily Herald", "2025", "https://www.dailyherald.com/?p=1251653", "3.25% base increase for teachers on steps; 4% for those past them"], "S407": ["2026 School District Financial Profile Scores Report", "Illinois State Board of Education", "Sept. 2026", "https://www.isbe.net/Documents/School-District-Financial-Profile-Report.pdf"], "S147": ["Staffing, enrollment and spending, District 65 and 16 neighbors, 2014-15 to 2024-25 (extract)", "Illinois State Board of Education; NCES", "2015–2025", "https://www.isbe.net/Pages/Illinois-State-Report-Card-Data.aspx"], "S603": ["Special Education audit presentation (Gini Sulek)", "District 65", "Jan. 26, 2026", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6395976"], "S197": ["Signed Resolution Regarding Referendum Revenue", "District 65", "Apr. 24, 2017", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6402563"], "S200": ["ESSER Grant Expenditure Update", "District 65", "Dec. 8, 2022", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6404917"], "S578": ["Financial Profile Scores (Adjusted), all years by district", "Illinois State Board of Education", "2025", "https://www.isbe.net/Documents/Profile-Adjusted-by-District.pdf"], "S201": ["Debt Overview and Funding Options", "District 65 (PTMA)", "June 2, 2025", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406933"], "S210": ["Funding for 5th Ward School memo", "District 65", "Feb. 28, 2022", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6404429"], "S011": ["Report of Findings: forensic accounting review (Crowe Advisory LLC)", "Crowe Advisory LLC for the District 65 board", "Oct. 9, 2026", "https://www.district65.net/about/budget-finance/forensic-accounting-report"], "S196": ["Letter, \"Initial Analysis of Fiscal Year 2024 Financial Performance\" (Robert G. Grossi, Illuminate)", "District 65 board packet", "July 31, 2024", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406574"], "S004": ["Structural Deficit Reduction Plan (district web page)", "District 65", "2024–2026", "https://www.district65.net/about/budget-finance/structural-deficit-reduction-plan", "Phases I to III: Phase I $6.5 million and 39 full-time employees; Phase II total; Phase III closures"], "S189": ["Financial Sustainability Presentation, \"A Sustainable Path Forward\"", "District 65", "Sept. 14, 2026", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14421838"], "S165": ["A Sustainable Path Forward: A Comprehensive Solution to the Structural Deficit", "District 65", "Oct. 13, 2026", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14549463"], "S446": ["Video transcript, Committee of the Whole (special), Sept. 14, 2026", "District 65", "Sept. 14, 2026", "https://www.youtube.com/watch?v=Pij1U5CrGFM"], "S166": ["Minutes, Regular Board of Education Meeting, June 10, 2024", "District 65", "June 10, 2024", "https://meetings.boardbook.org/Public/Minutes/1247?meeting=639198", "5-2 vote to close Bessie Rhodes effective July 1, 2026 (FOIA Gras doc 772)"], "S167": ["Minutes, Special Board Meeting, Jan. 22, 2026", "District 65", "Jan. 22, 2026", "https://meetings.boardbook.org/Public/Minutes/1247?meeting=727536", "6-0 vote to close Kingsley and reassign its attendance area (FOIA Gras doc 15636)"], "S799": ["Capital error put at $27.35 million; Foster lease payments left out; closure savings revised", "Evanston RoundTable", "Nov. 5, 2026", "https://evanstonroundtable.com/2026/11/05/district-65-now-says-financial-projection-off-by-27-35-million-school-closure-savings-less-than-previously-forecasted/"], "S234": ["Evaluation of Integration of Evanston District 65 Schools (enrollment by school)", "Educational Testing Service", "1971", "https://files.eric.ed.gov/fulltext/ED054292.pdf"], "S239": ["\"It was a pillar\": Examining legacy of Evanston's former Fifth Ward school", "The Evanstonian", "Jan. 28, 2022", "https://www.evanstonian.net/feature/2022/01/28/it-was-a-pillar-examining-legacy-of-evanstons-former-fifth-ward-school/"], "S108": ["A new chapter: hundreds celebrate Foster School ribbon-cutting, marking historic return to 5th Ward", "Daily Northwestern", "Aug. 10, 2026", "https://dailynorthwestern.com/2026/08/10/top-stories/a-new-chapter-hundreds-celebrate-foster-school-ribbon-cutting-marking-historic-return-to-5th-ward/"], "S290": ["Minutes, Special Board of Education Meeting, June 17, 2019", "District 65", "June 17, 2019", "https://meetings.boardbook.org/Public/Minutes/1247?meeting=201434"], "S292": ["Minutes, Regular Board Meeting, Aug. 19, 2019", "District 65", "Aug. 19, 2019", "https://meetings.boardbook.org/Public/Minutes/1247?meeting=201538"], "S296": ["Devon Horton to become District 65 superintendent", "Daily Northwestern", "Dec. 20, 2019", "https://dailynorthwestern.com/2019/12/20/city/devon-horton-to-become-district-65-superintendent/", "Contract approval"], "S331": ["Minutes, Special Board Meeting, June 5, 2023", "District 65", "June 5, 2023", "https://meetings.boardbook.org/Public/Minutes/1247?meeting=586766"], "S015": ["Board minutes naming Angel Turner superintendent", "District 65", "March 18, 2024", "https://meetings.boardbook.org/Public/Minutes/1247?meeting=627189", "Unanimous vote"], "S359": ["Superintendent Search RFP", "District 65", "July 2026", "https://www.district65.net/fs/resource-manager/view/a8daa688-ff58-4ca9-a33b-50df16de93ce"], "S049": ["Former superintendent Devon Horton pleads guilty to wire fraud, embezzlement and tax evasion", "Evanston RoundTable", "Oct. 5, 2026", "https://evanstonroundtable.com/2026/10/05/former-district-65-superintendent-devon-horton-pleads-guilty-to-wire-fraud-embezzlement-and-tax-evasion/"], "S750": ["Recent District 65 financial projections overstated spending by millions, CFO says", "Evanston RoundTable", "Oct. 25, 2026", "https://evanstonroundtable.com/2026/10/25/district-65-financial-projections-error/"], "S875": ["American Community Survey 2020–2024: median real estate taxes and home values (B25103, B25077)", "U.S. Census Bureau", "2025", "https://data.census.gov/table/ACSDT5Y2024.B25103"], "S921": ["Common Core of Data district enrollment by grade, all Illinois districts, 1986–2024", "NCES via Urban Institute Education Data Portal", "accessed Nov. 7, 2026", "https://educationdata.urban.org/"], "S650": ["2025 Illinois Report Card Public Data Set (school year 2024-25)", "Illinois State Board of Education", "2025", "https://www.isbe.net/Documents/2025-Report-Card-Public-Data-Set.xlsx"], "S958": ["Report Card data files rc15, rc16, rc17 (2014-15 to 2016-17)", "Illinois State Board of Education", "2015–2017", "https://www.isbe.net/Documents/rc15.zip", "% of students with IEPs, district and state"], "S959": ["Report Card Public Data Sets, 2018 to 2024", "Illinois State Board of Education", "2018–2024", "https://www.isbe.net/Pages/Illinois-State-Report-Card-Data.aspx", "% IEP by district; disability mix from 2021"]};
+const CHARTS=[
+ {id:'f-nbr',sec:'5 · Declining enrollment',alt:'Bar chart, enrollment change since 2016 for D65 and its 16 neighbors: D65 down about a quarter; no neighbor down more than 13%.',say:'D65 has about a quarter fewer students than in 2016. No neighbor has lost more than 13%.'},
+ {id:'f-rev',sec:'2 · Money in',alt:'Bar chart: money coming in per student, 2024-25, D65 and its 16 neighbors. D65 $31,940, fifth of 17; typical Illinois district $23,106, typical U.S. district $21,859.',say:'Even among its wealthy neighbors, D65 ranks high in money coming in per student.'},
+ {id:'f-kids',sec:'5 · Declining enrollment',alt:'Bar chart: change in children under 5 living in each district (2010 to 2020) and in K-8 students (2016 to 2025), D65 and 16 neighbors. D65: children under 5 down 20%, students down 25%, the largest drops.',say:'D65 lost young children faster than any of its 16 neighbors.'},
+ {id:'f-cush',sec:'3 · Budget squeeze',alt:'Grid of days of cash on hand, 2010 to 2025, for D65 and its 16 neighbors, colored by the state scoring bands. Most neighbors stay at 180 days or more; D65 never does.',say:'D65 started with less saved than its neighbors and never reached the state\'s top mark.'},
+ {id:'f-staff',sec:'4 · Money out',alt:'Line chart, change from 2019-20 to 2024-25: special education teachers +77%, all staff +22% by the district\'s own count, all other teachers −20%, students −21%.',say:'From 2019-20 to 2024-25, students fell about 21% and staff grew about 22%, by the district\'s own count. Special education teachers grew 77%.'},
+ {id:'f-bus9',sec:'4 · Money out',alt:'Line chart, busing spending per student, 2014-15 to 2023-24: D65 rises from $626 in 2018-19 to $1,736 in 2023-24, the most of 17 districts; neighbors\' median $944.',say:'Busing per student went from $626 in 2018-19 to $1,736 in 2023-24, the most of 17 districts.'},
+ {id:'f-sped',sec:'4 · Money out',alt:'Bar chart: D65 special education spending, all funds. $27.2M in 2019-20, $28.3M in 2020-21, $30.1M in 2021-22, $37.5M in 2022-23, $47.4M in 2023-24.',say:'Special education spending rose 75% in four years, most of it in the last two.'},
+ {id:'f-foster',sec:'7 · Foster School',alt:'Bar chart: yearly busing savings expected from the new school by date of estimate. $0.5-0.8M in Nov. 2020, $2.0M in July 2021, $3.0M on the night of the vote in March 2022, $0.75M in Oct. 2023; Foster\'s yearly payment about $3.2M.',say:'The board approved Foster expecting bus savings to cover its payment. The estimate peaked the night of the vote, then fell.'},
+ {id:'f-tax',sec:'2 · Money in',alt:'Bar chart: property tax as a share of home value. United States 0.94%, big-city average 1.21%, Chicago 1.48%, Evanston 1.84%.',say:'Evanston homeowners pay property tax at about twice the national rate.'},
+ {id:'f-res',sec:'2 · Money in',alt:'Bar chart of D65 surpluses and shortfalls by year, 2017-18 to 2026-27: surpluses through 2021-22, shortfalls since, except a near break-even 2024-25.',say:'Five years of surpluses, then shortfalls every year since 2022-23 except 2024-25, which was close to break-even.'},
+ {id:'f-e19',sec:'5 · Declining enrollment',alt:'Line chart, 1960 to 2025: children aged 5 to 13 living in the district and D65 K-8 students. 1970s: children down 30%, students down 35%. Children, 2020 to 2024: down 5%; students, 2019-20 to 2024-25: down 20%.',say:'In the 1970s, enrollment fell along with the number of children. Since 2020, it has fallen faster.'},
+ {id:'f-fill',sec:'5 · Declining enrollment',alt:'Bar: D65 elementary seats filled, fall 2026, 64%, against the district\'s own 85% goal and planners\' usual 80% to 100% range.',say:'D65\'s elementary schools are about two-thirds full, well short of the district\'s own 85% goal.'},
+ {id:'f-moved',sec:'8 · Leadership and trust',alt:'Two examples: this fall\'s forecast error, put at $17 million and then $27.35 million; and the 2022-23 budget, shown with a $76,738 surplus, which ended $7.9 million short.',say:'Two examples of numbers that didn\'t hold.'},
+ {id:'f-lead',sec:'8 · Leadership and trust',alt:'Timeline of District 65 leaders, 2019 to 2026: Goren, co-interims Wennstrom and Ehrhardt, Horton, Turner (interim, then superintendent), Witherspoon (interim); markers for Horton\'s indictment in Oct. 2025 and guilty plea in Oct. 2026.',say:'Five sets of leaders since 2019, and a former superintendent\'s guilty plea.'},
+ {id:'f-cutbars',sec:'6 · School closures',alt:'Column chart: yearly cuts, $6.5M in 2024, $13.3M in 2025, $6.3M in 2026, and $19.5M proposed for 2027-28 and 2028-29: jobs and benefits $11.8M, closing Dewey and Lincolnwood $2.3M before added busing (about $2.1M after), busing $1.5M, services and supplies $2.4M, ending Head Start $1.5M.',say:'D65 has been cutting for three years. The next round is the biggest, and closing two schools is about $2 million of it.'},
+ {id:'f-typ',sec:'2 · Money in',alt:'Bar chart: income per student, 2023-24, not counting state-paid teacher pensions. District 65 $28.8K, Illinois average $22.6K, U.S. average $21.5K; about a third more than the U.S. average.',say:'Not counting state-paid teacher pensions, D65 takes in about a third more per student than the U.S. average.'},
+ {id:'f-iep',sec:'4 · Money out',alt:'Line chart, share of students with a special education plan, 2014-15 to 2025-26: D65 from 12.8% to 19.3%, Illinois 14.1% to 16.7%, typical neighbor 14.3% to 15.1%.',say:'About 1 in 5 D65 students now has a special education plan, up from about 1 in 8.'},
+ {id:'f-pace',sec:'4 · Money out',alt:'Bar chart: growth in spending, 2019-20 to 2023-24. Prices +20%, typical neighbor +24%, D65 +31%.',say:'Prices rose 20% over four years. D65\'s spending grew 31%, faster than prices and the typical neighbor\'s.'},
+ {id:'f-il',sec:'4 · Money out',alt:'Bar chart: Illinois school districts with operating deficits, of about 850. 153 in 2022-23, 167 in 2023-24, 301 in 2024-25, and 437 budgeted for 2025-26.',say:'D65 isn\'t alone. More than half of Illinois districts expected to run a deficit this past year.'},
+ {id:'f-when',sec:'7 · Foster School',alt:'Timeline: 1967 the Fifth Ward\'s Foster School stops serving its neighborhood; 1979 the board closes Foster; 2012 voters turn down a bond referendum that included a new Fifth Ward school; 2022 the board votes to build one without a referendum; 2026 Foster opens.',say:'Foster School across six decades, from 1967 to its opening this year.'}
+];
+const DIM={"f-nbr": [1536, 1332, 716, 1340], "f-rev": [1536, 1362, 716, 1908], "f-kids": [1536, 1598, 716, 1564], "f-cush": [1536, 1164, 716, 1108], "f-staff": [1536, 944, 716, 810], "f-bus9": [1536, 1008, 716, 1042], "f-sped": [1536, 832, 716, 810], "f-foster": [1536, 844, 716, 866], "f-tax": [1536, 744, 716, 870], "f-res": [1536, 970, 716, 880], "f-e19": [1536, 1188, 716, 1190], "f-fill": [1536, 560, 716, 624], "f-moved": [1536, 778, 716, 1358], "f-lead": [1536, 690, 716, 756], "f-cutbars": [1536, 942, 716, 924], "f-typ": [1536, 680, 716, 786], "f-iep": [1536, 902, 716, 852], "f-pace": [1536, 584, 716, 654], "f-il": [1536, 842, 716, 824], "f-when": [1536, 866, 716, 1220]};
+document.getElementById('gal').innerHTML=CHARTS.map(c=>`<a class="gl" href="story.html#${c.id}" aria-label="${c.say.replace(/"/g,'&quot;')} See it in the story."><figure><div class="img"><picture><source media="(max-width:560px)" srcset="img/${c.id}-m.webp" width="${DIM[c.id][2]}" height="${DIM[c.id][3]}"><img src="img/${c.id}.webp" width="${DIM[c.id][0]}" height="${DIM[c.id][1]}" alt="${c.alt}" loading="lazy"></picture></div><figcaption><p>${c.say}</p><small><span>From the story: ${c.sec}</span><span class="dot"> · </span><span class="see">See it in the story →</span></small></figcaption></figure></a>`).join('');
+
+/* ---------- views ---------- */
+const views=[...document.querySelectorAll('.view')];
+const navBtns=document.querySelectorAll('.nav [data-go]');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cur=null;
+function store(k,v){try{v===undefined?null:localStorage.setItem(k,v);return localStorage.getItem(k)}catch(e){return null}}
+function show(v,anchor,push=true){
+  if(!document.getElementById('v-'+v))v='home';
+  views.forEach(s=>s.hidden=s.dataset.view!==v);
+  navBtns.forEach(b=>b.dataset.go===v?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));
+  closeMenu();
+  if(v==='tour')startTour();
+  if(v==='home')store('d65fdSeen','1');
+  const el=anchor&&document.getElementById(anchor);
+  if(el){el.scrollIntoView({block:'start'})}else{scrollTo(0,0);document.getElementById('v-'+v).focus({preventScroll:true})}
+  if(push&&location.hash!=='#'+v){try{history.pushState(null,'','#'+v)}catch(e){location.hash=v}}
+  cur=v;
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;e.preventDefault();show(b.dataset.go,b.dataset.anchor)});
+addEventListener('popstate',()=>show((location.hash||'#home').slice(1),null,false));
+const mb=document.getElementById('menubtn'),nav=document.getElementById('nav');
+function closeMenu(){nav.classList.remove('open');mb.setAttribute('aria-expanded','false')}
+mb.addEventListener('click',()=>{const o=!nav.classList.contains('open');nav.classList.toggle('open',o);mb.setAttribute('aria-expanded',o?'true':'false')});
+document.querySelectorAll('.toc a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})}));
+
+/* ---------- tour ---------- */
+const slides=[...document.querySelectorAll('.slide')],ctl=document.getElementById('ctl'),dots=[...document.querySelectorAll('.dots i')],nextBtn=document.getElementById('nextbtn'),skip=document.getElementById('skiptour');
+let si=0;
+function startTour(){go(0,0)}
+function go(n,dir){
+  si=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>{s.hidden=i!==si;s.classList.remove('enter','back')});
+  const s=slides[si];
+  if(dir&&!reduce)s.classList.add(dir>0?'enter':'back');
+  ctl.hidden=si===0;skip.hidden=si===0||si===slides.length-1;
+  dots.forEach((d,i)=>d.classList.toggle('on',i===si-1));
+  nextBtn.textContent='Next';nextBtn.hidden=si===slides.length-1;
+  play(s);
+  const h=s.querySelector('h1,h2');if(h&&dir){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}
+  if(dir){const t=document.getElementById('v-tour'),top=Math.max(0,t.getBoundingClientRect().top+scrollY-document.querySelector('.bar').offsetHeight);if(Math.abs(scrollY-top)>1)scrollTo({top,behavior:reduce?'auto':'smooth'})}
+}
+function play(s){
+  s.querySelectorAll('.reveal').forEach(r=>{r.classList.remove('on');const k=+r.dataset.r;setTimeout(()=>r.classList.add('on'),reduce?0:250+k*700)});
+  const m=s.querySelector('.mb');
+  if(m){m.classList.remove('go');m.querySelectorAll('.fill').forEach(f=>f.style.width='0');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{m.classList.add('go');m.querySelectorAll('.row').forEach(r=>{const w=(+r.dataset.v/50*100);r.querySelector('.fill').style.width=w+'%';r.querySelector('.v').style.left='calc('+w+'% + 8px)'})}))}
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('[data-next]')){if(si===slides.length-1){show('home')}else go(si+1,1)}
+  else if(e.target.closest('[data-prev]'))go(si-1,-1);
+});
+document.addEventListener('keydown',e=>{if(cur!=='tour'||e.target.closest('input,textarea,summary'))return;if(e.key==='ArrowRight'){if(si===slides.length-1)show('home');else go(si+1,1)}else if(e.key==='ArrowLeft')go(si-1,-1)});
+let tx=null;const sl=document.getElementById('slides');
+sl.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+sl.addEventListener('touchend',e=>{if(tx==null)return;const d=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(d)<50)return;if(d<0){if(si===slides.length-1)show('home');else go(si+1,1)}else go(si-1,-1)},{passive:true});
+
+/* ---------- sources ---------- */
+const panel=document.getElementById('srcpanel'),list=document.getElementById('srclist');let lastBtn=null;
+/* each Sources tag stays on the line with the word before it */
+document.querySelectorAll('.src').forEach(b=>{const t=b.previousSibling,m=t&&t.nodeType===3&&t.textContent.match(/(\S+)\s$/);if(!m||b.closest('.nw,.tags'))return;const w=document.createElement('span');w.className='nw';b.before(w);t.textContent=t.textContent.slice(0,-m[0].length);w.append(m[1]+' ',b)});
+document.querySelectorAll('.src[data-id]').forEach(b=>{const ids=b.dataset.id.split(' ');b.textContent=ids.length===1?'Source':ids.length+' sources';b.type='button';b.setAttribute('aria-label','Show sources: '+ids.join(', '))});
+document.addEventListener('click',e=>{const b=e.target.closest('.src[data-id]');if(!b)return;lastBtn=b;const ids=b.dataset.id.split(' ');
+  list.innerHTML=ids.map(id=>{const s=SRC[id];if(!s)return `<li><span class="sid">${id}</span></li>`;return `<li><span class="sid">${id}</span><span class="t">${s[0]}</span><span class="mm">${s[1]}${s[2]?' · '+s[2]:''}</span>${s[4]?`<span class="mm">${s[4]}</span>`:''}${s[3]?`<a href="${s[3]}" target="_blank" rel="noopener">${s[3].replace(/^https?:\/\//,'').slice(0,70)}${s[3].length>78?'…':''}</a>`:''}</li>`}).join('');
+  document.getElementById('srchd').textContent=ids.length===1?'Source':ids.length+' sources';panel.classList.add('open');panel.setAttribute('aria-hidden','false');document.getElementById('srcclose').focus()});
+function closePanel(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');if(lastBtn)lastBtn.focus()}
+document.getElementById('srcclose').addEventListener('click',closePanel);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(panel.classList.contains('open'))closePanel();closeMenu()}});
+
+/* ---------- going into the story and coming back ---------- */
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="story.html"]');if(!a||document.body.classList.contains('editing'))return;try{sessionStorage.setItem('d65from',cur||'home');sessionStorage.setItem('d65fromY',String(Math.round(scrollY)))}catch(err){}},true);
+
+/* 5 quick taps on the logo toggle the author's editing tools */
+
+/* ---------- start ---------- */
+const start=(location.hash||'').slice(1);
+show(start&&document.getElementById('v-'+start)?start:(store('d65fdSeen')?'home':'tour'),null,false);
+(function(){try{if(sessionStorage.getItem('d65back')!=='1')return;sessionStorage.removeItem('d65back');const v=sessionStorage.getItem('d65from'),y=+sessionStorage.getItem('d65fromY')||0;if(v===cur&&y){const go=()=>scrollTo(0,y);go();requestAnimationFrame(go);addEventListener('load',go,{once:true})}}catch(e){}})();
+
+/* ---------- edit mode: type changes straight into the page; they're saved to apply later ---------- */
+(function(){
+  document.querySelectorAll('main button').forEach(bt=>{
+    if(bt.closest('#ctl,.mb')||bt.id==='skiptour')return;
+    [...bt.childNodes].forEach(n=>{if(n.nodeType===3&&n.textContent.trim()){const sp=document.createElement('span');sp.className='bt';sp.textContent=n.textContent;n.replaceWith(sp)}});
+  });
+  const SEL='main h1, main h2, main h3, main p, main ul li, main ol.two li > b, main ol.two li > span, main figcaption small, main button > b, main button > span, footer';
+  const eb=document.getElementById('editBtn'), bar=document.getElementById('editbar'), cnt=document.getElementById('editcount'), stat=document.getElementById('editstat');
+  const LS='d65fdedits';
+  function clean(el){const c=el.cloneNode(true);c.querySelectorAll('.src,.c,button,svg').forEach(x=>x.remove());return c.textContent.replace(/\s+/g,' ').trim()}
+  function hash(s){let a=5381;for(let i=0;i<s.length;i++)a=((a<<5)+a+s.charCodeAt(i))|0;return 'f'+(a>>>0).toString(36)}
+  const els=[], seen={};
+  document.querySelectorAll(SEL).forEach(el=>{
+    if(el.closest('header,nav,.srcpanel,.mb,.editbar,#ctl,.steps,.mini,.go [aria-hidden]'))return;
+    if(el.matches('[aria-hidden="true"]')||el.closest('[aria-hidden="true"]'))return;
+    if(el.parentElement.closest('[data-ek]'))return;
+    if(el.querySelector('p,li,h2,h3'))return;
+    const t=clean(el);if(!t)return;
+    let k=hash(t);seen[k]=(seen[k]||0)+1;if(seen[k]>1)k+='-'+seen[k];
+    el.dataset.ek=k;el._orig=t;els.push(el);
+  });
+  const byKey={};els.forEach(el=>byKey[el.dataset.ek]=el);
+  let edits={}, db=null;
+  try{edits=JSON.parse(localStorage.getItem(LS)||'{}')}catch(e){}
+  Object.keys(edits).forEach(k=>{if(!byKey[k])delete edits[k]});
+  function show(el,after){const keep=[...el.querySelectorAll(':scope > .src, :scope > .nw > .src')];el.textContent=after+(keep.length?' ':'');keep.forEach(b=>el.appendChild(b));el.classList.add('edited')}
+  function paint(){Object.values(edits).forEach(e=>{const el=byKey[e.key];if(el&&clean(el)!==e.after)show(el,e.after)});count()}
+  function count(){const n=Object.keys(edits).length;cnt.textContent=n===0?'No changes yet':n===1?'1 change saved':n+' changes saved'}
+  function local(){try{localStorage.setItem(LS,JSON.stringify(edits))}catch(e){}}
+  function note(s){stat.textContent=s}
+  async function save(rec){edits[rec.key]=rec;local();count();
+    if(db){try{await db.doc('edits/'+rec.key).set(rec);note('Saved')}catch(e){note('Saved in this browser only')}}else note('Saved in this browser only')}
+  async function drop(key){delete edits[key];local();count();if(db){try{await db.doc('edits/'+key).delete()}catch(e){}}}
+  function onBlur(e){
+    const el=e.target.closest&&e.target.closest('[data-ek]');if(!el)return;
+    const now=clean(el), k=el.dataset.ek;
+    if(now===el._orig){el.classList.remove('edited');if(edits[k])drop(k);return}
+    if(edits[k]&&edits[k].after===now)return;
+    el.classList.add('edited');
+    const v=el.closest('.view');
+    save({key:k,section:'front door: '+(v?v.dataset.view:'footer'),before:el._orig,after:now,at:new Date().toISOString()});
+  }
+  function editing(){return document.body.classList.contains('editing')}
+  function setMode(on){
+    document.body.classList.toggle('editing',on);eb.setAttribute('aria-pressed',on?'true':'false');
+    els.forEach(el=>{if(on){el.setAttribute('contenteditable','true');el.setAttribute('spellcheck','true');el.querySelectorAll('.src,.c').forEach(b=>b.setAttribute('contenteditable','false'))}else{el.removeAttribute('contenteditable')}});
+    if(on)note(db?'Changes save as you go':'Changes save in this browser');
+  }
+  eb.addEventListener('click',e=>{e.stopPropagation();setMode(!editing());try{closeMenu()}catch(x){}});
+  document.getElementById('editdone').addEventListener('click',()=>setMode(false));
+  // while editing, a click on a line inside a link or card edits it instead of following it
+  document.addEventListener('click',e=>{if(!editing())return;const el=e.target.closest('[data-ek]');if(el&&el.closest('a,button,[data-go],[data-next]')){e.preventDefault();e.stopPropagation()}},true);
+  document.addEventListener('keyup',e=>{if(e.key===' '&&e.target.closest&&e.target.closest('[contenteditable="true"]'))e.preventDefault()},true);
+  document.addEventListener('focusout',e=>{if(editing())onBlur(e)});
+  document.addEventListener('keydown',e=>{const el=e.target.closest&&e.target.closest('[contenteditable="true"]');if(!el)return;e.stopPropagation();if(e.key==='Enter'){e.preventDefault();el.blur()}},true);
+  document.addEventListener('paste',e=>{const el=e.target.closest&&e.target.closest('[contenteditable="true"]');if(!el)return;e.preventDefault();const t=(e.clipboardData||window.clipboardData).getData('text/plain').replace(/\s+/g,' ');document.execCommand('insertText',false,t)});
+  document.getElementById('editcopy').addEventListener('click',async()=>{
+    const list=Object.values(edits);if(!list.length){note('Nothing to copy yet');return}
+    const txt=list.map(e=>`[${e.section}]\nBEFORE: ${e.before}\nAFTER:  ${e.after}`).join('\n\n');
+    try{await navigator.clipboard.writeText(txt);note('Copied the list of changes')}catch(err){note('Copy blocked. Your changes are still saved')}
+  });
+  paint();
+  (async()=>{try{if(!window.claude||!claude.use)return;const d=await claude.use('db');if(!d)return;db=d;
+    const snap=await db.collection('edits').get();
+    snap.docs.forEach(x=>{const v=x.data();if(v&&v.key&&byKey[v.key])edits[v.key]=v});
+    for(const e of Object.values(edits)){if(!snap.docs.some(x=>x.id===e.key)){try{await db.doc('edits/'+e.key).set(e)}catch(x){}}}
+    local();paint();if(editing())note('Changes save as you go');
+  }catch(e){}})();
+})();
+</script>
+</body>
+</html>

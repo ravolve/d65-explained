@@ -1,0 +1,1788 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The story · D65 Explained</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23f2b705'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#f6f7f7; --ink:#17222c; --muted:#5a6671; --faint:#8a959f; --rule:#dde2e6; --card:#eceff1; --card-2:#e3e8eb; --raised:#fff;
+  --bus:#f2b705; --bus-ink:#1d1600; --link:#1f4e8c; --neg:#b4472f; --up:#c4590f; --down:#2a6bc2; --bar:#9aa5ae;
+  --sheet:#17222c; --sheet-ink:#f3f5f6; --sheet-link:#f2b705;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Literata",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --col:42rem; --wide:48rem; --site:62rem;
+  color-scheme:light;
+}
+/* dark is the default on screen; print and data-theme="light" stay light */
+@media screen{:root:not([data-theme="light"]){
+  --paper:#10171d; --ink:#e4e9ee; --muted:#a0acb7; --faint:#6d7a86; --rule:#26313b; --card:#172129; --card-2:#1e2a33; --raised:#151f27;
+  --link:#8fb8ee; --neg:#e2795f; --up:#e0823a; --down:#4f8fe0; --bar:#5a6875; --sheet:#05090c; --sheet-ink:#e4e9ee; color-scheme:dark;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:110px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:19px;line-height:1.62;overflow-x:hidden}
+a{color:var(--link)}
+:focus-visible{outline:2px solid var(--link);outline-offset:3px;border-radius:4px}
+h1,h2,h3{margin:0;text-wrap:balance}
+
+/* top bar + site header */
+.part{scroll-margin-top:64px}
+.chart{scroll-margin-top:96px}
+.topbar{position:sticky;top:0;z-index:30;background:var(--card);border-bottom:1px solid var(--rule);font-family:var(--display)}
+.topbar .in{max-width:var(--site);margin:0 auto;height:40px;display:flex;align-items:center;gap:12px;padding:0 max(18px,env(safe-area-inset-left,0px))}
+.topbar .back{display:inline-flex;align-items:center;gap:6px;flex:none;font-family:var(--display);font-stretch:88%;font-weight:700;font-size:14px;color:var(--ink);text-decoration:none;border:1.5px solid var(--rule);border-radius:999px;padding:5px 12px 5px 10px;white-space:nowrap}
+.topbar .back:hover{border-color:var(--ink)}
+.topbar .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:var(--bus);color:var(--bus-ink);padding:2px 8px;border-radius:3px;white-space:nowrap}
+.topbar nav{position:relative;display:flex;gap:2px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;--fl:0px;--fr:0px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 var(--fl),#000 calc(100% - var(--fr)),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 var(--fl),#000 calc(100% - var(--fr)),transparent 100%)}
+.topbar nav::-webkit-scrollbar{display:none}
+.topbar nav a{text-decoration:none;color:var(--muted);padding:4px 9px;border-radius:6px;white-space:nowrap;font-stretch:88%;font-size:14px;font-weight:600}
+.topbar nav a.on{color:var(--ink);background:var(--paper)}
+.notes-btn{font:600 13px/1 var(--display);font-stretch:88%;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 11px;cursor:pointer;white-space:nowrap}
+.notes-btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--bus);width:0}
+.site{position:relative;z-index:40;border-bottom:1px solid var(--rule)}
+.sitenav{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.sitenav a{font-family:var(--display);font-stretch:88%;font-weight:650;font-size:15px;color:var(--muted);text-decoration:none;padding:8px 11px;border-radius:8px;white-space:nowrap}
+.sitenav a:hover{color:var(--ink)}
+.sitenav a[aria-current="page"]{color:var(--bus-ink);background:var(--bus)}
+.site .brand{white-space:nowrap;flex:none}
+.site .in{max-width:var(--site);margin:0 auto;min-height:56px;display:flex;align-items:center;gap:12px;padding:0 max(18px,env(safe-area-inset-left,0px))}
+.brand{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:18px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:9px;padding:6px 0;margin-right:auto}
+.brand::before{content:"";width:12px;height:12px;border-radius:3px;background:var(--bus)}
+.menubtn{display:none;font-family:var(--display);font-stretch:88%;font-weight:700;font-size:15px;color:var(--ink);border:1.5px solid var(--rule);background:var(--raised);border-radius:999px;padding:8px 14px;cursor:pointer;min-height:40px}
+@media (max-width:700px){
+  .menubtn{display:inline-flex}
+  .sitenav{display:none;position:absolute;top:56px;right:12px;left:12px;margin:0;flex-direction:column;align-items:stretch;overflow:visible;background:var(--raised);border:1px solid var(--rule);border-radius:14px;padding:8px;box-shadow:0 14px 40px rgba(0,0,0,.14)}
+  .sitenav.open{display:flex}
+  .sitenav a{font-size:17px;padding:12px 14px;text-align:left}
+}
+
+/* story column */
+main{padding:0 max(16px,env(safe-area-inset-left,0px)) 40px}
+.col{max-width:var(--col);margin:0 auto}
+.wide{max-width:var(--wide);margin:0 auto}
+.opener{max-width:var(--col);margin:0 auto;padding:clamp(28px,5vw,52px) 0 0;display:grid;gap:12px}
+.opener h1{font-family:var(--display);font-stretch:78%;font-weight:800;line-height:1.02;font-size:clamp(36px,6vw,56px)}
+.opener .dek{margin:0;font-size:clamp(19px,2.3vw,22px);line-height:1.45;color:var(--muted)}
+.opener + section.part{padding-top:48px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0}
+.opener .prev{font-family:var(--display);font-stretch:88%;font-size:16px;color:var(--muted);text-decoration:none}
+.opener .prev:hover{color:var(--ink)}
+
+section.part{padding:72px 0 24px}
+.part-head{max-width:var(--col);margin:0 auto 34px;display:grid;gap:10px}
+.part-num{font-family:var(--display);font-stretch:78%;font-weight:800;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
+.part-num::before{content:"";width:28px;height:3px;background:var(--bus)}
+.part-head h2{font-family:var(--display);font-stretch:78%;font-weight:800;font-size:clamp(34px,5.4vw,54px);line-height:1}
+
+.p{max-width:var(--col);margin:0 auto 22px;font-size:clamp(19px,2.1vw,21px);line-height:1.6;text-wrap:pretty}
+.p.lead{font-family:var(--display);font-stretch:84%;font-weight:700;font-size:clamp(25px,3.4vw,32px);line-height:1.2;margin-top:44px;margin-bottom:26px}
+.p.turn{font-style:italic;color:var(--muted)}
+.p b{font-family:var(--display);font-stretch:88%;font-weight:720}
+
+/* the reader's voice */
+.ask{max-width:var(--col);margin:40px auto 34px;display:flex;justify-content:flex-end}
+.ask p{margin:0;position:relative;max-width:30rem;font-family:var(--display);font-stretch:88%;font-weight:680;font-size:clamp(19px,2.2vw,22px);line-height:1.25;background:var(--card-2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule);border-radius:22px 22px 6px 22px;padding:15px 20px}
+.ask p::before{content:"You";position:absolute;top:-20px;right:6px;font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* charts */
+figure.chart{max-width:var(--wide);margin:36px auto 34px;background:var(--raised);border:1px solid var(--rule);border-radius:14px;padding:clamp(18px,3.4vw,30px);display:grid;gap:14px;min-width:0}
+.chart h3{font-family:var(--display);font-stretch:82%;font-weight:780;font-size:clamp(22px,3vw,28px);line-height:1.12}
+.chart .sub{margin:-6px 0 0;font-family:var(--display);font-stretch:90%;font-size:16px;color:var(--muted);line-height:1.35}
+.seg{display:inline-flex;flex-wrap:wrap;background:var(--card);border-radius:999px;padding:3px;gap:2px;justify-self:start}
+.seg button{font:650 14.5px/1 var(--display);font-stretch:90%;border:0;background:transparent;color:var(--muted);padding:9px 14px;border-radius:999px;cursor:pointer;min-height:36px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper);box-shadow:none}
+.cv{min-width:0;position:relative}
+.cv svg{display:block;width:100%;height:auto;overflow:visible}
+.cv text{font-family:var(--display);font-stretch:90%;fill:var(--ink);font-size:14px}
+.cv .m{fill:var(--muted)}
+.cv .tick{font-family:var(--mono);font-stretch:100%;font-size:11px;fill:var(--muted)}
+.cv .b{font-weight:750}
+.cv text.halo{paint-order:stroke;stroke:var(--raised);stroke-width:4px;stroke-linejoin:round}
+.cv .grid{stroke:var(--card-2);stroke-width:1}
+.cv .zero{stroke:var(--faint);stroke-width:1.25}
+.cv .refl{stroke:var(--ink);stroke-width:1.25;stroke-dasharray:3 3;opacity:.7}
+.cv .hot{cursor:pointer;outline:none}
+.cv .hot:hover .bar,.cv .hot:focus-visible .bar{filter:brightness(1.08)}
+.cv .hot:focus-visible{outline:2px solid var(--link)}
+.cv .grow{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);font-size:12px;color:var(--muted);margin:0;padding:0;list-style:none}
+.key li{display:flex;gap:7px;align-items:center}
+.key i{width:14px;height:10px;border-radius:2px;display:inline-block}
+.chart .note{margin:0;font-family:var(--display);font-stretch:94%;font-size:14.5px;line-height:1.5;color:var(--muted)}
+.chart .say{margin:0;font-size:18px;line-height:1.55}
+.fold{border-top:1px solid var(--rule);padding-top:4px}
+.fold summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:12px;color:var(--muted);padding:6px 0;display:inline-flex;gap:8px}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary::before{content:"+"}
+.fold[open] summary::before{content:"–"}
+.tw{overflow-x:auto}
+.tw table{border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums;min-width:100%;font-family:var(--display);font-stretch:92%}
+.tw th,.tw td{text-align:left;padding:5px 10px;border-bottom:1px solid var(--rule);white-space:nowrap}
+.tw th{font-weight:700}
+.tw td:not(:first-child),.tw th:not(:first-child){text-align:right}
+.tw tr.us td{font-weight:750;background:color-mix(in srgb,var(--bus) 18%,transparent)}
+
+/* revenue strip */
+.strip{display:flex;height:34px;border-radius:6px;overflow:hidden;font-family:var(--display);font-stretch:88%;font-weight:700;font-size:14px}
+.strip span{display:flex;align-items:center;padding:0 10px;white-space:nowrap;overflow:hidden;width:0;transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.strip.in span{width:var(--w)}
+.strip .pt{background:var(--bus);color:var(--bus-ink)}
+.strip .o1{background:var(--card-2);color:var(--muted)}
+.strip .o2{background:var(--card);color:var(--muted)}
+.strip-lab{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* inside-the-total cards */
+.ex2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-top:6px}
+.ex{background:var(--card);border-radius:10px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.ex .exk{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.ex b{font-family:var(--display);font-stretch:86%;font-weight:720;font-size:18px;line-height:1.2}
+.ex .exfig{font-family:var(--mono);font-size:19px;font-weight:500;color:var(--up);font-variant-numeric:tabular-nums}
+.ex .exfig i{font-style:normal;color:var(--muted);padding:0 4px}
+.ex p{margin:0;font-size:15px;line-height:1.5}
+.inside{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:640px){.inside{grid-template-columns:minmax(0,1fr)}}
+.inside div{background:var(--card);border-radius:10px;padding:12px 14px;display:grid;gap:3px}
+.inside b{font-family:var(--display);font-stretch:86%;font-weight:720;font-size:16px;line-height:1.2}
+.inside .fig{font-family:var(--mono);font-size:15px;font-variant-numeric:tabular-nums}
+.inside .fig em{font-style:normal;color:var(--up)}
+.inside small{font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+/* break-out questions */
+.qs{max-width:var(--col);margin:8px auto 30px}
+.qs h4{margin:0 0 4px;font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+details.q{border-top:1px solid var(--rule)}
+details.q:last-child{border-bottom:1px solid var(--rule)}
+details.q > summary{cursor:pointer;list-style:none;font-family:var(--display);font-stretch:88%;font-weight:680;font-size:19px;line-height:1.3;padding:13px 0;display:flex;justify-content:space-between;gap:14px}
+details.q > summary::-webkit-details-marker{display:none}
+details.q > summary::after{content:"+";font-family:var(--mono);color:var(--muted);flex:none}
+details.q[open] > summary::after{content:"–"}
+details.q .a{padding:0 0 16px;display:grid;gap:10px}
+details.q .a p{margin:0;font-size:17px;line-height:1.6}
+details.q .a p.note{font-size:14.5px;line-height:1.5}
+
+/* source chips + panel */
+.src{display:inline-flex;align-items:center;vertical-align:2px;margin-left:4px;font-family:var(--mono);font-size:11px;line-height:1;color:var(--muted);background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:3px 5px;cursor:pointer;white-space:nowrap}
+.src:hover{color:var(--ink);border-color:var(--faint)}
+/* "Our calculation" / "District estimate": plain labels with a small mark, not boxed like the clickable Sources tag */
+.c{display:inline-flex;align-items:center;gap:6px;margin-left:6px;font-family:var(--display);font-stretch:90%;font-style:italic;font-size:14px;line-height:1.2;white-space:nowrap;color:var(--muted)}
+.c::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.c.est::before{background:none;box-shadow:inset 0 0 0 1.5px var(--muted)}
+.srcpanel{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--sheet);color:var(--sheet-ink);border-top:3px solid var(--bus);max-height:70vh;overflow:auto;padding:16px max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));transform:translateY(105%);transition:transform .22s ease;visibility:hidden}
+.srcpanel.open{transform:none;visibility:visible}
+.srcpanel .in{max-width:var(--col);margin:0 auto;display:grid;gap:12px}
+.srcpanel .hd{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;color:var(--sheet-link)}
+.srcpanel button{background:transparent;border:1px solid currentColor;color:var(--sheet-ink);font-family:var(--mono);font-size:12px;padding:6px 10px;border-radius:3px;cursor:pointer}
+.srcpanel ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.srcpanel li{display:grid;gap:2px;border-left:2px solid rgba(255,255,255,.25);padding-left:12px}
+.srcpanel .sid{font-family:var(--mono);font-size:11px;opacity:.7}
+.srcpanel .t{font-family:var(--display);font-stretch:88%;font-size:17px;font-weight:700;line-height:1.25}
+.srcpanel .mm{font-size:14px;opacity:.85}
+.srcpanel a{color:var(--sheet-link);font-size:14px;overflow-wrap:anywhere}
+
+/* tooltip */
+.tip{position:fixed;z-index:60;max-width:270px;background:var(--sheet);color:var(--sheet-ink);border-radius:8px;padding:8px 11px;font-family:var(--display);font-stretch:90%;font-size:14px;line-height:1.35;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.tip small{display:block;font-family:var(--mono);font-size:11px;opacity:.75;margin-top:3px}
+
+
+/* next */
+.next{max-width:var(--col);margin:40px auto 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:center;text-decoration:none;color:var(--ink);border:1.5px dashed var(--rule);border-radius:14px;padding:18px 20px}
+.next small{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.next b{font-family:var(--display);font-stretch:84%;font-weight:740;font-size:clamp(20px,2.5vw,24px);line-height:1.15}
+.next i{grid-row:1/span 2;grid-column:2;font-style:normal;font-family:var(--mono);font-size:12px;color:var(--muted)}
+footer{max-width:var(--col);margin:48px auto 0;border-top:1px solid var(--rule);padding:16px 0 40px;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.6}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(10px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.strip span,.cv .grow{transition:none}.srcpanel{transition:none}}
+@media (max-width:520px){body{font-size:18px}.ask p::before{right:4px}}
+body.editing [data-ek]{outline:1.5px dashed color-mix(in srgb,var(--up) 60%,transparent);outline-offset:4px;border-radius:3px;cursor:text}
+body.editing [data-ek]:hover{outline-style:solid}
+body.editing [data-ek]:focus{outline:2.5px solid var(--up);outline-offset:4px}
+body.editing [data-ek].edited{box-shadow:inset 4px 0 0 var(--bus)}
+body.editing [data-ek].edited{background:color-mix(in srgb,var(--bus) 22%,transparent)}
+body.editing .ask p[data-ek].edited{background:var(--card-2);box-shadow:0 0 0 3px var(--bus)}
+.editbar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:70;display:none;gap:10px;align-items:center;flex-wrap:wrap;background:var(--ink);color:var(--paper);border-radius:16px;padding:10px 12px 10px 16px;font:500 14px/1.3 var(--display);box-shadow:0 8px 28px rgb(0 0 0/.28);max-width:calc(100vw - 24px)}
+body.editing .editbar{display:flex}
+.editbar b{font-weight:700}
+.editbar .es{opacity:.7;font-size:13px}
+.editbar button{font:600 13px/1 var(--display);border:0;border-radius:999px;padding:8px 13px;cursor:pointer;background:var(--paper);color:var(--ink)}
+.editbar button.ghost{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--paper) 45%,transparent)}
+
+/* leaders timeline */
+.lead{display:grid;gap:8px;margin:4px 0 0}
+.lead .row{display:grid;grid-template-columns:minmax(110px,170px) 1fr;align-items:center;gap:12px}
+.lead .row>span:first-child{font-family:var(--display);font-stretch:90%;font-weight:600;font-size:14.5px;line-height:1.2}
+.lead .trk{position:relative;height:24px;border-left:1px solid var(--rule);background:repeating-linear-gradient(90deg,transparent 0 calc(25% - 1px),var(--rule) calc(25% - 1px) 25%)}
+.lead .bar{position:absolute;top:3px;bottom:3px;left:calc(var(--a)*1%);width:calc(var(--w)*1%);background:var(--bus);border-radius:3px}
+.lead .bar.int{background:color-mix(in srgb,var(--bus) 30%,transparent);box-shadow:inset 0 0 0 1.5px var(--bus)}
+.lead .ev{position:absolute;top:50%;left:calc(var(--a)*1%);width:11px;height:11px;margin:-5.5px 0 0 -5.5px;background:var(--neg);transform:rotate(45deg)}
+.lead .axis .trk{height:16px;background:none;border-left:0}
+.lead .axis b{position:absolute;left:calc(var(--a)*1%);transform:translateX(-50%);font:400 11px/1 var(--mono);color:var(--muted)}
+.lead .axis b:first-child{transform:none}.lead .axis b:last-child{transform:translateX(-100%)}
+.key .sw{display:inline-block;width:14px;height:10px;border-radius:2px;background:var(--bus);margin-right:6px;vertical-align:-1px}
+.key .sw.int{background:color-mix(in srgb,var(--bus) 30%,transparent);box-shadow:inset 0 0 0 1.5px var(--bus)}
+.key .sw.ev{width:9px;height:9px;border-radius:0;background:var(--neg);transform:rotate(45deg);margin:0 8px 0 3px}
+@media (max-width:520px){.lead .row{grid-template-columns:96px 1fr;gap:8px}.lead .row>span:first-child{font-size:13px}}
+
+/* section 4 */
+.grow2{max-width:var(--col);margin:6px auto 30px}
+figure.chart > *,details.q .a > *{min-width:0}
+.key i.dash{height:0;width:18px;border-top:2px dashed var(--ink);border-radius:0;opacity:.7}
+.key i.tk{width:3px;height:14px;border-radius:0;background:var(--ink);opacity:.55}
+figure.chart details.fold > p.note{margin:2px 0 10px}
+figure.chart details.fold + details.fold{border-top:0;padding-top:0;margin-top:-12px}
+details.q figure.chart{margin:6px 0 4px;max-width:none}
+
+/* special education glossary */
+dl.gloss{margin:0;display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:8px 16px;font-size:16px;line-height:1.45}
+dl.gloss dt{font-family:var(--display);font-stretch:88%;font-weight:700}
+dl.gloss dd{margin:0}
+@media (max-width:520px){dl.gloss{grid-template-columns:1fr;gap:2px}dl.gloss dd{margin-bottom:8px}}
+
+html:not(.editor) #editBtn{display:none!important}
+</style>
+<style>
+/* additions */
+.big{max-width:var(--col);margin:64px auto 22px;font-family:var(--display);font-stretch:78%;font-weight:800;font-size:clamp(30px,4.6vw,44px);line-height:1.04;text-wrap:balance}
+.share{max-width:var(--col);margin:4px auto 30px;display:grid;gap:12px}
+.share .row{display:grid;grid-template-columns:minmax(0,14rem) minmax(0,1fr) 3.6rem;gap:12px;align-items:center;font-family:var(--display);font-stretch:88%;font-size:17px;line-height:1.2}
+.share .track{height:26px;background:var(--card);border-radius:4px;overflow:hidden}
+.share .fill{display:block;height:100%;width:0;background:var(--bus);transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.share.in .fill{width:var(--w)}
+.share .val{font-family:var(--mono);font-size:16px;font-weight:500;text-align:right}
+.share .cap{margin:0;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.5}
+@media (max-width:520px){.share .row{grid-template-columns:minmax(0,1fr) 3.4rem}.share .row .track{grid-column:1/-1;grid-row:2}}
+.panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 30px}
+@media (max-width:640px){.panels{grid-template-columns:minmax(0,1fr)}}
+.panel{display:grid;gap:8px;align-content:start}
+.panel h4{margin:0;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.prow{display:grid;grid-template-columns:7.6rem minmax(0,1fr) 3.4rem;gap:10px;align-items:center;font-family:var(--display);font-stretch:88%;font-size:16px;line-height:1.2}
+.prow .track{height:22px;background:var(--card);border-radius:3px;overflow:hidden}
+.prow .fill{display:block;height:100%;width:0;background:var(--bar);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.prow.us b{font-weight:780}
+.prow.us .fill{background:var(--bus)}
+.in .prow .fill{width:var(--w)}
+.prow .val{font-family:var(--mono);font-size:13.5px;text-align:right}
+.prow.us .val{font-weight:500;color:var(--ink)}
+ul.factors{max-width:var(--col);margin:0 auto 26px;padding:0;list-style:none;display:grid;gap:12px}
+ul.factors li{position:relative;padding-left:26px;font-size:clamp(18px,2vw,20px);line-height:1.5}
+ul.factors li::before{content:"";position:absolute;left:2px;top:.72em;width:13px;height:3px;background:var(--bus)}
+ul.factors b{font-family:var(--display);font-stretch:86%;font-weight:740}
+.p.close{font-family:var(--display);font-stretch:86%;font-weight:720;font-size:clamp(21px,2.6vw,25px);line-height:1.3}
+ol.moved{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+ol.moved li{background:var(--card);border-radius:12px;padding:14px 16px;display:grid;gap:6px}
+ol.moved .tagc{justify-self:start;font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;border-radius:3px;padding:2px 6px;background:var(--raised);border:1px solid var(--rule);color:var(--muted)}
+ol.moved .tagc.err{border-color:var(--neg);color:var(--neg)}
+ol.moved b.what{font-family:var(--display);font-stretch:86%;font-weight:740;font-size:18px;line-height:1.2}
+ol.moved .from{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center;font-family:var(--display);font-stretch:90%;font-size:15px;line-height:1.25}
+ol.moved .from span b{display:block;font-family:var(--mono);font-weight:500;font-size:19px;color:var(--ink)}
+ol.moved .from span small{color:var(--muted)}
+ol.moved .from i{font-style:normal;font-family:var(--mono);color:var(--muted)}
+.nw{white-space:nowrap}
+@media (max-width:520px){ol.moved .from span b{font-size:16px}}
+ol.moved .why{margin:0;font-size:16px;line-height:1.5}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:640px){.trio{grid-template-columns:minmax(0,1fr)}}
+.trio div{border-top:3px solid var(--bus);background:var(--card);border-radius:0 0 10px 10px;padding:12px 14px;display:grid;gap:4px}
+.trio b{font-family:var(--display);font-stretch:84%;font-weight:780;font-size:20px}
+.trio span{font-size:16px;line-height:1.45}
+figure.chart .bva{display:grid;gap:4px}
+.share .fill.g{background:var(--bar)}
+figure .share{width:100%;margin:0}
+.callout{display:flex;gap:16px;align-items:center;border-top:1px solid var(--rule);padding-top:14px}
+.callout .big2{flex:none;font-family:var(--display);font-stretch:78%;font-weight:800;font-size:clamp(44px,7vw,60px);line-height:1;color:var(--ink);background:color-mix(in srgb,var(--bus) 35%,transparent);border-radius:8px;padding:4px 10px}
+.callout span:last-child{font-size:17px;line-height:1.45}
+.callout b{font-family:var(--display);font-stretch:88%;font-weight:720}
+
+figure.chart details.fold > p.note{margin:2px 0 10px}
+figure.chart details.fold + details.fold{border-top:0;padding-top:0}
+.in .share .fill,.share.in .fill{width:var(--w)}
+ol.when{list-style:none;margin:0;padding:0 0 0 2px;display:grid;border-left:2px solid var(--rule)}
+ol.when li{position:relative;padding:0 0 16px 20px;font-size:17px;line-height:1.5}
+ol.when li::before{content:"";position:absolute;left:-7px;top:.45em;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+ol.when li.now::before{background:var(--bus);border-color:var(--bus)}
+ol.when b{display:block;font-family:var(--mono);font-size:13px;font-weight:500;color:var(--muted)}
+.latest{max-width:var(--col);margin:26px auto;font-size:17px;line-height:1.55;background:var(--card);border-radius:12px;padding:14px 16px}
+/* buttons: the same as the front door's */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;border:0;cursor:pointer;font-family:var(--display);font-stretch:88%;font-weight:750;font-size:17px;line-height:1.2;text-decoration:none;white-space:nowrap}
+.btn.yel{background:var(--bus);color:var(--bus-ink)}
+.btn.out{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--rule)}
+@media (hover:hover){.btn.out:hover{box-shadow:inset 0 0 0 1.5px var(--faint)}}
+/* S5: a way onward at the end */
+.endnav{max-width:var(--col);margin:56px auto 0;padding-top:26px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:10px}
+.latest b{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted);display:block}
+figure.slim{padding:16px 20px;gap:10px;margin:22px auto 30px}
+figure.slim h3{font-size:19px}
+</style>
+<script>/* editing tools show only for the author: visit with #edit once (or tap the logo 5 times on the main page); #public turns them off */
+(function(){try{localStorage.removeItem('d65editor')}catch(e){}})();</script>
+</head>
+<body>
+<div class="editbar" id="editbar" role="region" aria-label="Edit mode"><span><b>Edit mode.</b> Click any line and type. Enter or click away to save.</span><span id="editcount">No changes yet</span><span class="es" id="editstat"></span><button type="button" class="ghost" id="editcopy">Copy list</button><button type="button" id="editdone">Done</button></div>
+
+
+<div class="site"><div class="in">
+  <a class="brand" href="index.html#home">D65 Explained</a>
+  <button type="button" class="menubtn" id="menubtn" aria-expanded="false" aria-controls="sitenav">Menu</button>
+  <nav class="sitenav" id="sitenav" aria-label="Main">
+    <a href="story.html" aria-current="page">The story</a>
+    <a href="index.html#two">Two minutes</a>
+    <a href="index.html#charts">Charts</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#tour">Tour</a>
+  </nav>
+</div></div>
+<header class="topbar">
+  <div class="in">
+    <a class="back" id="backlink" href="index.html#home"><span aria-hidden="true">←</span> <span id="backlbl">Main page</span></a>
+    <nav aria-label="Sections">
+      <a href="#s1" data-sec="s1">1 · What's going on</a>
+      <a href="#s2" data-sec="s2">2 · Money in</a>
+      <a href="#s3" data-sec="s3">3 · Budget squeeze</a>
+      <a href="#s4" data-sec="s4">4 · Money out</a>
+      <a href="#s5" data-sec="s5">5 · Declining enrollment</a>
+      <a href="#s6" data-sec="s6">6 · School closures</a>
+      <a href="#s7" data-sec="s7">7 · Foster School</a>
+      <a href="#s8" data-sec="s8">8 · Leadership and trust</a>
+      <a href="#s9" data-sec="s9">9 · What's next?</a>
+      <a href="#latest" data-sec="latest">The latest</a>
+    </nav>
+    <button type="button" class="notes-btn" id="editBtn" aria-pressed="false">Edit text</button>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+
+<div class="opener">
+  <p class="kicker">The story</p>
+  <h1>What's going on with District 65 schools?</h1>
+  <p class="dek">Why D65 is short of money, why it's closing schools, and why so many people are upset.</p>
+</div>
+
+<!-- ============ SECTION 1 ============ -->
+<section class="part" id="s1" aria-labelledby="s1-h">
+  <div class="part-head rv"><span class="part-num">1 · What's going on</span><h2 id="s1-h">District 65 is trying to cut spending, which is disruptive and painful.</h2></div>
+
+  <p class="p rv">District 65 runs the public schools for Evanston and part of Skokie, from preschool through eighth grade. That's nearly 6,000 students. ETHS is a separate district, with its own budget and leaders. <button class="src" data-id="S862"></button></p>
+
+  <p class="p rv">For the last few years, D65 has spent more than it takes in. <button class="src" data-id="S191 S195"></button></p>
+  <p class="p rv">It has already made cuts, and it's proposing more: fewer staff, changes to services, and closing two additional schools. <button class="src" data-id="S004 S189 S165"></button></p>
+  <p class="p rv">Families are being asked to absorb a lot of change. And residents disagree about whether the changes are necessary, enough or fair. <button class="src" data-id="S971"></button></p>
+
+</section>
+
+<!-- ============ SECTION 2 ============ -->
+<section class="part" id="s2" aria-labelledby="s2-h">
+  <div class="part-head rv"><span class="part-num">2 · Money in</span><h2 id="s2-h">D65 has a lot of money. Why is it running out?</h2></div>
+
+  <p class="p rv">D65 takes in more money per student than nearly nine in ten Illinois elementary districts, and nearly nine in ten U.S. elementary districts with 1,000 or more students. <button class="src" data-id="S862 S582 S870"></button></p>
+
+  <figure class="chart rv" id="f-typ">
+    <h3>D65 takes in more money per student than most districts</h3>
+    <p class="sub">Income per student, 2023-24, not counting state-paid teacher pensions</p>
+    <div class="cv" id="cv-typ"></div>
+    <p class="note">The Census Bureau's measure: all of a district's income, divided by fall enrollment. Illinois pays teachers' pensions on its districts' behalf, and most states don't, so the D65 and Illinois bars leave those payments out. The Illinois figure without them is our calculation from the Census district file. Counting them, D65 takes in $35,059 per student, about 60% more than the U.S. average. The U.S. average is as published, and it still includes the payments some states make. The Illinois and U.S. figures are averages across all districts, including high school districts. The state's own count for D65 ($31,940 in 2024-25, in the chart below) uses a different year and counts students differently. <button class="src" data-id="S870 S871"></button> <span class="c calc">Our calculation</span></p>
+    <details class="fold"><summary>See all the comparisons</summary><div class="tw" id="typ-table"></div></details>
+  </figure>
+
+  <p class="p rv">Illinois also estimates what each district needs to educate its students, counting how many are low-income, learning English or in special education.</p>
+  <p class="p rv">By that yardstick, D65 has about 139% of what it needs. Only about one in ten Illinois elementary districts is better funded. <button class="src" data-id="S584"></button> <span class="c calc">Our calculation</span></p>
+
+  <figure class="chart rv" id="f-rev">
+    <h3>Even among wealthy neighbors, D65 ranks high</h3>
+    <p class="sub">Money coming in per student, 2024-25, D65 versus neighbors</p>
+    <div class="cv" id="cv-rev"></div>
+    <p class="note">All of each district's income for the year, from local, state and federal sources, including money for debt payments and building projects, ÷ average daily attendance. Both dashed lines compare like with like: the Illinois line is the typical Illinois elementary district, and the U.S. line is the typical elementary district with 1,000+ students, on the Census Bureau's measure for 2023-24; treat it as a rough marker. Niles 71's income fell by more than half in 2024-25, unexplained. <button class="src" data-id="S862 S582 S871"></button></p>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="rev-table"></div></details>
+  </figure>
+
+  <div class="ask rv"><p>That makes sense. Don't we pay really high property taxes?</p></div>
+
+  <p class="p rv">We do. Evanston homeowners pay nearly twice the national rate and, in dollars, nearly three times the typical American's bill. <button class="src" data-id="S875"></button> Local property taxes pay for most of D65. <button class="src" data-id="S190"></button></p>
+
+  <figure class="chart rv" id="f-tax">
+    <h3>We're taxed at almost twice the national rate</h3>
+    <p class="sub">Property tax as a share of the home's value, each year</p>
+    <div class="cv" id="cv-tax"></div>
+    <p class="note">U.S., Chicago and Evanston: Census Bureau survey of homeowners, 2020–2024, the typical (median) tax paid divided by the typical home value, for owner-occupied homes. The same survey gives the typical bills behind "nearly three times": $8,863 a year in Evanston against $3,119 nationally, which reflects both the higher rate and Evanston's higher home values. Big-city average: a separate study, the Lincoln Institute's 2025 comparison of 53 cities (the largest city in each state, plus Aurora and Buffalo), on taxes paid in 2025; it averages 1.21%. On that study's method Evanston would be about 2.09%, 6th of 54. <button class="src" data-id="S875 S880"></button></p>
+  </figure>
+
+
+  <p class="big rv">Still, a district receiving a lot of money can spend more than it takes in.</p>
+
+  <p class="p rv">After five years of surpluses, D65 has spent more than it took in every year since 2022-23 except 2024-25, which was close to break-even. <button class="src" data-id="S195 S975 S191"></button></p>
+
+  <figure class="chart rv" id="f-res">
+    <h3>Surpluses, then shortfalls</h3>
+    <p class="sub">Money in minus money out, D65's operating funds, by school year</p>
+    <div class="cv" id="cv-res"></div>
+    <ul class="key"><li><i style="background:color-mix(in srgb,var(--ink) 55%,var(--raised))"></i>Surplus</li><li><i style="background:var(--neg)"></i>Shortfall</li><li><i style="background:repeating-linear-gradient(135deg,var(--neg) 0 3px,transparent 3px 6px);border:1px solid var(--neg)"></i>Not final</li></ul>
+    <p class="note">2024-25 is from the audit, as revenues minus spending: +$0.9 million. After the money moved between funds that year, mostly a $3.8 million transfer to the debt fund, it was −$1.2 million. The district's figures for the other years don't say which way they were counted, so the chart uses the first. 2025-26 is unaudited and 2026-27 is the budget. The 2017-18 surplus includes about a year and a half of new tax money that arrived at once. On Nov. 9 the superintendent said he now expects the 2026-27 shortfall to exceed $8 million. The district's preliminary budget had assumed the $3.2 million Foster payment would come from selling a school; the final budget didn't say where it would come from. <button class="src" data-id="S195 S975 S191 S190 S799 S971 S972"></button></p>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="res-table"></div></details>
+  </figure>
+
+  <div class="ask rv"><p>Wow. What happened?</p></div>
+</section>
+
+<!-- ============ SECTION 3 ============ -->
+<section class="part" id="s3" aria-labelledby="s3-h">
+  <div class="part-head rv"><span class="part-num">3 · Budget squeeze</span><h2 id="s3-h">Costs grew faster than the money coming in.</h2></div>
+
+  <p class="p rv">Neighboring districts face the same tax cap. Illinois caps how much more property tax a district can collect each year: inflation or 5%, whichever is lower. <button class="src" data-id="S386 S388 S753"></button></p>
+
+  <p class="p rv">In most years, that's 3% or less. <button class="src" data-id="S953"></button> Meanwhile, nothing caps how fast pay and benefits rise, which is usually 4% to 6% per year. <button class="src" data-id="S407 S954 S955 S956 S957"></button></p>
+
+  <div class="ask rv"><p>OK, what's unique to D65?</p></div>
+
+  <p class="p rv">Several things piled up:</p>
+  <ul class="factors rv">
+    <li><b>Through 2023-24, costs rose faster than most neighbors'.</b> After 2019, D65 added staff, and special education costs rose about 75%. <button class="src" data-id="S582 S603"></button></li>
+    <li><b>Savings shrank, and federal aid ended.</b> Surpluses from a 2017 tax increase were spent down and federal pandemic aid ended in 2024. <button class="src" data-id="S197 S200"></button></li>
+    <li><b>Budgets looked better than they were.</b> A consultant found that budgets presented as balanced in 2022 and 2023 were not. <button class="src" data-id="S196"></button></li>
+    <li><b>Financial controls were weak.</b> A forensic review found loose handling of contracts, approvals and records, especially from 2021 to 2023. Controls were tightened starting in 2023-24. <button class="src" data-id="S011"></button></li>
+    <li><b>A new school was built, paid for out of the everyday budget.</b> Foster's yearly construction payment is about $3.2 million. The district expected bus savings to cover it. A later review found the records didn't support a rise in that estimate. <button class="src" data-id="S201 S210 S011"></button></li>
+  </ul>
+  <p class="p close rv">On top of all that, D65 had less saved to begin with than any of its neighbors.</p>
+
+  <figure class="chart rv" id="f-cush">
+    <h3>D65 kept less cash on hand than most of its neighbors</h3>
+    <p class="sub">Days of cash on hand, 2010 to 2025</p>
+    <div class="cv" id="cv-cush"></div>
+    <ul class="key"><li><i style="background:var(--bar)"></i>180 days or more (the state's top mark)</li><li><i style="background:color-mix(in srgb,var(--neg) 35%,var(--raised))"></i>90 to 179 days</li><li><i style="background:color-mix(in srgb,var(--neg) 70%,var(--raised))"></i>30 to 89 days</li></ul>
+    <p class="note">Days of cash is cash and investments in the main operating funds ÷ average daily spending. Colors are the state's scoring bands; the state publishes only the band for each district, not the exact number. Years are school years ending in that year. D65's auditors put it at 84.8 days in 2023-24 and 99.2 days in 2024-25. <button class="src" data-id="S578 S407 S587 S588"></button></p>
+  </figure>
+
+  <div class="ask rv"><p>Tell me more about increased spending.</p></div>
+</section>
+
+<!-- ============ SECTION 4 ============ -->
+<section class="part" id="s4" aria-labelledby="s4-h">
+  <div class="part-head rv"><span class="part-num">4 · Money out</span><h2 id="s4-h">It's mostly people costs. Paying more to existing staff, and adding staff.</h2></div>
+
+  <p class="p rv">Most school spending pays for people, about three of every four dollars spent. <button class="src" data-id="S146 S870"></button> <span class="c calc">Our calculation</span></p>
+
+  <p class="p rv">D65 isn't alone in facing budget issues. In Illinois, the number of districts spending more than they took in nearly doubled in one recent year, and this past year, more than half of districts expected to run a deficit. <button class="src" data-id="S407 S581"></button></p>
+
+  <figure class="chart rv" id="f-il">
+    <h3>More Illinois districts are running deficits</h3>
+    <p class="sub">School districts with operating deficits, of about 850 statewide</p>
+    <div class="cv" id="cv-il"></div>
+    <details class="fold"><summary>About this chart</summary>
+      <p class="note">2022-23 to 2024-25 are actual results from districts' annual financial reports, as counted in the state's 2026 Financial Profile report. 2025-26 is what districts budgeted, so it's a plan, not a result. The percent jumps are our calculation. <button class="src" data-id="S407 S581"></button></p>
+    </details>
+  </figure>
+
+  <div class="ask rv"><p>How much has D65's spending increased?</p></div>
+
+  <p class="p rv">Between 2019-20 and 2023-24, it rose by about $46 million a year. <button class="src" data-id="S209"></button></p>
+  <div class="grow2 rv" id="f-grow2"><div class="cv" id="cv-grow2"></div></div>
+
+  <div class="ask rv"><p>How much of that is inflation?</p></div>
+
+  <p class="p rv">A lot of it. Prices rose 20% over those four years. <button class="src" data-id="CPI"></button></p>
+  <p class="p rv">But D65's spending grew faster than prices, and faster than most of its neighbors'.</p>
+
+  <figure class="chart rv" id="f-pace">
+    <h3>D65's spending grew faster than prices and the typical neighbor's</h3>
+    <p class="sub">Growth in spending, 2019-20 to 2023-24</p>
+    <div class="cv" id="cv-pace"></div>
+    <details class="fold"><summary>About this chart</summary>
+      <p class="note">Spending is each district's total operating spending as the state reports it. The typical neighbor is the middle (median) of D65's 16 neighbors; D65 was 4th fastest of the 17, and the middle half of the neighbors grew 17% to 26%. Prices: the national consumer price index, averaged over school years. On the district's own, broader count of spending (the figures just above), D65 grew 32%. The window ends at 2023-24, D65's peak; it cut spending the next year, and its shortfall continues. <span class="c calc">Our calculation</span> <button class="src" data-id="S582 CPI S209"></button></p>
+    </details>
+  </figure>
+
+  <p class="p rv">This chart shows where the added dollars went, in the years spending grew fastest.</p>
+
+  <figure class="chart rv" id="f-gr">
+    <h3>Growth in D65's spending, compared with the typical neighbor</h3>
+    <p class="sub" id="gr-sub"></p>
+    <div class="seg" role="group" aria-label="Show growth as"><button type="button" data-v="pct" aria-pressed="true">How fast it grew</button><button type="button" data-v="usd" aria-pressed="false">Dollars added</button></div>
+    <div class="cv" id="cv-gr"></div>
+    <ul class="key" id="k-gr"></ul>
+    <details class="fold"><summary>About this chart</summary>
+      <p class="note"><b>Why the total here differs from the figures above.</b> This chart uses the U.S. Census Bureau's school-finance survey, which sorts every district's spending the same way, so D65 can be set beside its neighbors. It counts day-to-day spending plus tuition paid to other districts, leaves out the state's pension payments for teachers, and starts a year earlier, in 2018-19. On that measure D65 went from $119.1 million to $165.4 million, up 39%; the typical neighbor rose 28%. <button class="src" data-id="S146 S870 S209"></button></p>
+      <p class="note">The blue bar is the middle (median) neighbor's change on each line. Lines are in order of dollars added, and every dollar is in exactly one line. Salaries and benefits are all staff pay: teachers, aides, administrators, support staff, drivers and others. Every other line is spending other than pay. "Contracted aides, specialists and materials" is mostly contract special education staff, which rose from $0.7 million to $3.8 million over 2021 to 2024. "Tuition to other districts" is what D65 pays other public districts and joint programs such as Park School. Lines that start small swing hard in percentage terms, so the "Dollars added" view sizes the bars by dollars instead; its gray tick marks what each line would have added if it had grown only as fast as prices (22%).</p>
+      <p class="note">Special education isn't its own line: its teachers and aides are in salaries and benefits, its busing in bus and taxi companies, its contract staff in contracted aides, and its outside placements in the two tuition lines. So don't add this chart to the special education chart below. *2018-19 estimated: that year D65 didn't report private-school tuition separately, so it is set at the 2019-20 figure ($2.9 million) and taken out of contracted aides. Only 5 of 16 neighbors pay private-school tuition, so that line has no typical figure. Neighbors that buy special education services through a cooperative may show those costs as services rather than salaries, so single lines compare less cleanly than the total. <button class="src" data-id="S146 S870 S271 CPI"></button></p>
+    </details>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="t-gr"></div></details>
+  </figure>
+
+  <div class="ask rv"><p>So most of it went to salaries?</p></div>
+
+  <p class="p rv">Counting benefits, yes: salaries and benefits added about $28.4 million, about 60% of the increase. <button class="src" data-id="S146 S870"></button></p>
+
+  <p class="p rv">Salaries rose for two reasons. The same staff cost more each year. And D65 added staff after 2019, while it was losing students.</p>
+
+  <figure class="chart rv" id="f-staff">
+    <h3>Fewer students. More staff.</h3>
+    <p class="sub" id="staff-sub"></p>
+    <div class="seg" role="group" aria-label="View">
+      <button type="button" aria-pressed="true" data-v="lines">Year by year</button>
+      <button type="button" aria-pressed="false" data-v="bars">Overall change</button>
+    </div>
+    <div class="cv" id="cv-staff"></div>
+    <details class="fold"><summary>About this chart</summary><p class="note" id="staff-note"></p></details>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="staff-table"></div></details>
+  </figure>
+
+  <div class="ask rv"><p>That's confusing. Fewer students, but more staff?</p></div>
+
+  <p class="p rv">The biggest growth was in special education. Special education teachers grew by three-quarters.</p>
+  <p class="p rv">All other teachers went down, by 20%. <button class="src" data-id="S147"></button> <span class="c calc">Our calculation</span></p>
+
+  <div class="ask rv"><p>Why did special education grow so much?</p></div>
+
+  <p class="p rv">More students have a plan for extra help.</p>
+  <p class="p rv">When a student with a disability needs special help to learn, by law, they get a written plan for that help, called an IEP. <button class="src" data-id="S962 S966"></button></p>
+  <p class="p rv">The most common reason is a learning disability, like dyslexia, that makes reading, writing or math hard. Many others are for children who need help with speech, or young children who are behind in talking, moving or getting along with others. Some are for ADHD or autism. <button class="src" data-id="S862 S962"></button></p>
+  <p class="p rv">Once a child has a plan, federal law requires the district to provide the help it calls for. <button class="src" data-id="S974"></button></p>
+
+  <div class="ask rv"><p>Is this a broader trend?</p></div>
+
+  <p class="p rv">Yes, but it's growing faster here.</p>
+  <p class="p rv">For years, about 1 in 8 D65 students had a plan. In 2014-15, that was below most neighbors. <button class="src" data-id="S958 S959"></button></p>
+  <p class="p rv">Now it's about 1 in 5, tied for the highest of 17 districts nearby. <button class="src" data-id="S862"></button></p>
+
+  <figure class="chart rv" id="f-iep">
+    <h3>Since 2021, D65's share has risen faster than the state's or its neighbors'</h3>
+    <p class="sub">Share of students with a special education plan (IEP), 2014-15 to 2025-26</p>
+    <div class="cv" id="cv-iep"></div>
+    <details class="fold"><summary>About this chart</summary>
+      <p class="note">The state's count: students with an IEP on Dec. 1, divided by enrollment on Oct. 1. Students with only a 504 plan aren't counted. The typical neighbor is the middle (median) of D65's 16 neighbors. In 2025-26 Winnetka 36 ties D65 at 19.3%. Statewide and in most neighbors, the share jumps in 2018-19 and 2021-22, then falls back the next year; the state hasn't explained why, so read single-year changes with care. The district's own count this fall, 20.6%, is a different count and isn't shown. <span class="c calc">Our calculation</span> (medians) <button class="src" data-id="S958 S959 S586 S585 S862 S960 S863 S189"></button></p>
+    </details>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="t-iep"></div></details>
+  </figure>
+
+
+  <div class="ask rv"><p>So how much more are we spending on special education?</p></div>
+
+
+  <figure class="chart rv" id="f-sped">
+    <h3>Special education spending rose 75% in four years</h3>
+    <p class="sub">Spending on special education, all funds, by school year</p>
+    <div class="cv" id="cv-sped"></div>
+    <details class="fold"><summary>About this chart</summary>
+      <p class="note">The district's own totals. They overlap the line-by-line chart above: special education's teachers and aides are in its salaries and benefits, its busing is in bus and taxi companies, and its outside placements are in the tuition lines. So the two charts can't be added. <button class="src" data-id="S603"></button></p>
+    </details>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="sped-table"></div></details>
+  </figure>
+
+  <p class="p rv">That growth shows up in two of D65's fastest-rising costs: busing and contracted help. Most of D65's busing costs are for special education, and most of its contracted help is special education staff. <button class="src" data-id="S868 S271"></button></p>
+  <p class="p rv">An outside review and the district point to several causes:</p>
+  <ul class="factors rv">
+    <li>More students placed in outside schools, at higher tuition.</li>
+    <li>Costlier special education busing, much of it through one taxi-and-van broker hired during a driver shortage.</li>
+    <li>Contract aides, who generally cost more than employees.</li>
+    <li>No in-district option for some students who need a separate classroom. <button class="src" data-id="S271 S604 S011"></button></li>
+  </ul>
+
+  <div class="ask rv"><p>I've heard about busing costs. What's that all about?</p></div>
+
+  <p class="p rv">Before the pandemic, D65 spent about what its neighbors did per student, or a little less. By 2023-24 it spent the most of the 17. <button class="src" data-id="S866 S870"></button></p>
+
+  <figure class="chart rv" id="f-bus9">
+    <h3>Busing spending per student: D65 went from the middle of its neighbors to the top</h3>
+    <p class="sub">Each school year, 2014-15 to 2023-24, D65 against each of its 16 neighbors</p>
+    <ul class="key"><li><i style="background:var(--bus)"></i>D65</li><li><i style="background:var(--down)"></i>Neighbors' median</li><li><i style="background:var(--bar)"></i>Each neighbor</li><li><i class="dash"></i>Median Illinois elementary district</li></ul>
+    <div class="cv" id="cv-bus9"></div>
+    <details class="fold"><summary>About this chart</summary>
+      <p class="note">Census Bureau spending on student transportation, divided by fall enrollment, not adjusted for prices. 2020-21 (shaded) was a year of remote and hybrid school. D65's per-student cost rose 177% from 2018-19, the fastest of the 17; the neighbors' median rose 44%, the median Illinois elementary district's 34%. Part of D65's rise comes from falling enrollment; its total transportation spending rose 124%. Special education cooperatives and joint agreements, including the Evanston 65/202 agreement that runs Park School, report their own transportation separately. <span class="hint">Hover a gray line to see which neighbor it is.</span> <span class="c calc">Our calculation</span> <button class="src" data-id="S866 S870 S868"></button></p>
+    </details>
+  </figure>
+
+  <p class="p rv">Special education drives the difference: it was 71% of D65's busing costs in 2024-25. D65's regular busing costs are in line with what neighbors spend per student. <button class="src" data-id="S868"></button></p>
+  <p class="p rv">D65's claimed busing costs fell 18% in 2024-25. <button class="src" data-id="S868"></button></p>
+
+  <div class="ask rv"><p>You mentioned there are fewer students in D65. What's the story there?</p></div>
+</section>
+
+<!-- ============ SECTION 5: ENROLLMENT ============ -->
+<section class="part" id="s5" aria-labelledby="s5-h">
+  <div class="part-head rv"><span class="part-num">5 · Declining enrollment</span><h2 id="s5-h">D65 has lost a quarter of its students since 2016. No neighbor has lost more than 13%.</h2></div>
+
+  <figure class="chart rv" id="f-nbr">
+    <h3>K-8 enrollment since 2016, D65 and its 16 neighbors</h3>
+    <p class="sub">Students in kindergarten through 8th grade each fall, as a share of each district's 2016 enrollment. <span class="hint">Hover over a line to pick out a neighbor.</span></p>
+    <ul class="key"><li><i style="background:var(--bus)"></i>District 65</li><li><i style="background:none;border-top:2px dashed var(--ink);height:0;width:16px"></i>Median of 16 neighbors</li><li><i style="background:var(--bar);height:2px"></i>Each neighbor</li></ul>
+    <div class="cv" id="cv-nbr"></div>
+    <p class="note">Federal counts on Oct. 1, kindergarten through 8th grade; preschool is left out because districts started preschool programs at different times. The 2025-26 figures are estimated from each district's change in the state's count. The district's own count for fall 2026, 5,406, leaves out a few small programs, so it isn't shown here. Our calculation. <button class="src" data-id="S921 S650 S862 S973"></button></p>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="nbr-table"></div></details>
+  </figure>
+
+  <p class="p rv">This fall, by the district's own count, D65 had 5,406 students in kindergarten through 8th grade, 4% fewer than a year before. It projects about 4,900 by 2031-32. <button class="src" data-id="S973"></button> <span class="c est">District estimate</span></p>
+
+  <div class="ask rv"><p>Why? Where did all those kids go?</p></div>
+
+  <p class="p rv">Two things happened at once.</p>
+
+  <p class="p rv"><b>First, fewer babies were born here.</b> Births to D65 families fell 31% over a decade. <button class="src" data-id="S500"></button> And the number of young children living here fell faster than in any neighboring district. <button class="src" data-id="S926 S927"></button></p>
+
+  <figure class="chart rv" id="f-kids">
+    <h3>District 65 lost young children faster than any of its 16 neighbors</h3>
+    <p class="sub">Change in children under 5 living in each district (2010 to 2020 census), and in K-8 students (fall 2016 to fall 2025)</p>
+    <ul class="key"><li><i style="background:var(--down)"></i>Children under 5</li><li><i style="background:var(--bar)"></i>K-8 students</li></ul>
+    <div class="cv" id="cv-kids"></div>
+    <p class="note">Children counted where they live on census day, in each district's boundaries; births aren't published by district, so this is the fair way to compare all 17. The 2025-26 student counts are estimated from the state's count. Our calculation. <button class="src" data-id="S926 S927 S500 S921 S862"></button></p>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="kids-table"></div></details>
+  </figure>
+
+  <p class="p rv"><b>Second, fewer of the children who live here go to D65.</b> From 2020 to 2024, the number of school-age children living in the district fell about 5%. D65's enrollment fell about 20%, from 2019-20 to 2024-25. <button class="src" data-id="S927 S928 S921"></button> <span class="c calc">Our calculation</span></p>
+
+  <div class="ask rv"><p>Has this happened before?</p></div>
+
+  <p class="p rv">Yes, in the 1970s. But then, enrollment fell because there were fewer children. This time, it's falling much faster than the number of children.</p>
+
+  <figure class="chart rv" id="f-e19">
+    <h3>In the 1970s, enrollment fell along with the number of children. Since 2020, it has fallen faster.</h3>
+    <p class="sub">Children aged 5 to 13 living in the district, and D65's students in kindergarten through 8th grade</p>
+    <ul class="key"><li><i style="background:var(--down)"></i>Children aged 5–13 living in the district</li><li><i style="background:var(--bus)"></i>K-8 students</li></ul>
+    <div class="cv" id="cv-e19"></div>
+    <p class="note">Children: census counts every 10 years; open dots are estimates (the Skokie part before 2000, and the Census Bureau's yearly estimates since 2020). Students: school sums and news counts before 1980, none found for 1980–85, federal counts since 1986, and an estimate for 2025-26. <button class="src" data-id="S922 S927 S928 S234 S239 S921"></button></p>
+  </figure>
+
+  <p class="p rv">We found no count of where those children go to school. Some go to private schools, and a few are homeschooled. <button class="src" data-id="S163 S156"></button></p>
+
+  <p class="p rv">The losses sped up in fall 2020, when D65 stayed fully remote longer than several neighbors. Kindergarten fell 17% that fall, twice the state's drop. No one knows how many families left because of it. The biggest one-year drop came the next fall, in 2021. <button class="src" data-id="S541 S544 S556 S573 S921"></button></p>
+
+  <p class="p rv">Losing students doesn't reduce D65's income. Its costs don't go down unless it cuts them. <button class="src" data-id="S386 S190"></button></p>
+
+
+  <p class="big rv">D65's elementary schools are now about two-thirds full.</p>
+  <p class="p rv">Every one of those buildings still needs a principal, office staff, custodians, heat and repairs, full or not. <button class="src" data-id="S446 S161"></button></p>
+
+  <div class="ask rv"><p>How full is a school supposed to be?</p></div>
+  <p class="p rv">Illinois has no rule. D65's own 2022 building plan aimed for 85%, and some other districts aim for 80% to 100%. <button class="src" data-id="S936 S934 S939 S940 S938"></button></p>
+
+  <figure class="chart rv" id="f-fill">
+    <h3>D65's schools are well short of its own 85% goal</h3>
+    <p class="sub">Share of elementary-school seats filled, kindergarten to 5th grade, fall 2026</p>
+    <div class="cv" id="cv-fill"></div>
+    <details class="fold"><summary>About this chart</summary>
+      <p class="note">D65's figure is the district's, on its current way of counting seats: for each school, the lower of a square-foot count and the teachers' contract class sizes (23 in kindergarten to 2nd grade, 25 in 3rd to 5th). Other district documents give 58% to 66%, depending on the year, the buildings counted and the method. The 85% goal is from the 2022 building study for D65's master facility plan. The 80% to 100% band is the range planners in other districts use; no national standard exists. After the proposed closures, the district estimates its elementary schools would be 73.5% full, on its Nov. 6 boundaries. <button class="src" data-id="S189 S446 S950 S951 S934 S939 S940 S938 S972"></button></p>
+    </details>
+  </figure>
+
+  <div class="ask rv"><p>Is that why they want to close schools?</p></div>
+</section>
+
+<!-- ============ SECTION 6: THE PLAN AND CLOSURES ============ -->
+<section class="part" id="s6" aria-labelledby="s6-h">
+  <div class="part-head rv"><span class="part-num">6 · School closures</span><h2 id="s6-h">Closures save a small share of the money, but draw the most debate.</h2></div>
+
+  <p class="p rv">The district gives three reasons for closing schools: empty space, the teaching jobs closures would let it cut, and the cost of keeping up older buildings. <button class="src" data-id="S165 S972"></button></p>
+
+  <figure class="chart rv" id="f-cutbars">
+    <h3>D65 has been cutting for three years. The next cut is the biggest.</h3>
+    <p class="sub">Yearly cuts in spending, by the district's count, and the round now proposed, by kind</p>
+    <div class="cv" id="cv-cutbars"></div>
+    <details class="fold"><summary>About this chart</summary>
+      <p class="note">Each bar is one round of cuts, in dollars a year, by the year it took effect. 2024 and 2025 are the district's totals for its first two rounds. 2026 is the district's estimate for this school year, including closing Bessie Rhodes and Kingsley. The proposed bar is the round planned for 2027-28 and 2028-29, in the district's Nov. 9 revision. Counting $0.6 million in new revenue and $5.5 million a year in new spending on buildings and on teaching and learning, the net saving is $14.7 million. The first three rounds cut more than 170 full-time jobs, including open jobs left unfilled, central-office jobs, some teaching jobs and staff at the two schools that closed. They also bought fewer services. We found no cuts to pay rates. Closing Dewey and Lincolnwood is $2.3 million a year before added busing. The district counts about $0.3 million of added busing in the busing line, and its option summary puts the closures' net saving at about $2.1 million. The closures would also make about $1 million a year of teaching-job cuts possible, counted under "Jobs and benefits." "Ending Head Start" is the district's local share of Head Start, now planned for 2028-29. The job count is our sum of the district's figures. <button class="src" data-id="S004 S161 S195 S166 S167 S189 S165 S754 S753 S972 S971"></button> <span class="c est">District estimate</span></p>
+    </details>
+  </figure>
+  <p class="p rv">Since 2024, the district has cut about $26 million a year and more than 170 jobs. It now plans about $19.5 million more, mostly jobs. <button class="src" data-id="S189 S972"></button> <span class="c est">District estimate</span></p>
+
+  <div class="ask rv"><p>How much does closing a school save?</p></div>
+  <p class="p rv">About $2.1 million a year for the two, after added busing. That's real money, but about a tenth of the proposed cuts. The district says closing them would also let it cut about $1 million a year in teaching jobs. <button class="src" data-id="S972 S971"></button> <span class="c est">District estimate</span></p>
+
+  <div class="ask rv"><p>Why these two schools?</p></div>
+  <p class="p rv">The district says the middle-school areas they're in, Haven and Nichols, have each lost about a third of their students in ten years. Nearby schools have room for the rest. <button class="src" data-id="S165"></button></p>
+  <p class="p rv">Even after the closures, the remaining schools would be about three-quarters full, short of the district's 85% goal. <button class="src" data-id="S972 S934"></button> <span class="c est">District estimate</span></p>
+
+  <div class="ask rv"><p>What do people who oppose the closures say?</p></div>
+  <p class="p rv">Some question the savings. The district's estimate fell from $2.9 million to about $2.1 million in a month, and it plans to keep both buildings. <button class="src" data-id="S165 S972 S799"></button></p>
+  <p class="p rv">Others point to the disruption for students, including former Kingsley families who would switch schools again. <button class="src" data-id="S084"></button></p>
+
+  <div class="ask rv"><p>Wait, didn't the district just open a new school?</p></div>
+  <p class="p rv">It did. Foster opened in the Fifth Ward this August. It wasn't built for space: D65's schools already had empty seats when the board approved it in 2022. <button class="src" data-id="S108 S934"></button></p>
+  <p class="p rv">To understand why it was built, you need the history behind it.</p>
+</section>
+
+<!-- ============ SECTION 7: HISTORY ============ -->
+<section class="part" id="s7" aria-labelledby="s7-h">
+  <div class="part-head rv"><span class="part-num">7 · Foster School</span><h2 id="s7-h">Foster was built to right a decades-old wrong.</h2></div>
+
+  <p class="p rv">In 1967, to integrate its schools, the district stopped running a neighborhood school in the Fifth Ward, a mostly Black neighborhood. Instead, for decades, the ward's children were bused across town. <button class="src" data-id="S234 S239 S223"></button></p>
+
+  <figure class="chart rv" id="f-when">
+    <h3>Foster School across six decades</h3>
+    <ol class="when">
+      <li><b>1967</b>The district desegregates. The Fifth Ward's Foster School stops serving its neighborhood, and its children are bused elsewhere.</li>
+      <li><b>1979</b>The board closes Foster. The building is later sold.</li>
+      <li><b>2012</b>Voters turn down a bond referendum that included a new Fifth Ward school.</li>
+      <li><b>2022</b>The board votes 7-0 to build a new Fifth Ward school, without a referendum.</li>
+      <li class="now"><b>2026</b>Foster opens, as two more closures are proposed.</li>
+    </ol>
+    <p class="note">Dates for the 1960s vary by source. <button class="src" data-id="S234 S239 S246 S141 S108"></button></p>
+  </figure>
+
+  <div class="ask rv"><p>How is the district paying for Foster?</p></div>
+  <p class="p rv">Out of its everyday budget: about $3.2 million a year, through 2042. <button class="src" data-id="S193 S799"></button></p>
+  <p class="p rv">The board approved it expecting bus savings to cover that payment. The estimate peaked the night of the vote, then fell. <button class="src" data-id="S218 S140 S011 S221"></button></p>
+
+  <figure class="chart rv" id="f-foster">
+    <h3>The bus savings estimate rose before the vote, then fell</h3>
+    <p class="sub">Yearly busing savings expected from the new school, by date of the estimate, against its yearly payment</p>
+    <div class="cv" id="cv-foster"></div>
+    <p class="note">A forensic review found the records it was given did not support the rise to $3 million, and drew no conclusion about intent. The totals presented in July 2021 and March 2022 were $2.3 million and $3.25 million, including savings other than busing. <button class="src" data-id="S011 S218 S140 S221 S193"></button></p>
+  </figure>
+  <p class="p rv">The review drew no conclusion about why. <button class="src" data-id="S011"></button></p>
+
+  <p class="big rv">Two things are true: Foster gave the Fifth Ward its neighborhood school back, and it adds to the current squeeze.</p>
+  <p class="p rv">Some families facing closures are frustrated the district gave one neighborhood its school back, then asked them to give up their own.</p>
+
+  <div class="ask rv"><p>Are there other reasons people are upset with the district?</p></div>
+</section>
+
+<!-- ============ SECTION 8: TRUST ============ -->
+<section class="part" id="s8" aria-labelledby="s8-h">
+  <div class="part-head rv"><span class="part-num">8 · Leadership and trust</span><h2 id="s8-h">Many don't trust D65 leadership, or its numbers.</h2></div>
+
+  <p class="p rv">Trust has worn down for two reasons.</p>
+
+  <p class="p rv"><b>First, the people in charge keep changing.</b> D65 has had five different superintendents or interim teams since 2019. <button class="src" data-id="S290 S292 S296 S299 S331 S015 S359"></button></p>
+
+  <figure class="chart rv" id="f-lead">
+    <h3>Five sets of leaders since 2019</h3>
+    <p class="sub">Who ran District 65, 2019 to 2026</p>
+    <div class="lead" role="img" aria-label="Timeline: Goren until July 2019; co-interims Wennstrom and Ehrhardt, August 2019 to June 2020; Horton, June 2020 to June 2023; Turner, interim from July 2023, superintendent from March 2024 to June 2026; Witherspoon, interim since June 2026.">
+      <div class="row"><span>Paul Goren <small>(from 2014)</small></span><span class="trk"><i class="bar" style="--a:0;--w:6.25"></i></span></div>
+      <div class="row"><span>Wennstrom and Ehrhardt</span><span class="trk"><i class="bar int" style="--a:7.9;--w:10.85"></i></span></div>
+      <div class="row"><span>Devon Horton</span><span class="trk"><i class="bar" style="--a:18.25;--w:38"></i><i class="ev" style="--a:84.6" title="Indicted, Oct. 2025"></i><i class="ev" style="--a:96.9" title="Pleaded guilty, Oct. 2026"></i></span></div>
+      <div class="row"><span>Angel Turner</span><span class="trk"><i class="bar int" style="--a:56.25;--w:8.9"></i><i class="bar" style="--a:65.15;--w:28.6"></i></span></div>
+      <div class="row"><span>Eric Witherspoon</span><span class="trk"><i class="bar int" style="--a:93.75;--w:4.6"></i></span></div>
+      <div class="row axis"><span></span><span class="trk"><b style="--a:0">2019</b><b style="--a:25">2021</b><b style="--a:50">2023</b><b style="--a:75">2025</b><b style="--a:100">2027</b></span></div>
+    </div>
+    <ul class="key"><li><i class="sw"></i>Superintendent</li><li><i class="sw int"></i>Interim</li><li><i class="sw ev"></i>Horton indicted (Oct. 2025), pleaded guilty (Oct. 2026)</li></ul>
+    <p class="note">Spans run from start date to end date. Turner was interim from July 2023 and superintendent from March 2024 to June 2026. Assistant Superintendent Stacy Beardsley filled in briefly in summer 2019 and is not shown. <button class="src" data-id="S290 S292 S296 S299 S331 S015 S359 S049 S021"></button></p>
+  </figure>
+
+  <p class="p rv">One of them, Devon Horton, pleaded guilty in October to federal wire fraud, embezzlement and tax evasion charges, and admitted taking kickbacks from district vendors. <button class="src" data-id="S049 S021"></button></p>
+  <p class="p rv">The forfeiture amounts in his plea agreement total about $314,000. That is small next to deficits of millions of dollars a year. But it hurt the district as an institution. <button class="src" data-id="S011"></button> <span class="c calc">Our calculation</span></p>
+
+  <p class="p rv"><b>Second, the numbers keep changing.</b> Some changes were mistakes. Others were routine updates, or the same thing counted different ways. That makes it hard to know which number to trust. <button class="src" data-id="S750 S799 S192 S191"></button></p>
+
+  <figure class="chart rv" id="f-moved">
+    <h3>Two examples of numbers that didn't hold</h3>
+    <div class="ex2">
+      <div class="ex">
+        <span class="exk">This fall</span>
+        <b>A forecast, corrected twice</b>
+        <span class="exfig">$17M <i>→</i> $27.35M</span>
+        <p>Two parents found building costs counted twice in the plan's five-year forecast. The district put the error at $17 million, then days later at $27.35 million.</p>
+        <p>A $3.2 million yearly Foster lease payment had also been left out. The first error made the outlook look worse; the second, better.</p>
+      </div>
+      <div class="ex">
+        <span class="exk">2022-23</span>
+        <b>A balanced budget that wasn't</b>
+        <span class="exfig">+$76,738 <i>→</i> −$7.9M</span>
+        <p>The budget showed a small surplus. The year ended $7.9 million short.</p>
+        <p>A consultant later wrote that this budget, presented as balanced, understated expenses by about $7.6 million.</p>
+      </div>
+    </div>
+    <p class="note">The district presented an updated forecast on Nov. 9, with both corrections and other changes to the plan. In it, reserves peak in 2028-29 at 25.2% of a year's spending, about 92 days. That is about $660,000 more than the original forecast showed for that year. Neither correction changes how much money the district has. The 2022-23 result is the district's own count. <button class="src" data-id="S972 S750 S799 S196 S195"></button></p>
+  </figure>
+
+</section>
+
+<!-- ============ SECTION 9: WHAT'S NEXT ============ -->
+<section class="part" id="s9" aria-labelledby="s9-h">
+  <div class="part-head rv"><span class="part-num">9 · What's next?</span><h2 id="s9-h">What's next?</h2></div>
+  <p class="p rv">The board is expected to vote on the plan on Nov. 16. More decisions are coming on cuts, closures and new school boundaries. <button class="src" data-id="S971 S165 S757"></button></p>
+  <p class="p rv">This guide will keep up. When something big happens in the district, we'll explain what it means, in plain terms, with the evidence behind it.</p>
+  <p class="p rv"><a class="btn out" href="#latest">What's the latest? <span aria-hidden="true">→</span></a></p>
+</section>
+
+<section class="part" id="latest" aria-labelledby="latest-h">
+  <div class="part-head rv"><span class="part-num">The latest</span><h2 id="latest-h">What's changed since this was written</h2></div>
+  <p class="latest rv"><b>Nov. 9, 2026</b>The board discussed the plan but did not vote. A vote is expected Nov. 16. At some board members' request, the district modeled closing King Arts instead, and said it is keeping its recommendation to close Dewey and Lincolnwood. The board also approved, 7-0, an agreement that keeps school-age child care. <button class="src" data-id="S971 S972"></button></p>
+</section>
+
+<nav class="endnav" aria-label="Keep going">
+  <a class="btn yel" href="index.html#home"><span aria-hidden="true">←</span> Main page</a>
+  <a class="btn out" href="index.html#charts">Show me some charts</a>
+</nav>
+
+</main>
+
+<div class="srcpanel" id="srcpanel" role="dialog" aria-label="Sources" aria-hidden="true"><div class="in"><div class="hd"><span id="srchd">Sources</span><button type="button" id="srcclose">Close</button></div><ul id="srclist"></ul></div></div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+const SRC={
+ S971:["Video captions, Committee of the Whole, Nov. 9, 2026 (YouTube)","District 65","Nov. 9, 2026","https://www.youtube.com/watch?v=xaG2Iv5dVrk","Discussion only; no vote on the plan"],
+ S972:["Financial Sustainability Presentation, Board Committee (slides)","District 65","Nov. 9, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14665119","Revised plan totals, closure savings, corrected forecast"],
+ S973:["FY27 Enrollment Projections Memo","District 65","Nov. 9, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14654621","Fall 2026 count and projections"],
+ S975:["FY25 Annual Financial Audit, Community Consolidated School District 65","District 65 (FOIA Gras doc 21786)","Year ended June 30, 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6407273","Operating funds, modified cash basis: revenues minus spending +$873,905; after transfers and other financing, −$1,231,283"],
+ S974:["34 CFR 300.323, When IEPs must be in effect","U.S. Department of Education (eCFR)","accessed Nov. 10, 2026","https://www.ecfr.gov/current/title-34/part-300/section-300.323","Services must be made available in accordance with the child's IEP (300.323(c)(2))"],
+ S223:["Resolution Adopting Revised Plans and Budget for the Construction of a School in the Fifth Ward (signed)","District 65 Board of Education","Jan. 22, 2024","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406618","Fifth Ward students \"experienced a disproportionate burden including the loss of a neighborhood school, increased busing…\" (FOIA Gras doc 1054)"],
+ S584:["FY2027 Evidence-Based Funding full calculation (Base Calc tab: adequacy target, resources, percent of adequacy, tier)","Illinois State Board of Education","Aug. 2026","https://www.isbe.net/Documents/FY27-EBF-Full-Calc.xlsx","D65: target $16,723 per student; resources $23,310; 139.4% of adequacy; Tier 4. Statewide rank among 367 elementary districts is our calculation."],
+ S950:["Video transcript, Committee of the Whole, Nov. 3, 2025 (capacity discussion)","District 65 (FOIA Gras transcript)","Nov. 3, 2025","https://www.youtube.com/watch?v=5oZMAcl7z_A","Every school now uses the lower of the square-foot and class-size capacities"],
+ S951:["Lincoln Committee Recommendations (enrollment capacity)","District 65","April 27, 2015","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6401855","Contract class-size guidelines: 23 in K-2, 25 in grades 3-5 (FOIA Gras doc 7787)"],
+ S958:["Report Card data files rc15, rc16, rc17 (2014-15 to 2016-17)", "Illinois State Board of Education", "2015–2017", "https://www.isbe.net/Documents/rc15.zip", "% of students with IEPs, district and state"],
+ S959:["Report Card Public Data Sets, 2018 to 2024", "Illinois State Board of Education", "2018–2024", "https://www.isbe.net/Pages/Illinois-State-Report-Card-Data.aspx", "% IEP by district; disability mix from 2021"],
+ S960:["15-Year Trend Report 2026 (rc-trend-data.xlsx)", "Illinois State Board of Education", "Oct. 29, 2026", "https://www.isbe.net/Documents/rc-trend-data.xlsx", "Statewide % IEP 2012–2026; disability mix 2017–2026"],
+ S961:["Digest of Education Statistics 2023, Table 204.30", "National Center for Education Statistics", "2023", "https://nces.ed.gov/programs/digest/d23/tables/dt23_204.30.asp", "Students served under IDEA, ages 3–21: 13.0% (2014-15) to 15.2% (2022-23) of public school enrollment"],
+ S962:["34 CFR 300.8, Child with a disability", "U.S. Department of Education (eCFR)", "as amended 2017", "https://www.ecfr.gov/current/title-34/part-300/section-300.8", "Federal definitions of each disability category"],
+ S963:["Disability Areas (special education)", "Illinois State Board of Education", "accessed Nov. 9, 2026", "https://www.isbe.net/Pages/Special-Education-Disability-Areas.aspx", "Developmental delay, ages 3 through 9"],
+ S966:["23 Ill. Adm. Code 226, Special Education", "Illinois State Board of Education", "May 2025", "https://www.isbe.net/Documents/226ARK.pdf", "Illinois adopts the federal categories; autism includes the whole spectrum; \"emotional disability\""],
+ S967:["IDEA Grant Coordinators, by RCDT code", "Illinois State Board of Education", "Sept. 2, 2025", "https://www.isbe.net/Documents/IDEA-Grant-Coordinator-RCDT-Code.pdf", "Which districts share services through a cooperative or joint agreement"],
+ S968:["Analysis: 2024 IDEA Data Shows Increase in Students Served", "Council for Exceptional Children, Policy Insider", "Feb. 27, 2026", "https://exceptionalchildren.org/blog/analysis-2024-idea-data-shows-increase-students-served", "8,194,424 students ages 3–21 in 2024"],
+ S969:["These 3 charts show how special education enrollment keeps growing (Kara Arundel)", "K-12 Dive", "Feb. 24, 2026", "https://www.k12dive.com/news/these-3-charts-show-how-special-education-enrollment-keeps-growing-IDEA-autism/812897/", "About 8.2 million; experts' explanations"],
+ S611:["School Districts' Special Education Expenditures and Receipts Report, 2026 (FY2025 data)", "Illinois State Board of Education", "May 1, 2026", "https://www.isbe.net/Documents/Special-Education-Expenditure-Receipts-Report-2026.pdf", "D65 FY2025: gross $48,596,655, child count 1,243, net $23,259,711 ($18,713 per child); statewide net $10,223"],
+ S612:["School Districts' Special Education Expenditures and Receipts Report, 2025 (FY2024 data)", "Illinois State Board of Education", "2025", "https://www.isbe.net/Documents/Special-Education-Expenditure-Receipts-Report-2025.pdf", "Used for Winnetka 36, which filed no FY2025 report"],
+ S863:["Report Card glossary, 2026", "Illinois State Board of Education", "2026", "https://www.isbe.net/Documents/2026-RC-Glossary.pdf", "% IEP: students with IEPs on Dec. 1 over Oct. 1 enrollment; 504-only students not counted"],
+ S868:["Pupil Transportation Claim Details, D65 and 16 neighbors, 2014-15 to 2024-25","Illinois State Board of Education","2016–2026","https://apps.isbe.net/ptcrsinquiry/inquiry.aspx","D65 2024-25: $9.51M claimed, 71% special education; 2023-24: $11.65M"],
+ S581:["Results of Operations, 2026 budget data","Illinois State Board of Education","2026","https://www.isbe.net/Documents/Budgets-Deficit-Spending.pdf","437 districts budgeted deficits for 2025-26"],
+ S580:["Results of Operations, 2025 annual financial report data","Illinois State Board of Education","2026","https://www.isbe.net/Documents/AFR-Deficit-Spending.pdf","Six of D65's 16 neighbors ran operating deficits in 2024-25 (state's four-fund measure)"],
+ S589:["Report on Skokie 73½ staff cuts","The Record North Shore","Feb. 13, 2026","https://www.therecordnorthshore.org/2026/02/13/facing-financial-stresses-skokies-district-73-5-moves-to-lay-off-staff-halt-improvement-plans/"],
+ S591:["Report on Oak Park 97 teaching-job cuts","Wednesday Journal","Mar. 17, 2026","https://www.oakpark.com/2026/03/17/d97-considers-cuts-teaching-staff/"],
+ CPI:["Consumer Price Index for All Urban Consumers, not seasonally adjusted (CPIAUCNS), school-year averages","FRED, Federal Reserve Bank of St. Louis","retrieved Oct. 30, 2026","https://fred.stlouisfed.org/series/CPIAUCNS","Prices +20%, 2019-20 to 2023-24; +22%, 2018-19 to 2023-24"],
+ S209:["District spending, all funds except big building projects, FY2020 to FY2024","District 65","","","$142,755,000 (2019-20) to $188,380,000 (2023-24): +$45.6 million, +32%."],
+ S146:["Census school finance survey extract for District 65, FY2019 to FY2024","U.S. Census Bureau","","https://www.census.gov/programs-surveys/school-finances/data/tables.html"],
+ S421:["District staff counts by year (as compiled by Larry Gavin)","District 65 via Evanston RoundTable","",""],
+ S484:["Students with disabilities served under IDEA, as a share of public school students","National Center for Education Statistics","","https://nces.ed.gov/programs/coe/indicator/cgg","13% (2012-13), 14% (2019-20), 15% (2022-23)"],
+ S585:["Illinois Report Card data, 2024-25 (D65 and neighbors)","Illinois State Board of Education","2025","https://www.isbe.net/Documents/2025-Report-Card-Public-Data-Set.xlsx","IEP share: D65 18.1%, neighbor median 14.6%"],
+ S586:["Illinois Report Card data, 2019-20","Illinois State Board of Education","2020","https://www.isbe.net/Documents/2020-Report-Card-Public-Data-Set.xlsx"],
+ S604:["Video transcript, Regular Board meeting","District 65","Jan. 26, 2026","https://www.youtube.com/watch?v=bng0ohiKOis","The presenter's explanations: tuition, contract staff and transportation"],
+ S866:["Annual Survey of School System Finances: individual school system data, FY2015–FY2023","U.S. Census Bureau","2017–2025","https://www2.census.gov/programs-surveys/school-finances/tables/"],
+ S004:["Structural Deficit Reduction Plan (district web page)", "District 65", "2024–2026", "https://www.district65.net/about/budget-finance/structural-deficit-reduction-plan", "Phases I to III: Phase I $6.5 million and 39 full-time employees; Phase II total; Phase III closures"],
+ S166:["Minutes, Regular Board of Education Meeting, June 10, 2024", "District 65", "June 10, 2024", "https://meetings.boardbook.org/Public/Minutes/1247?meeting=639198", "5-2 vote to close Bessie Rhodes effective July 1, 2026 (FOIA Gras doc 772)"],
+ S167:["Minutes, Special Board Meeting, Jan. 22, 2026", "District 65", "Jan. 22, 2026", "https://meetings.boardbook.org/Public/Minutes/1247?meeting=727536", "6-0 vote to close Kingsley and reassign its attendance area (FOIA Gras doc 15636)"],
+ S015:["Board minutes naming Angel Turner superintendent", "District 65", "March 18, 2024", "https://meetings.boardbook.org/Public/Minutes/1247?meeting=627189", "Unanimous vote"],
+ S296:["Devon Horton to become District 65 superintendent", "Daily Northwestern", "Dec. 20, 2019", "https://dailynorthwestern.com/2019/12/20/city/devon-horton-to-become-district-65-superintendent/", "Contract approval"],
+ S084:["Coverage of the Oct. 13, 2026 board meeting on the closure plan", "Evanston RoundTable", "Oct. 2026", "https://evanstonroundtable.com/2026/10/13/live-blog-district-65-to-announce-20-million-in-cuts-two-proposed-school-closures/", "Beardsley: some families, including former Kingsley families, would be moved a second time"],
+ S934:["ES Space Utilization & Capacity Study (final)", "Cordogan Clark for District 65", "Feb. 14, 2022", "https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6396162", "Elementary goal 85%; 2021-22: 3,725 K-5 students in 5,180 seats (FOIA Gras doc 2727)"],
+ S936:["23 Ill. Adm. Code 151.50, Priority Ranking of Construction Project Grant Awards", "Illinois Joint Committee on Administrative Rules (ISBE rule)", "amended July 12, 2023", "https://www.ilga.gov/ftp/JCAR/AdminCode/023/023001510A00500R.html", "Grant formula counts 90% of an elementary building's room capacity as usable; not a target"],
+ S938:["Utilization of Public School Facilities", "New Mexico Public School Facilities Authority", "Sept. 12, 2013", "https://www.nmlegis.gov/handouts/PSCO%20091213%20Item%203%20PSFA%20Utilization%20Presentation.pdf", "“Ideal” elementary utilization 95–100%"],
+ S939:["FY2027 Capital Improvements Program, Chapter 3: Facility Planning Objectives", "Montgomery County Public Schools (Md.)", "2025", "https://www.montgomeryschoolsmd.org/siteassets/district/departments/planning/fy2027/cip27_chapter3.pdf", "“Efficient” 80–100% of program capacity"],
+ S940:["Facility Capacity Needs Analysis Subcommittee presentation", "Alexandria City Public Schools and City of Alexandria (Va.)", "Feb. 10, 2014", "https://media.alexandriava.gov/docs-archives/planning/info/lrefp/capacitypresentation2102014.pdf", "Elementary 90–100%, because students don't divide evenly across grades and classes"],
+ S953:["History of CPIs used for the tax cap (PTELL), by levy year","Illinois Department of Revenue (figures as reproduced in Illinois school district levy presentations)","2026","https://tax.illinois.gov/localgovernments/property/cpihistory.html","Levy years 2015–2021: 0.7% to 2.3%; 2022 and 2023: capped at 5% (CPI 7.0%, 6.5%); 2024: 3.4%; 2025: 2.9%; 2026: 2.7% (December 2025 CPI-U)"],
+ S954:["2025 Employer Health Benefits Survey","KFF","Oct. 22, 2025","https://www.kff.org/health-costs/press-release/2025-employer-health-benefits-survey/","Family premiums +6% in 2025, after +7% in each of the two prior years; wages +4%, inflation 2.7%"],
+ S955:["District 300, union OK 3-year teacher contract with 3% raises yearly","Shaw Local (Northwest Herald)","June 8, 2025","https://www.shawlocal.com/northwest-herald/2025/06/08/district-300-union-approve-3-year-teacher-contract-with-3-raises-yearly"],
+ S956:["Contract reached between District 99 and educators","Patch","2025","https://new.patch.com/illinois/downersgrove/contract-reached-between-district-99-educators","4.02% salary increase in the contract's first year"],
+ S760:["20 Reasons this District 65 Closure Plan is a Bad Idea (Tom Hayden)","FOIA Gras","Oct. 25, 2026","https://foiagras.com/p/d65-proposal-half-baked","A resident's analysis"],
+ S957:["District 211 school board approves 5-year teachers contract","Daily Herald","March 22, 2024","https://www.dailyherald.com/?p=1251653","3.25% base increase for teachers on steps; 4% for those past them"],
+ S099:["Guest essay: District 65 has more employees now than in 2018-19 (Larry Gavin)","Evanston RoundTable","Nov. 2, 2025","https://evanstonroundtable.com/2025/11/02/guest-essay-district-65-employees-enrollment/"],
+ S147:["Staffing, enrollment and spending, District 65 and 16 neighbors, 2014-15 to 2024-25 (extract)","Illinois State Board of Education; NCES","2015–2025","https://www.isbe.net/Pages/Illinois-State-Report-Card-Data.aspx"],
+ S189:["Financial Sustainability Presentation, \"A Sustainable Path Forward\"","District 65","Sept. 14, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14421838"],
+ S190:["FY27 Final Budget Memo (Eric Miller)","District 65","Sept. 28, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14472808","Operating revenue $179.9M: property tax $145.7M (81%), state $14.4M (8%), federal $11.1M (6%), other local about $8.7M (5%)."],
+ S011:["Report of Findings: forensic accounting review (Crowe Advisory LLC)","Crowe Advisory LLC for the District 65 board","Oct. 9, 2026","https://www.district65.net/about/budget-finance/forensic-accounting-report"],
+ S196:["Letter, \"Initial Analysis of Fiscal Year 2024 Financial Performance\" (Robert G. Grossi, Illuminate)","District 65 board packet","July 31, 2024","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406574"],
+ S201:["Debt Overview and Funding Options","District 65 (PTMA)","June 2, 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406933"],
+ S210:["Funding for 5th Ward School memo","District 65","Feb. 28, 2022","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6404429"],
+ S191:["FY27 Final Budget Report","District 65","Sept. 28, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14472809"],
+ S193:["Budget Presentation, Fiscal Year Ending June 30, 2025","District 65","Sept. 16, 2024","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406608"],
+ S195:["SDRP Phase II Update & Organizational Restructuring","District 65","May 5, 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406875"],
+ S197:["Signed Resolution Regarding Referendum Revenue","District 65","Apr. 24, 2017","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6402563"],
+ S200:["ESSER Grant Expenditure Update","District 65","Dec. 8, 2022","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6404917"],
+ S271:["Special Education Review, Final Report","WestEd for District 65","Nov. 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6395801"],
+ S386:["35 ILCS 200/18-185, Property Tax Extension Limitation Law","Illinois General Assembly","current","https://www.ilga.gov/Documents/legislation/ilcs/documents/003502000K18-185.htm"],
+ S388:["An Overview of the Property Tax Extension Limitation Law (PIO-62)","Illinois Department of Revenue","","https://tax.illinois.gov/content/dam/soi/en/web/tax/research/publications/documents/pios/pio-62.pdf"],
+ S407:["2026 School District Financial Profile Scores Report","Illinois State Board of Education","Sept. 2026","https://www.isbe.net/Documents/School-District-Financial-Profile-Report.pdf"],
+ S578:["Financial Profile Scores (Adjusted), all years by district","Illinois State Board of Education","2025","https://www.isbe.net/Documents/Profile-Adjusted-by-District.pdf"],
+ S582:["Operating Expense Per Pupil, FY2020–FY2025 files (average daily attendance; operating spending)","Illinois State Board of Education","Oct. 13, 2026","https://www.isbe.net/Pages/Operating-Expense-Per-Pupil.aspx"],
+ S587:["Auditor's estimate of FY2024 Financial Profile score","District 65 auditor","Mar. 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406812"],
+ S588:["Auditor's estimate of FY2025 Financial Profile score","District 65 auditor","2025",""],
+ S603:["Special Education audit presentation (Gini Sulek)","District 65","Jan. 26, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6395976"],
+ S204:["\"Moody's Downgrades District 65\" (quotes Moody's release)","FOIA Gras (Tom Hayden)","Dec. 12, 2024","https://www.foiagras.com/p/moodys-downgrades-district-65"],
+ S751:["\"Base Scenario – No Intervention\" five-year projection (\"August 26 Projections\")","District 65 Data Hub","posted Oct. 2026","https://docs.google.com/document/d/1u0iwTHq4_Tz5txtmY0AfcX0wbDD6vYFxvoikg5IoOIU/edit?usp=sharing"],
+ S161:["SDRP Phase 3 Scenario Presentation","District 65","Sept. 29, 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6407068"],
+ S192:["FY26 Actuals Memo to Board and FY26 Year in Review deck","District 65","Aug. 10, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6407368"],
+ S432:["SDRP Phase 3 Scenario Presentation (Nov. 17, 2025)","District 65","Nov. 17, 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6407116"],
+ S443:["Video transcript, Regular Board of Education Meeting, Oct. 27, 2025","District 65","Oct. 27, 2025","https://www.youtube.com/watch?v=MWZv_GVjGvQ"],
+ S444:["Video transcript, Committee of the Whole, Nov. 3, 2025","District 65","Nov. 3, 2025","https://www.youtube.com/watch?v=5oZMAcl7z_A"],
+ S462:["Board of Education SDRP Phase 3: Part 1 Update (slides)","District 65","June 23, 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406972"],
+ S464:["SDRP Phase 3 Reductions (presentation)","District 65","Apr. 20, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6407288"],
+ S372:["SDRP III Scenario Modeling for Potential School Closure memo","District 65","Dec. 1, 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6407148"],
+ S165:["A Sustainable Path Forward: A Comprehensive Solution to the Structural Deficit","District 65","Oct. 13, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14549463"],
+ S194:["FY24 Final Budget Presentation","District 65","Sept. 11, 2023","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6405416"],
+ S900:["Common Core of Data district enrollment, District 65, 1986–2024","NCES via Urban Institute Education Data Portal","accessed Nov. 7, 2026","https://educationdata.urban.org/"],
+ S921:["Common Core of Data district enrollment by grade, all Illinois districts, 1986–2024","NCES via Urban Institute Education Data Portal","accessed Nov. 7, 2026","https://educationdata.urban.org/"],
+ S650:["2025 Illinois Report Card Public Data Set (school year 2024-25)","Illinois State Board of Education","2025","https://www.isbe.net/Documents/2025-Report-Card-Public-Data-Set.xlsx"],
+ S500:["Evanston/Skokie D65 Geodemographic Study (Charles Kofron), final rev. 3-3-22","District 65 board packet","Feb. 14, 2022","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6396158"],
+ S501:["Total Births by Resident County, 2020–2023","Illinois Dept. of Public Health","n.d.","https://dph.illinois.gov/content/dam/soi/en/web/idph/publications/idph/data-and-statistics/vital-statistics/birth-statistics/births-by-county-2020-2023.pdf"],
+ S502:["Total Births by Resident County, 2010–2019","Illinois Dept. of Public Health","n.d.","https://dph.illinois.gov/content/dam/soi/en/web/idph/files/births-by-county-2010-2019.pdf"],
+ S149:["5-Year Enrollment Projections (2020-21 to 2024-25) memo","District 65","Nov. 18, 2019","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6402435"],
+ S150:["5-Year Enrollment Projections (2021-22 to 2026-27) memo","District 65","Dec. 13, 2021","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6404317"],
+ S163:["5-Year Enrollment & Projections memo","District 65","Nov. 3, 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6407098"],
+ S156:["Updated Demography Study as of December 2024 memo","District 65","Feb. 10, 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6406764"],
+ S927:["2020 Census Demographic and Housing Characteristics File, Illinois, Table P14","U.S. Census Bureau","2023","https://www2.census.gov/programs-surveys/decennial/2020/data/demographic-and-housing-characteristics-file/Illinois/il2020.dhc.zip"],
+ S928:["Small Area Income and Poverty Estimates, school district 1714460","U.S. Census Bureau via Urban Institute","accessed Nov. 8, 2026","https://educationdata.urban.org/"],
+ S541:["5-Year Enrollment Projections 2021-22 to 2025-26 memo","District 65","Dec. 1, 2020","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6395665"],
+ S544:["Park School Program Update","District 65","May 27, 2021","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6403909"],
+ S556:["\"Record Roundup: School in the time of COVID-19\"","The Record (North Shore)","Sept. 30, 2020","https://www.therecordnorthshore.org/2020/09/30/record-roundup-school-in-the-time-of-covid-19/"],
+ S573:["\"Student Enrollment Down Across Illinois, Education Officials Say\"","WTTW","Oct. 29, 2021","https://news.wttw.com/2021/10/29/student-enrollment-down-across-illinois-education-officials-say"],
+ S446:["Video transcript, Committee of the Whole (special), Sept. 14, 2026","District 65","Sept. 14, 2026","https://www.youtube.com/watch?v=Pij1U5CrGFM"],
+ S239:["\"It was a pillar\": Examining legacy of Evanston's former Fifth Ward school","The Evanstonian","Jan. 28, 2022","https://www.evanstonian.net/feature/2022/01/28/it-was-a-pillar-examining-legacy-of-evanstons-former-fifth-ward-school/"],
+ S911:["\"Past school closure debates echo in current District 65 saga at Evanston History Center event\"","The Daily Northwestern","Oct. 24, 2025","https://dailynorthwestern.com/2025/10/24/city/past-school-closure-debates-echo-in-current-district-65-saga-at-evanston-history-center-event/"],
+ S926:["2010 Census Summary File 1, Illinois, Table P14","U.S. Census Bureau","2011","https://www2.census.gov/census_2010/04-Summary_File_1/Illinois/il2010.sf1.zip"],
+ S922:["1970 Census of Population, Vol. 1, Part 15 (Illinois), Table 24","U.S. Census Bureau","1973","https://www2.census.gov/library/publications/decennial/1970/population-volume-1/1970a_il1-02.pdf"],
+ S234:["Evaluation of Integration of Evanston District 65 Schools (enrollment by school)","Educational Testing Service","1971","https://files.eric.ed.gov/fulltext/ED054292.pdf"],
+ S754:["FY28 Proposed Financial Improvement Plan: Data Share","District 65 (Data Hub)","Oct. 7, 2026","https://www.district65.net/fs/resource-manager/view/55bd0183-9274-4e14-94c8-f541c937fcf9"],
+ S008:["School scorecard logic (closure scoring method)","District 65","2025","https://www.district65.net/fs/resource-manager/view/56e90f5a-b137-4373-82c0-1b16a5637fe7"],
+ S440:["FY27 Baseline Scorecard","District 65 (Data Hub)","Oct. 5, 2026","https://www.district65.net/fs/resource-manager/view/b3fed8bf-f0f3-41a7-821e-9af3753c1888"],
+ S756:["FY28 utilization by school, Oct. 23 boundary draft","District 65 (Data Hub)","Oct. 23, 2026","https://www.district65.net/fs/resource-manager/view/e65a7c86-acce-4028-bcba-b62c96e850eb"],
+ S757:["FY28 projected demographics by school, Oct. 23 boundary draft","District 65 (Data Hub)","Oct. 23, 2026","https://www.district65.net/fs/resource-manager/view/c97ee66d-659d-4fcc-bc79-549a8e1503b9"],
+ S771:["Board meeting video captions, Oct. 26, 2026","District 65","Oct. 26, 2026","https://www.youtube.com/watch?v=wEtvtG_NquI"],
+ S049:["Former superintendent Devon Horton pleads guilty to wire fraud, embezzlement and tax evasion","Evanston RoundTable","Oct. 5, 2026","https://evanstonroundtable.com/2026/10/05/former-district-65-superintendent-devon-horton-pleads-guilty-to-wire-fraud-embezzlement-and-tax-evasion/"],
+ S021:["Kickback scheme investigation results in two more guilty pleas","U.S. Attorney, N.D. Illinois","Oct. 13, 2026","https://www.justice.gov/usao-ndil/pr/federal-investigation-kickback-scheme-evanstonskokie-school-district-65-results-two"],
+ S290:["Minutes, Special Board of Education Meeting, June 17, 2019","District 65","June 17, 2019","https://meetings.boardbook.org/Public/Minutes/1247?meeting=201434"],
+ S292:["Minutes, Regular Board Meeting, Aug. 19, 2019","District 65","Aug. 19, 2019","https://meetings.boardbook.org/Public/Minutes/1247?meeting=201538"],
+ S299:["Minutes, Regular Board Meeting, June 8, 2020","District 65","June 8, 2020","https://meetings.boardbook.org/Public/Minutes/1247?meeting=304176"],
+ S331:["Minutes, Special Board Meeting, June 5, 2023","District 65","June 5, 2023","https://meetings.boardbook.org/Public/Minutes/1247?meeting=586766"],
+ S359:["Superintendent Search RFP","District 65","July 2026","https://www.district65.net/fs/resource-manager/view/a8daa688-ff58-4ca9-a33b-50df16de93ce"],
+ S750:["Recent District 65 financial projections overstated spending by millions, CFO says","Evanston RoundTable","Oct. 25, 2026","https://evanstonroundtable.com/2026/10/25/district-65-financial-projections-error/"],
+ S234:["Integration in Evanston, 1967-71: A Longitudinal Evaluation","Educational Testing Service","1971","https://files.eric.ed.gov/fulltext/ED054292.pdf"],
+ S108:["A new chapter: hundreds celebrate Foster School ribbon-cutting, marking historic return to 5th Ward","Daily Northwestern","Aug. 10, 2026","https://dailynorthwestern.com/2026/08/10/top-stories/a-new-chapter-hundreds-celebrate-foster-school-ribbon-cutting-marking-historic-return-to-5th-ward/"],
+ S246:["Referenda results, March 20, 2012 general primary","Illinois State Board of Education","Mar. 21, 2012","https://www.isbe.net/Documents/referenda_primary_2012.pdf"],
+ S141:["Minutes, Regular Board of Education Meeting, March 14, 2022","District 65","Mar. 14, 2022","https://meetings.boardbook.org/Public/Minutes/1247?meeting=520625"],
+ S358:["Community Engagement: Categories and Criteria Board Memo","District 65","Aug. 18, 2025","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6396165"],
+ S218:["Review Debt and Financing Options (Raymond James)","District 65 board packet","July 29, 2021","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6404006"],
+ S140:["Lease Certificate Presentation 3.14.22 (Raymond James)","District 65 board packet","Mar. 14, 2022","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=6404453"],
+ S221:["Minutes, Personnel, Buildings & Grounds, and Finance Committee","District 65","Feb. 12, 2024","https://meetings.boardbook.org/Public/Minutes/1247?meeting=620226"],
+ S005:["Financial Sustainability Plan page","District 65","Oct. 2026","https://www.district65.net/about/budget-finance/financial-sustainability-plan"],
+ S802:["District 65 is Not Close to State Takeover (Tom Hayden)","FOIA Gras","Nov. 5, 2026","https://www.foiagras.com/p/district-65-is-not-close-to-state-takeover"],
+ S753:["Financial Projection Assumptions: five-year planning framework","District 65 Data Hub","Oct. 2026","https://www.district65.net/fs/resource-manager/view/f46b781e-cebd-4512-8e00-b7e0be839e95"],
+ S799:["Capital error put at $27.35 million; Foster lease payments left out; closure savings revised","Evanston RoundTable","Nov. 5, 2026","https://evanstonroundtable.com/2026/11/05/district-65-now-says-financial-projection-off-by-27-35-million-school-closure-savings-less-than-previously-forecasted/"],
+ S862:["2026 Report Card Public Data Set","Illinois State Board of Education","Oct. 2026","https://www.isbe.net/Documents/2026-RC-Public-Data-Set.xlsx","Used for income (\"$ Total Revenue Source\"), enrollment, special education plans and the disability mix"],
+ S870:["Annual Survey of School System Finances, 2024: individual school system data","U.S. Census Bureau","2026","https://www2.census.gov/programs-surveys/school-finances/tables/2024/secondary-education-finance/elsec24.xlsx"],
+ S871:["Public Elementary-Secondary Education Finance Data, 2024: summary tables (Table 11, revenue per pupil)","U.S. Census Bureau","2026","https://www2.census.gov/programs-surveys/school-finances/tables/2024/secondary-education-finance/elsec24_sumtables.xlsx"],
+ S875:["American Community Survey 2020–2024: median real estate taxes and home values (B25103, B25077)","U.S. Census Bureau","2025","https://data.census.gov/table/ACSDT5Y2024.B25103"],
+ S876:["2025 Tax Rate Report","Cook County Clerk","2026",""],
+ S880:["50-State Property Tax Comparison Study, taxes paid in 2025","Lincoln Institute of Land Policy and Minnesota Center for Fiscal Excellence","Apr. 2026","https://www.lincolninst.edu/publications/other/50-state-property-tax-comparison-study-2025/"]
+};
+/* ---------- helpers ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(tag,a,parent,text){const n=document.createElementNS(NS,tag);for(const k in a)n.setAttribute(k,a[k]);if(text!=null)n.textContent=text;if(parent)parent.appendChild(n);return n}
+function svgIn(host,W,H,label){host.innerHTML='';const s=el('svg',{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:'img','aria-label':label});host.appendChild(s);return s}
+const Wof=h=>Math.max(280,Math.round(h.clientWidth));
+const money=v=>'$'+Math.round(v).toLocaleString('en-US');
+const minus=s=>String(s).replace('-','−');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const tip=document.getElementById('tip');
+function showTip(e,html){tip.innerHTML=html;tip.hidden=false;let x,y;if(e.clientX!=null&&(e.type.startsWith('pointer')||(e.type==='click'&&(e.clientX||e.clientY)))){x=e.clientX;y=e.clientY}else{const r=e.currentTarget.getBoundingClientRect();x=r.left+r.width/2;y=r.top}const w=tip.offsetWidth,h=tip.offsetHeight;tip.style.left=Math.max(8,Math.min(innerWidth-w-8,x-w/2))+'px';tip.style.top=Math.max(8,y-h-14)+'px'}
+/* on phones, a swipe over a chart scrolls the page; details show only on a deliberate tap */
+const isTouch=e=>e.pointerType==='touch'||e.pointerType==='pen';
+addEventListener('scroll',()=>{if(!tip.hidden)tip.hidden=true},{passive:true});
+function hot(g,html){g.setAttribute('class','hot');g.setAttribute('tabindex','0');g.addEventListener('pointermove',e=>{if(!isTouch(e))showTip(e,html)});g.addEventListener('click',e=>{showTip(e,html)});g.addEventListener('pointerleave',()=>tip.hidden=true);g.addEventListener('focus',e=>showTip(e,html));g.addEventListener('blur',()=>tip.hidden=true)}
+function rrect(x,y,w,h,r,parent,a){r=Math.max(0,Math.min(r,w/2,h/2));return el('rect',Object.assign({x,y,width:Math.max(w,0.5),height:h,rx:r},a),parent)}
+/* grow animation: bars scale from their baseline the first time a chart is seen */
+const seen=new Set();
+let noAnim=false;
+function animate(svg,key,axis){if(reduce||noAnim||seen.has(key))return;svg.querySelectorAll('.grow').forEach(b=>{b.style.transformBox='fill-box';b.style.transformOrigin=b.dataset.o||(axis==='x'?'left center':'center bottom');b.style.transform=axis==='x'?'scaleX(0)':'scaleY(0)';b.style.transition='none'});requestAnimationFrame(()=>requestAnimationFrame(()=>svg.querySelectorAll('.grow').forEach((b,i)=>{b.style.transition='transform .9s cubic-bezier(.2,.7,.2,1) '+(i*35)+'ms';b.style.transform='none'})));seen.add(key)}
+function wireSeg(fig,fn){const bs=fig.querySelectorAll('.seg button');bs.forEach(b=>b.addEventListener('click',()=>{bs.forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));fn(b.dataset.v)}))}
+function table(id,head,rows,usIdx){document.getElementById(id).innerHTML='<table><thead><tr>'+head.map(h=>`<th>${h}</th>`).join('')+'</tr></thead><tbody>'+rows.map((r,i)=>`<tr${r.us?' class="us"':''}>`+r.cells.map(c=>`<td>${c}</td>`).join('')+'</tr>').join('')+'</tbody></table>'}
+
+
+
+/* ---------- D65 vs. Illinois and U.S. averages, one measure ---------- */
+function drawTyp(){
+  const host=document.getElementById('cv-typ'),W=Wof(host),narrow=W<540;
+  const rows=[{k:'District 65',v:28847,us:1,s:'Census Bureau, 2023-24, without state-paid pensions'},{k:'Illinois average',v:22564,s:'Census Bureau, 2023-24, without state-paid pensions (our calculation)'},{k:'U.S. average',v:21456,s:'Census Bureau, 2023-24, as published'}];
+  const lw=narrow?0:150,vw=narrow?70:84,x0=lw,x1=W-vw,X=v=>x0+v/36000*(x1-x0),bh=narrow?34:40,gap=narrow?40:22,top=6;
+  const rowH=bh+gap,H=top+rows.length*rowH-gap+(narrow?54:38);
+  const svg=svgIn(host,W,H,'Income per student, 2023-24, Census Bureau measure, not counting state-paid teacher pensions: District 65 $28,847; Illinois average $22,564; U.S. average $21,456. About a third more than the U.S. average.');
+  rows.forEach((r,i)=>{const y=top+i*rowH+(narrow?20:0),g=el('g',{},svg);
+    el('text',{x:narrow?0:lw-14,y:narrow?y-7:y+bh/2+6,'text-anchor':narrow?'start':'end',class:r.us?'b':'',style:'font-size:'+(narrow?15:17)+'px'},g,r.k);
+    rrect(X(0),y,X(r.v)-X(0),bh,4,g,{class:'bar grow',fill:r.us?'var(--bus)':'var(--bar)'});
+    el('text',{x:X(r.v)+10,y:y+bh/2+6,class:'b',style:'font-size:'+(narrow?15:18)+'px;font-family:var(--mono);font-stretch:100%;font-weight:500'},g,'$'+Math.round(r.v/100)/10+'K');
+    hot(g,`<b>${r.k}</b>: $${r.v.toLocaleString()} per student<small>${r.s}</small>`)});
+  const xa=X(21456),xb=X(28847),yb=H-8;
+  if(narrow){el('text',{x:0,y:yb,class:'b',style:'font-size:13.5px'},svg,'About a third more than the U.S. average');animate(svg,'typ','x');return}
+  el('line',{x1:xa,x2:xb,y1:yb-18,y2:yb-18,stroke:'var(--ink)','stroke-width':1.5},svg);
+  el('line',{x1:xa,x2:xa,y1:yb-23,y2:yb-13,stroke:'var(--ink)','stroke-width':1.5},svg);el('line',{x1:xb,x2:xb,y1:yb-23,y2:yb-13,stroke:'var(--ink)','stroke-width':1.5},svg);
+  el('text',{x:(xa+xb)/2,y:yb+6,'text-anchor':'middle',class:'b',style:'font-size:13.5px'},svg,'about a third more than the U.S. average');
+  animate(svg,'typ','x');
+}
+
+/* ---------- property tax rate: one measure ---------- */
+function drawTax(){
+  const host=document.getElementById('cv-tax'),W=Wof(host),narrow=W<540;
+  const rows=[{k:'United States',v:.94},{k:'Big-city average',v:1.21,alt:1},{k:'Chicago',v:1.48},{k:'Evanston',v:1.84,us:1}];
+  const lw=narrow?0:150,vw=narrow?62:76,x0=lw,x1=W-vw,X=v=>x0+v/2*(x1-x0),bh=narrow?34:40,gap=narrow?40:22,top=6;
+  const rowH=bh+gap,H=top+rows.length*rowH-gap+(narrow?22:8);
+  const svg=svgIn(host,W,H,'Property tax as a share of home value: United States 0.94%; big-city average 1.21% (Lincoln Institute, 53 cities, 2025); Chicago 1.48%; Evanston 1.84%.');
+  rows.forEach((r,i)=>{const y=top+i*rowH+(narrow?20:0),g=el('g',{},svg);
+    el('text',{x:narrow?0:lw-14,y:narrow?y-7:y+bh/2+6,'text-anchor':narrow?'start':'end',class:r.us?'b':'',style:'font-size:'+(narrow?15:17)+'px'},g,r.k);
+    rrect(X(0),y,X(r.v)-X(0),bh,4,g,{class:'bar grow',fill:r.us?'var(--bus)':'var(--bar)',opacity:r.alt?.55:1});
+    el('text',{x:X(r.v)+10,y:y+bh/2+6,style:'font-size:'+(narrow?15:18)+'px;font-family:var(--mono);font-weight:500'},g,r.v.toFixed(2)+'%');
+    hot(g,`<b>${r.k}</b>: ${r.v.toFixed(2)}% of the home's value a year<small>${r.alt?'Lincoln Institute, 53 big cities, taxes paid in 2025':'Census Bureau survey, 2020–2024'}</small>`)});
+  animate(svg,'tax','x');
+}
+
+/* ---------- 1. money coming in per student, neighbors ---------- */
+const REV=[["Kenilworth 38",41858],["Winnetka 36",37273],["Northbrook/Glenview 30",33347],["Glencoe 35",32794],["District 65",31940],["Lincolnwood 74",31314],["Northbrook 28",30749],["Northbrook 27",30208],["Wilmette 39",27662],["Skokie 68",27656],["Skokie 73½",27196],["Glenview 34",27051],["Skokie 69",26292],["Oak Park 97",24974],["Park Ridge 64",23515],["East Maine 63",21559],["Niles 71",14475]];
+const REFS=[{v:23106,k:'Typical Illinois district $23,106',side:'r'},{v:21859,k:'Typical U.S. district $21,859',side:'l'}];
+function drawRev(){
+  const host=document.getElementById('cv-rev'),W=Wof(host),narrow=W<540,lw=narrow?0:176,vw=72;
+  const min=0,max=44000,x0=lw,x1=W-vw,X=v=>x0+(v-min)/(max-min)*(x1-x0);
+  const bh=narrow?15:19,gap=10,rowH=narrow?bh+gap+18:bh+gap,top=narrow?46:30,bottomPad=26;
+  const H=top+REV.length*rowH+bottomPad;
+  const svg=svgIn(host,W,H,'Money coming in per student, 2024-25. District 65 $31,940, 5th of 17 nearby districts. Typical Illinois district $23,106; typical U.S. district $21,859 (Census measure, 2023-24).');
+  [0,10000,20000,30000,40000].forEach(t=>{el('line',{class:'grid',x1:X(t),x2:X(t),y1:top-6,y2:H-bottomPad+4},svg);el('text',{class:'tick',x:X(t),y:H-4,'text-anchor':'middle'},svg,'$'+t/1000+'K')});
+  REV.forEach((d,i)=>{const y=top+i*rowH+(narrow?18:0),us=d[0]==='District 65',g=el('g',{},svg);
+    el('rect',{x:0,y:y-(narrow?18:gap/2),width:W,height:rowH,fill:'transparent'},g);
+    el('text',{x:narrow?0:lw-12,y:narrow?y-5:y+bh/2+5,'text-anchor':narrow?'start':'end',class:us?'b':'',style:'font-size:'+(narrow?13:14)+'px'},g,d[0]);
+    rrect(X(0),y,X(d[1])-X(0),bh,3,g,{class:'bar grow',fill:us?'var(--bus)':'var(--bar)'});
+    el('text',{x:X(d[1])+8,y:y+bh/2+5,class:'tick'+(us?' b':''),style:us?'fill:var(--ink);font-size:12.5px':'font-size:12px'},g,money(d[1]));
+    hot(g,`<b>${d[0]}</b>: ${money(d[1])} per student<small>${i+1} of 17${d[0]==='Niles 71'?' · income fell by more than half this year, unexplained':''}</small>`)});
+  REFS.forEach((r,i)=>{const xr=X(r.v);el('line',{class:'refl',x1:xr,x2:xr,y1:top-(narrow?8:10),y2:H-bottomPad+4},svg);
+    if(narrow)el('text',{x:xr+4,y:14+i*16,'text-anchor':'start',class:'m',style:'font-size:12px'},svg,r.k);
+    else el('text',{x:r.side==='r'?xr+4:xr-4,y:14,'text-anchor':r.side==='r'?'start':'end',class:'m',style:'font-size:12.5px'},svg,r.k)});
+  animate(svg,'rev','x');
+  table('rev-table',['District','Per student, 2024-25','Rank of 17','Illinois rank of 364'],REV.map((d,i)=>({us:d[0]==='District 65',cells:[d[0],money(d[1]),i+1,[12,21,34,37,42,47,49,53,77,78,86,90,103,131,166,219,351][i]]})).concat([{cells:['Typical Illinois district (elementary)','$23,106','','']},{cells:['Typical U.S. district (elementary, 1,000+ students; Census, 2023-24)','$21,859','','']}]));
+}
+
+/* ---------- 1a. typical-district comparisons table ---------- */
+function drawTypTable(){
+  const H=['Comparison','D65 per student','Typical district','D65 above … of districts','… which teach … of students'];
+  const rows=[
+   ['<b>Illinois elementary districts, 2024-25</b> (state measure; 364)','$31,940','$23,106','88.5%','92.1%'],
+   ['<b>U.S., 2023-24, Census measure, without Illinois pension payments</b>','','','',''],
+   ['Elementary districts, 1,000+ students (494)','$28,847','$21,859','87.4%','91.6%'],
+   ['All elementary districts (2,202)','$28,847','$23,229','69.9%','88.0%'],
+   ['All districts (13,037)','$28,847','$19,830','83.4%','89.5%'],
+   ['<b>U.S., with Illinois pension payments counted</b>','','','',''],
+   ['Elementary districts, 1,000+ students','$35,059','$24,036','94.9%','97.6%'],
+   ['All elementary districts','$35,059','$25,180','78.8%','94.5%'],
+   ['All districts','$35,059','$20,434','90.1%','94.5%'],
+   ['<b>Other U.S. views (all districts)</b>','','','',''],
+   ['Adjusted for local wages','$32,643','$22,978','83.7%','93.1%'],
+   ['Local money only (what residents pay)','$23,071','$7,738','93.0%','95.5%']];
+  document.getElementById('typ-table').innerHTML='<table><thead><tr>'+H.map(h=>`<th>${h}</th>`).join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(c=>`<td>${c}</td>`).join('')+'</tr>').join('')+'</tbody></table><p class="note" style="margin-top:8px">"Typical district" is the median district. Census: total revenue ÷ fall 2023 enrollment. Illinois: total revenue ÷ 2024-25 average daily attendance. Most U.S. states don\'t count state-paid teacher pensions as district income, so the "without" rows are the fairer national comparison. Our calculation.</p>';
+}
+drawTypTable();
+
+/* ---------- 2. surpluses and shortfalls (M3) ---------- */
+const RES=[['2017-18',19.78,'a','Includes about a year and a half of the 2017 tax increase, which arrived at once'],['2018-19',7.64,'a'],['2019-20',6.24,'a'],['2020-21',3.29,'a'],['2021-22',6.10,'a'],['2022-23',-7.92,'a'],['2023-24',-8.53,'a'],['2024-25',0.87,'a','Audited: +$0.9M before money moved between funds; −$1.2M after'],['2025-26',-4.97,'u','Includes $2.3M in one-time Foster payments'],['2026-27',-5.08,'b','Includes a one-time $3.6M Foster payment; left out a $3.2M lease payment, the district later said']];
+const STAT={a:'Final',e:'District estimate',u:'Unaudited',b:'Budget'};
+function drawRes(){
+  const host=document.getElementById('cv-res'),D=RES;
+  const W=Wof(host),narrow=W<560,H=narrow?280:320,m={l:44,r:6,t:16,b:narrow?44:34},min=-10,max=20;
+  const cw=(W-m.l-m.r)/D.length,bw=Math.min(54,cw*.64),Y=v=>m.t+(max-v)/(max-min)*(H-m.t-m.b);
+  const svg=svgIn(host,W,H,'Operating surplus or shortfall, millions of dollars: '+D.map(d=>d[0]+' '+d[1]+' ('+STAT[d[2]]+')').join('; '));
+  const defs=el('defs',{},svg);const pat=el('pattern',{id:'hatch',width:6,height:6,patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'},defs);el('line',{x1:0,y1:0,x2:0,y2:6,stroke:'var(--neg)','stroke-width':3},pat);
+  [-10,-5,0,5,10,15,20].forEach(t=>{el('line',{class:t?'grid':'zero',x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:m.l-8,y:Y(t)+4,'text-anchor':'end'},svg,(t<0?'−$':'$')+Math.abs(t)+'M')});
+  const fi=D.findIndex(d=>d[2]!=='a');el('rect',{x:m.l+fi*cw,y:m.t,width:(D.length-fi)*cw,height:H-m.t-m.b,fill:'var(--card)',opacity:.6},svg);el('text',{x:m.l+(fi+(D.length-fi)/2)*cw,y:Y(0)-8,'text-anchor':'middle',class:'tick'},svg,'Not final');
+  D.forEach((d,i)=>{const x=m.l+i*cw+(cw-bw)/2,neg=d[1]<0,soft=d[2]!=='a',g=el('g',{},svg);
+    el('rect',{x:m.l+i*cw,y:m.t,width:cw,height:H-m.t-m.b,fill:'transparent'},g);
+    const y0=Y(Math.max(0,d[1])),h=Math.max(1.5,Math.abs(Y(d[1])-Y(0)));
+    const b=rrect(x,y0,bw,h,3,g,{class:'bar grow',fill:soft?'url(#hatch)':(neg?'var(--neg)':'color-mix(in srgb,var(--ink) 55%,var(--raised))'),stroke:soft?'var(--neg)':'none','stroke-width':soft?1.2:0});
+    b.dataset.o=neg?'center top':'center bottom';
+    if(!narrow||Math.abs(d[1])>2)el('text',{x:x+bw/2,y:neg?Y(d[1])+15:Y(d[1])-6,'text-anchor':'middle',class:'tick',style:'fill:var(--ink);'+(narrow?'font-family:var(--display);font-stretch:75%;font-weight:600;font-size:11.5px':'font-size:11.5px')},g,(neg?'−':'+')+(narrow?'':'$')+Math.abs(d[1]).toFixed(1));
+    el('text',{x:x+bw/2,y:H-m.b+16,'text-anchor':'middle',class:'tick'},g,narrow?"'"+d[0].slice(5):d[0]);
+    hot(g,`<b>${d[0]}</b>: ${neg?'short':'surplus'} $${Math.abs(d[1]).toFixed(1)} million<small>${STAT[d[2]]}${d[3]?'. '+d[3]:''}</small>`)});
+  animate(svg,'res','y');
+  table('res-table',['School year','Result','Status'],D.map(d=>({cells:[d[0],(d[1]<0?'−':'+')+'$'+Math.abs(d[1]).toFixed(1)+'M',STAT[d[2]]]})));
+}
+
+/* ---------- 3. days of cash, 17 districts, FY2010-FY2025 ---------- */
+const RS_N=['District 65','Glenview 34','Wilmette 39','Oak Park 97','Lincolnwood 74','Kenilworth 38','Skokie 68','Winnetka 36','Glencoe 35','Park Ridge 64','Skokie 73½','East Maine 63','Skokie 69','Northbrook 27','Northbrook 28','Northbrook/Glenview 30','Niles 71'];
+const RS_DC=['2222222233333323','4444444444444444','3344444444444444','3333333233233333','4444444443444444','4444444444444444','4444444444444444','4444444444444344','4444444444444444','4444444444444334','4444444444444444','4444444444444444','3444444444444444','4344444444444433','4444444444333343','4444444444444444','4444444444444444'];
+const DC_LAB=['','under 30 days','30 to 89 days','90 to 179 days','180 days or more'];
+const DC_COL=['','var(--neg)','color-mix(in srgb,var(--neg) 70%,var(--raised))','color-mix(in srgb,var(--neg) 35%,var(--raised))','var(--bar)'];
+function drawCush(){
+  const host=document.getElementById('cv-cush'),W=Wof(host),narrow=W<540,lw=narrow?112:176,yrs=16;
+  const cw=(W-lw-4)/yrs,ch=narrow?17:20,gap=3,top=20,H=top+RS_N.length*(ch+gap)+6;
+  const svg=svgIn(host,W,H,'Days of cash on hand by the state\'s bands, 2010 to 2025. District 65 never reached the top band of 180 days; it was at 30 to 89 days in 2010 to 2017 and 2024, and 90 to 179 days in the other years. Most neighbors were at 180 days or more in most years.');
+  for(let j=0;j<yrs;j++){const yr=2010+j;if(narrow?(j%5===0||j===yrs-1):(j%3===0||j===yrs-1))el('text',{class:'tick',x:lw+j*cw+cw/2,y:12,'text-anchor':'middle'},svg,yr)}
+  RS_N.forEach((n,r)=>{const y=top+r*(ch+gap),us=r===0;
+    if(us)rrect(0,y-2,W,ch+4,4,svg,{fill:'color-mix(in srgb,var(--bus) 14%,transparent)'});
+    el('text',{x:lw-10,y:y+ch/2+5,'text-anchor':'end',class:us?'b':'',style:'font-size:'+(narrow?12:13.5)+'px'},svg,narrow?n.replace('Northbrook/Glenview 30','N.brook/Glenview 30'):n);
+    RS_DC[r].split('').forEach((v,j)=>{const g=el('g',{},svg);rrect(lw+j*cw+1,y,cw-2,ch,2,g,{class:'bar',fill:DC_COL[+v],opacity:us||+v<4?1:.55});
+      hot(g,`<b>${n}, ${2009+j}-${String(10+j).padStart(2,'0')}</b>: ${DC_LAB[+v]}${us&&j===14?'<small>Auditor\'s estimate: 84.8 days</small>':us&&j===15?'<small>Auditor\'s estimate: 99.2 days</small>':''}`)})});
+}
+
+/* ---------- 4. section 4 charts ---------- */
+const M=v=>'$'+(v/1000).toFixed(1)+'M';
+const PC=v=>(v>=0?'+':'−')+Math.abs(v).toFixed(0)+'%';
+/* ---------- M37: Illinois districts with deficits ---------- */
+function drawIL(){
+  const host=document.getElementById('cv-il'),W=Wof(host),narrow=W<520,H=narrow?260:290,m={l:6,r:6,t:80,b:44};
+  const svg=svgIn(host,W,H,'Illinois school districts with operating deficits: 153 in 2022-23, 167 in 2023-24, 301 in 2024-25 (actual), and 437 budgeted for 2025-26');
+  const D=[['2022-23',153,0],['2023-24',167,0],['2024-25',301,0],['2025-26',437,1]],max=470,cw=(W-m.l-m.r)/4,bw=Math.min(84,cw*.58),Y=v=>m.t+(1-v/max)*(H-m.t-m.b);
+  D.forEach(([t,v,b],i)=>{const x=m.l+i*cw+(cw-bw)/2,g=el('g',{},svg);el('rect',{x:m.l+i*cw,y:m.t,width:cw,height:H-m.t-m.b,fill:'transparent'},g);
+    rrect(x+(b?1:0),Y(v)+(b?1:0),bw-(b?2:0),Y(0)-Y(v)-(b?1:0),4,g,{class:'bar grow',fill:b?'none':'var(--neg)',stroke:'var(--neg)','stroke-width':b?2:0,'stroke-dasharray':b?'6 4':''});
+    el('text',{x:x+bw/2,y:Y(v)-9,'text-anchor':'middle',class:'b',style:'font-size:17px;font-family:var(--mono);font-stretch:100%;font-weight:500'},g,v);
+    el('text',{x:x+bw/2,y:H-24,'text-anchor':'middle',class:'b',style:'font-size:14px'},g,t);
+    el('text',{x:x+bw/2,y:H-7,'text-anchor':'middle',class:'tick'},g,b?'budgeted':'actual');
+    hot(g,`<b>${t}</b>: ${v} districts${b?' budgeted a deficit':' ran a deficit'}<small>${b?'A plan, not a result':'From annual financial reports'}</small>`)});
+  el('line',{class:'zero',x1:m.l,x2:W-m.r,y1:Y(0),y2:Y(0)},svg);
+  // jump annotations: an arc from one bar top to the next, with the percent change
+  [[1,2,'+80%','in one year'],[2,3,'+45%','budgeted']].forEach(([a,b,t,s2])=>{
+    const xa=m.l+a*cw+cw/2,xb=m.l+b*cw+cw/2,ya=Y(D[a][1])-30,yb=Y(D[b][1])-30,top=Math.min(ya,yb)-(narrow?22:30),mx=(xa+xb)/2;
+    el('path',{d:`M${xa},${ya} Q${mx},${top-6} ${xb-6},${yb-4}`,fill:'none',stroke:'var(--ink)','stroke-width':1.5,opacity:.8},svg);
+    el('path',{d:`M${xb-6},${yb-4} l-8,-3 M${xb-6},${yb-4} l-4,-7`,fill:'none',stroke:'var(--ink)','stroke-width':1.5,'stroke-linecap':'round',opacity:.8},svg);
+    el('text',{x:mx-(narrow?8:4),y:top-10,'text-anchor':'middle',class:'b',style:'font-size:'+(narrow?14:16)+'px'},svg,t);
+    if(!narrow)el('text',{x:mx-4,y:top+6,'text-anchor':'middle',class:'tick'},svg,s2);
+  });
+  animate(svg,'il','y');
+}
+
+/* ---------- quiet growth bars: 2019-20 and 2023-24 ---------- */
+function drawGrow2(){
+  const host=document.getElementById('cv-grow2'),W=Wof(host),narrow=W<520,lw=narrow?0:78,x0=lw,x1=W-(narrow?92:150),X=v=>x0+v/188.4*(x1-x0),bh=narrow?22:26,gap=narrow?30:14,top=narrow?18:4;
+  const H=top+2*(bh+gap)-gap+4;
+  const svg=svgIn(host,W,H,'D65 spending: $142.8 million in 2019-20 and $188.4 million in 2023-24, about $46 million more');
+  [['2019-20',142.8],['2023-24',188.4]].forEach(([t,v],i)=>{const y=top+i*(bh+gap),g=el('g',{},svg);
+    el('text',{x:narrow?0:lw-12,y:narrow?y-6:y+bh/2+5,'text-anchor':narrow?'start':'end',class:'tick',style:'font-size:12.5px'},g,t);
+    rrect(X(0),y,X(142.8)-X(0),bh,3,g,{class:'bar grow',fill:'var(--bar)'});
+    if(i)rrect(X(142.8)+2,y,X(188.4)-X(142.8)-2,bh,3,g,{class:'bar grow',fill:'var(--bus)'});
+    el('text',{x:X(v)+10,y:y+bh/2+5,style:'font-family:var(--mono);font-stretch:100%;font-size:13.5px;font-weight:500'},g,'$'+v.toFixed(1)+'M');
+    if(i)el('text',{x:(X(142.8)+X(188.4))/2+1,y:y+bh/2+5,'text-anchor':'middle',class:'b',style:'font-size:13.5px;fill:var(--bus-ink)'},g,'+$46M');
+    hot(g,`<b>${t}</b>: $${v.toFixed(1)} million<small>All funds except big building projects${i?' · about $46 million more than 2019-20':''}</small>`)});
+  animate(svg,'grow2','x');
+}
+
+/* ---------- pace: prices, typical neighbor, D65 ---------- */
+function drawPace(){
+  const host=document.getElementById('cv-pace'),W=Wof(host),narrow=W<540;
+  const rows=[{k:'Prices',v:20},{k:'Typical neighbor',v:24},{k:'D65',v:31,us:1}];
+  const lw=narrow?0:150,vw=narrow?56:70,x0=lw,x1=W-vw,X=v=>x0+v/34*(x1-x0),bh=narrow?32:38,gap=narrow?38:18,top=narrow?20:4;
+  const rowH=bh+gap,H=top+rows.length*rowH-gap+6;
+  const svg=svgIn(host,W,H,'Growth in spending, 2019-20 to 2023-24: prices 20%, typical neighbor 24%, D65 31%');
+  rows.forEach((r,i)=>{const y=top+i*rowH,g=el('g',{},svg);
+    el('text',{x:narrow?0:lw-14,y:narrow?y-7:y+bh/2+6,'text-anchor':narrow?'start':'end',class:r.us?'b':'',style:'font-size:'+(narrow?15:17)+'px'},g,r.k);
+    rrect(X(0),y,X(r.v)-X(0),bh,4,g,{class:'bar grow',fill:r.us?'var(--bus)':'var(--bar)'});
+    el('text',{x:X(r.v)+10,y:y+bh/2+6,style:'font-size:'+(narrow?16:18)+'px;font-family:var(--mono);font-stretch:100%;font-weight:500'},g,'+'+r.v+'%');
+    hot(g,`<b>${r.k}</b>: +${r.v}%<small>2019-20 to 2023-24${r.us?' · 4th fastest of 17':''}</small>`)});
+  animate(svg,'pace','x');
+}
+
+/* ---------- M36: growth line by line, against the typical neighbor ---------- */
+const ROWS={sal:{d19:83468,d24:106049,dpct:27.05,dadd:22581,med:23.41,q1:15.02,q3:29.53},np_trans:{d19:4259,d24:10436,dpct:145.03,dadd:6177,med:43.82,q1:23.45,q3:69.41},ben:{d19:13568,d24:19363,dpct:42.71,dadd:5795,med:28.04,q1:21.92,q3:34.92},cls2:{d19:1440,d24:5186,dpct:260.14,dadd:3746,med:19.54,q1:3.44,q3:83.76},np_sup:{d19:1017,d24:3575,dpct:251.52,dadd:2558,med:65.14,q1:26.88,q3:119.91},np_central:{d19:3658,d24:5121,dpct:39.99,dadd:1463,med:25.18,q1:-27.99,q3:122.97},priv:{d19:2883,d24:4229,dpct:46.69,dadd:1346,med:null},odist:{d19:2800,d24:4027,dpct:43.82,dadd:1227,med:39.66,q1:-6.27,q3:76.34},np_adm:{d19:1464,d24:2387,dpct:63.05,dadd:923,med:18.99,q1:-8.69,q3:52.69},np_om:{d19:3354,d24:3642,dpct:8.59,dadd:288,med:26.78,q1:10.17,q3:64.92},np_food:{d19:1204,d24:1338,dpct:11.13,dadd:134,med:22.83,q1:9.49,q3:57.48},total:{d19:119115,d24:165353,dpct:38.82,dadd:46238,med:28.01,q1:23.95,q3:30.96}};
+const GR=[['sal','Salaries','all staff pay'],['np_trans','Bus and taxi companies','busing contracts'],['ben','Benefits','health insurance, pensions'],['cls2','Contracted aides, specialists and materials','agency staff, supplies*'],['np_sup','Contracted support','therapists, evaluators, training'],['np_central','Central office services','technology, business services'],['priv','Private-school tuition','special education placements*'],['odist','Tuition to other districts','joint programs like Park School'],['np_adm','Administration services','legal, audits, consultants'],['np_om','Building upkeep','utilities, repairs'],['np_food','Food','food and supplies']];
+let grMode='pct';
+function drawGr(){
+  const host=document.getElementById('cv-gr'),W=Wof(host),narrow=W<560,usd=grMode==='usd';
+  const rh=narrow?(usd?78:96):54,m=narrow?{l:4,r:66,t:26,b:24}:{l:236,r:150,t:26,b:24},H=m.t+m.b+GR.length*rh;
+  const svg=svgIn(host,W,H,usd?'Dollars added by line, D65, 2018-19 to 2023-24':'Spending growth by line, D65 against the typical neighbor, 2018-19 to 2023-24');
+  const hi=usd?24000:160,x=v=>m.l+Math.max(0,Math.min(v,hi))/hi*(W-m.l-m.r);
+  const ticks=usd?(narrow?[0,10000,20000]:[0,5000,10000,15000,20000]):(narrow?[0,50,100,150]:[0,25,50,75,100,125,150]);
+  ticks.forEach(v=>{el('line',{class:v?'grid':'zero',x1:x(v),x2:x(v),y1:m.t-6,y2:H-m.b},svg);el('text',{class:'tick',x:x(v),y:H-6,'text-anchor':'middle'},svg,usd?'+$'+v/1000+'M':'+'+v+'%')});
+  if(!usd){if(!narrow)el('line',{class:'refl',x1:x(22.2),x2:x(22.2),y1:m.t-10,y2:H-m.b},svg);else GR.forEach((r,i)=>{const yb=m.t+i*rh+38;el('line',{class:'refl',x1:x(22.2),x2:x(22.2),y1:yb-4,y2:yb+50},svg)});
+    el('text',{x:x(22.2)+(narrow?30:0),y:m.t-13,'text-anchor':'middle',class:'tick halo',style:'fill:var(--ink)'},svg,'Prices +22%');}
+  GR.forEach(([k,l,gl],i)=>{const g=ROWS[k],y0=m.t+i*rh,bh=13;let by=y0;
+    if(narrow){el('text',{x:0,y:y0+12,class:'b'},svg,l);el('text',{x:0,y:y0+28,class:'m',style:'font-size:12px'},svg,gl);by=y0+38}
+    else{const tx=el('text',{x:0,y:y0+11,class:'b'},svg);const words=l.split(' ');let lines=[''];words.forEach(w=>{if((lines[lines.length-1]+' '+w).trim().length>28)lines.push(w);else lines[lines.length-1]=(lines[lines.length-1]+' '+w).trim()});lines.forEach((t,li)=>el('tspan',{x:0,dy:li?15:0},tx,t));el('text',{x:0,y:y0+11+lines.length*15,class:'m',style:'font-size:12px'},svg,gl)}
+    const add=(g.dadd>=0?'+':'−')+M(Math.abs(g.dadd)),v=usd?Math.max(0,g.dadd):g.dpct;
+    const gd=el('g',{},svg);rrect(m.l,by,Math.max(1,x(v)-m.l),usd?bh+4:bh,3,gd,{class:'bar',fill:'var(--bus)'});
+    if(!usd&&g.dpct>hi)el('path',{d:`M${x(hi)-10},${by-2} l6,${bh+4} M${x(hi)-4},${by-2} l6,${bh+4}`,stroke:'var(--raised)','stroke-width':3},gd);
+    hot(gd,`<b>${l}, D65</b>: ${M(g.d19)} → ${M(g.d24)}<small>${PC(g.dpct)}, ${add} · at the pace of prices: +${M(g.d19*0.222)}</small>`);
+    const vs='font-family:var(--mono);font-stretch:100%;font-size:12.5px;font-weight:500';
+    if(usd){const t=x(g.d19*0.222);el('line',{x1:t,x2:t,y1:by-4,y2:by+bh+8,stroke:'var(--ink)','stroke-width':2,opacity:.55},svg);
+      el('text',{x:Math.max(x(v),t)+8,y:by+bh,class:'halo',style:vs},svg,add+(narrow?'':'  ('+PC(g.dpct)+')'));
+      if(narrow)el('text',{x:Math.max(x(v),t)+8,y:by+bh+14,class:'tick halo'},svg,PC(g.dpct));return}
+    el('text',{x:x(g.dpct)+6,y:by+bh-2,class:'halo',style:vs},svg,PC(g.dpct)+(narrow?'':'  ('+add+')'));
+    if(narrow)el('text',{x:x(g.dpct)+6,y:by+bh+11,class:'tick halo'},svg,add);
+    const ny=by+bh+(narrow?16:4);
+    if(g.med==null){el('text',{x:m.l,y:ny+bh-2,class:'m',style:'font-size:12px'},svg,narrow?'Only 5 of 16 neighbors pay this':'Only 5 of 16 neighbors pay this; no typical figure')}
+    else{const gn=el('g',{},svg);rrect(m.l,ny,Math.max(1,x(g.med)-m.l),bh,3,gn,{class:'bar',fill:'var(--down)'});
+      hot(gn,`<b>${l}, typical neighbor</b>: ${PC(g.med)}<small>Middle half of neighbors: ${PC(g.q1)} to ${PC(g.q3)}</small>`);
+      el('text',{x:x(g.med)+6,y:ny+bh-2,class:'halo',style:vs+';fill:var(--muted)'},svg,PC(g.med))}
+  });
+  document.getElementById('gr-sub').textContent="Day-to-day spending, 2018-19 to 2023-24";
+  document.getElementById('k-gr').innerHTML=usd?'<li><i style="background:var(--bus)"></i>D65, dollars added</li><li><i class="tk"></i>What the line would have added at the pace of prices (+22%)</li>':(narrow?'<li><i style="background:var(--bus)"></i>D65 (dollars added below each %)</li>':'<li><i style="background:var(--bus)"></i>D65 (dollars added in brackets)</li>')+'<li><i style="background:var(--down)"></i>Typical neighbor (median of 16)</li><li><i class="dash"></i>Prices, +22%</li>';
+  table('t-gr',['Line','D65 2018-19','D65 2023-24','D65 change','Dollars added','At the pace of prices','Typical neighbor'],GR.map(([k,l])=>{const g=ROWS[k];return{cells:[l,M(g.d19),M(g.d24),PC(g.dpct),(g.dadd>=0?'+':'−')+M(Math.abs(g.dadd)),'+'+M(g.d19*0.222),g.med==null?'n/a':PC(g.med)]}}).concat([(()=>{const g=ROWS.total;return{us:1,cells:['All lines (Census measure)',M(g.d19),M(g.d24),PC(g.dpct),'+'+M(g.dadd),'+'+M(g.d19*0.222),PC(g.med)]}})()]));
+}
+wireSeg(document.getElementById('f-gr'),v=>{grMode=v;drawGr()});
+
+/* ---------- S19: students and staff ---------- */
+const DIV=[
+ {k:'Students',d:'7,674 → 6,047',v:-21.2,c:'var(--down)'},
+ {k:'All staff, district count',d:'1,226 → 1,492 (budgeted)',v:21.7,c:'var(--bus)'},
+ {k:'Special education teachers',d:'76.5 → 135.1',v:76.6,c:'var(--bus)',ind:1},
+ {k:'Special education aides',d:'159 → 187 (2019 to 2025)',v:17.6,c:'var(--bus)',ind:1},
+ {k:'All other teachers',d:'594 → 477',v:-19.8,c:'var(--down)',ind:1}
+];
+const DY=['2019-20','2020-21','2021-22','2022-23','2023-24','2024-25'];
+const LS=[
+ {k:'Students',c:'var(--down)',v:[7674,7181,6661,6316,6193,6047]},
+ {k:'All staff, district count',c:'var(--bus)',v:[1226.05,1235.75,1264.55,1285.85,1426,1492],soft:[0,0,0,1,1,1]},
+ {k:'Special-ed teachers',c:'var(--bus)',dash:1,v:[76.5,93.4,92.7,105.8,134.1,135.1]},
+ {k:'All other teachers',c:'var(--down)',dash:1,v:[594.3,574.1,566.2,540.2,508.5,476.5]}
+];
+let staffV='lines';
+function drawStaff(){
+  const host=document.getElementById('cv-staff'),W=Wof(host),narrow=W<580;
+  const sub=document.getElementById('staff-sub'),note=document.getElementById('staff-note');
+  if(staffV==='bars'){
+    sub.textContent='Change from 2019-20 to 2024-25';
+    const lw=narrow?0:250,x0=lw,x1=W-64,min=-42,max=85,X=v=>x0+(v-min)/(max-min)*(x1-x0),Z=X(0),bh=22,rowH=narrow?66:50,top=narrow?24:10;
+    const H=top+DIV.length*rowH+24;
+    const svg=svgIn(host,W,H,'Change from 2019-20 to 2024-25: '+DIV.map(r=>r.k+' '+r.v+'%').join('; '));
+    [-25,0,25,50,75].forEach(t=>{el('line',{class:t?'grid':'zero',x1:X(t),x2:X(t),y1:4,y2:H-20},svg);el('text',{class:'tick',x:X(t),y:H-4,'text-anchor':'middle'},svg,(t>0?'+':t<0?'−':'')+Math.abs(t)+'%')});
+    DIV.forEach((r,i)=>{const y=top+i*rowH+(narrow?22:4),g=el('g',{},svg);
+      el('rect',{x:0,y:y-(narrow?22:8),width:W,height:rowH,fill:'transparent'},g);
+      el('text',{x:narrow?(r.ind?12:0):lw-14,y:narrow?y-8:y+9,'text-anchor':narrow?'start':'end',class:r.ind?'':'b',style:r.ind?'font-size:14px':'font-size:15px'},g,r.k);
+      if(!narrow)el('text',{x:lw-14,y:y+25,'text-anchor':'end',class:'tick'},g,r.d);
+      const a=Math.min(Z,X(r.v)),b=Math.max(Z,X(r.v));
+      const bar=rrect(a,y,b-a,bh,3,g,{class:'bar grow',fill:r.c,opacity:r.ind?.8:1});bar.dataset.o=r.v<0?'right center':'left center';
+      el('text',{x:r.v<0?a-7:b+7,y:y+bh/2+5,'text-anchor':r.v<0?'end':'start',class:'b',style:'font-size:14px;fill:'+r.c},g,(r.v>0?'+':'−')+Math.abs(Math.round(r.v))+'%');
+      hot(g,`<b>${r.k}</b>: ${(r.v>0?'+':'−')+Math.abs(r.v).toFixed(1)}%<small>${r.d}</small>`)});
+    animate(svg,'staffbars','x');
+    note.innerHTML='Students and teachers: state counts. All staff: the district\'s own count, budgeted for 2024-25. Special education aides: district figures for 2019 and 2025. "All other teachers" is all teachers minus special education teachers: classroom teachers plus specialists such as art, music and English-learner teachers. It is not a count of regular classroom teachers. <span class="c calc">Our calculation</span> <button class="src" data-id="S147 S099 S421 S271"></button>';
+  } else {
+    sub.textContent='Change since 2019-20, year by year, to 2024-25';
+    const m={l:44,r:narrow?92:178,t:14,b:30},H=narrow?300:340,x0=m.l,x1=W-m.r,y0=m.t,y1=H-m.b,min=-30,max=80;
+    const X=i=>x0+i/(DY.length-1)*(x1-x0),Y=v=>y1-(v-min)/(max-min)*(y1-y0);
+    const svg=svgIn(host,W,H,'Change since 2019-20, by year, to 2024-25: students −21%, all staff +22% by the district\'s own count, special education teachers +77%, all other teachers −20%');
+    [-25,0,25,50,75].forEach(t=>{el('line',{class:t?'grid':'zero',x1:x0,x2:x1,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:x0-8,y:Y(t)+4,'text-anchor':'end'},svg,(t>0?'+':t<0?'−':'')+Math.abs(t)+'%')});
+    DY.forEach((d,i)=>{if(narrow&&i%2)return;el('text',{class:'tick',x:X(i),y:H-8,'text-anchor':'middle'},svg,narrow?"'"+d.slice(5):d)});
+    const ends=[];
+    LS.forEach(s=>{const idx=s.v.map(v=>v==null?null:(v/s.v[0]-1)*100);let d='';idx.forEach((v,i)=>{if(v==null)return;d+=(d?'L':'M')+X(i)+','+Y(v)});
+      el('path',{d,fill:'none',stroke:s.c,'stroke-width':s.dash?2:3,'stroke-dasharray':s.dash?'6 4':'','stroke-linejoin':'round','stroke-linecap':'round'},svg);
+      idx.forEach((v,i)=>{if(v==null)return;const g=el('g',{},svg);el('circle',{cx:X(i),cy:Y(v),r:9,fill:'transparent'},g);el('circle',{cx:X(i),cy:Y(v),r:3.5,fill:s.soft&&s.soft[i]?'var(--raised)':s.c,stroke:s.c,'stroke-width':1.5},g);
+        hot(g,`<b>${s.k}, ${DY[i]}</b>: ${s.v[i].toLocaleString('en-US')}<small>${(v>=0?'+':'−')+Math.abs(v).toFixed(1)}% since 2019-20${s.soft&&s.soft[i]?' · budgeted or mid-year':''}</small>`)});
+      let li=idx.length-1;while(idx[li]==null)li--;ends.push({s,y:Y(idx[li]),v:idx[li]})});
+    ends.sort((a,b)=>a.y-b.y);for(let i=1;i<ends.length;i++)if(ends[i].y-ends[i-1].y<34)ends[i].y=ends[i-1].y+34;{const ov=ends[ends.length-1].y+19-(y1-2);if(ov>0)ends.forEach(e=>e.y-=ov);}
+    ends.forEach(e=>{el('text',{x:x1+10,y:e.y+4,class:'b',style:'font-size:13.5px;fill:'+e.s.c},svg,(e.v>=0?'+':'−')+Math.abs(Math.round(e.v))+'%');el('text',{x:x1+10,y:e.y+19,class:'tick'},svg,narrow?e.s.k.replace('All staff, district count','All staff').replace('All other teachers','Other teachers').replace('Special-ed teachers','Sp.-ed teachers'):e.s.k)});
+    note.innerHTML='Solid lines: students and all staff. Dashed: teachers, split into special education teachers and all others (classroom teachers plus specialists such as art, music and English-learner teachers; not a count of regular classroom teachers). Open dots: budgeted or mid-year counts. Every line runs 2019-20 to 2024-25, the last year with all four counts; the district\'s staff count for 2025-26 (1,381) isn\'t shown. Students and teachers: state counts; all staff: the district\'s own. <span class="c calc">Our calculation</span> <button class="src" data-id="S147 S862 S099 S421"></button>';
+  }
+  table('staff-table',['','2019-20','2024-25','Change'],DIV.map(r=>({cells:[r.k,r.d.split(' → ')[0],r.d.split(' → ')[1],(r.v>0?'+':'−')+Math.abs(r.v).toFixed(1)+'%']})));document.getElementById('staff-table').insertAdjacentHTML('beforeend','<p class="note" style="margin-top:8px">The district changed its payroll and HR system in 2023-24 and says categories are coded differently since, which may explain part of that year\'s jump in its staff count.</p>');
+  chips();
+}
+wireSeg(document.getElementById('f-staff'),v=>{staffV=v;drawStaff()});
+
+/* ---------- S20: special education spending ---------- */
+const SPED=[['2019-20',27.15],['2020-21',28.33],['2021-22',30.10],['2022-23',37.51],['2023-24',47.41]];
+function drawSped(){
+  const host=document.getElementById('cv-sped'),W=Wof(host),narrow=W<520,H=narrow?254:284,m={l:44,r:6,t:46,b:28},max=50;
+  const n=SPED.length,cw=(W-m.l-m.r)/n,bw=Math.min(70,cw*.6),Y=v=>m.t+(max-v)/max*(H-m.t-m.b);
+  const svg=svgIn(host,W,H,'Special education spending, millions: '+SPED.map(d=>d[0]+' '+d[1]).join('; '));
+  [0,10,20,30,40,50].forEach(t=>{el('line',{class:t?'grid':'zero',x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:m.l-8,y:Y(t)+4,'text-anchor':'end'},svg,'$'+t+'M')});
+  SPED.forEach((d,i)=>{const x=m.l+i*cw+(cw-bw)/2,g=el('g',{},svg);el('rect',{x:m.l+i*cw,y:m.t,width:cw,height:H-m.t-m.b,fill:'transparent'},g);
+    rrect(x,Y(d[1]),bw,Y(0)-Y(d[1]),3,g,{class:'bar grow',fill:i>=3?'var(--bus)':'var(--bar)'});
+    el('text',{x:x+bw/2,y:Y(d[1])-7,'text-anchor':'middle',class:'tick',style:'fill:var(--ink);font-size:12px'},g,'$'+(d[1]+1e-9).toFixed(1)+'M');
+    el('text',{x:x+bw/2,y:H-8,'text-anchor':'middle',class:'tick'},g,narrow?"'"+d[0].slice(5):d[0]);
+    hot(g,`<b>${d[0]}</b>: $${(d[1]+1e-9).toFixed(1)} million${i?`<small>${(d[1]-SPED[i-1][1]>0?'+':'')}$${(d[1]-SPED[i-1][1]).toFixed(1)}M from the year before</small>`:''}`)});
+  el('text',{x:W-m.r,y:12,'text-anchor':'end',class:'m',style:'font-size:12.5px'},svg,'Most of the rise came in the last two years');
+  animate(svg,'sped','y');
+  table('sped-table',['School year','Special education spending'],SPED.map(d=>({cells:[d[0],'$'+d[1].toFixed(2)+'M']})).concat([{cells:['Change','+75%']}]));
+}
+
+/* ---------- S9, redrawn: busing per student, D65 and the typical neighbor ---------- */
+const BY=['2014-15','2015-16','2016-17','2017-18','2018-19','2019-20','2020-21','2021-22','2022-23','2023-24'];
+const BD=[428,526,477,551,626,525,524,855,1533,1736],BM=[488,545,554,629,657,643,505,813,840,944];
+function drawBus(){
+  const host=document.getElementById('cv-bus'),W=Wof(host),narrow=W<520,m={l:46,r:narrow?62:96,t:14,b:28},H=narrow?240:270,x0=m.l,x1=W-m.r,y0=m.t,y1=H-m.b,max=1800;
+  const X=i=>x0+i/(BY.length-1)*(x1-x0),Y=v=>y1-v/max*(y1-y0);
+  const svg=svgIn(host,W,H,'Busing spending per student, 2014-15 to 2023-24: D65 from $428 to $1,736; typical neighbor from $488 to $944');
+  [0,500,1000,1500].forEach(t=>{el('line',{class:t?'grid':'zero',x1:x0,x2:x1,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:x0-8,y:Y(t)+4,'text-anchor':'end'},svg,'$'+t.toLocaleString())});
+  BY.forEach((d,i)=>{if(narrow?(i%3&&i!==BY.length-1):i%2)return;el('text',{class:'tick',x:X(i),y:H-8,'text-anchor':'middle'},svg,narrow?"'"+d.slice(5):d)});
+  const path=(a,st)=>el('path',Object.assign({d:a.map((v,i)=>(i?'L':'M')+X(i)+','+Y(v)).join(''),fill:'none','stroke-linejoin':'round','stroke-linecap':'round'},st),svg);
+  path(BM,{stroke:'var(--ink)','stroke-width':2,'stroke-dasharray':'6 4',opacity:.75});path(BD,{stroke:'var(--bus)','stroke-width':3});
+  BY.forEach((d,i)=>{const g=el('g',{},svg);el('rect',{x:X(i)-(x1-x0)/(BY.length-1)/2,y:y0,width:(x1-x0)/(BY.length-1),height:y1-y0,fill:'transparent'},g);
+    el('circle',{cx:X(i),cy:Y(BD[i]),r:4,fill:'var(--bus)',stroke:'var(--raised)','stroke-width':2},g);
+    hot(g,`<b>${d}</b>: D65 ${money(BD[i])} per student<small>Typical neighbor ${money(BM[i])}</small>`)});
+  const ly=[Y(BD[9]),Y(BM[9])];
+  el('text',{x:x1+10,y:ly[0]+4,class:'b',style:'font-size:14px'},svg,'D65');el('text',{x:x1+10,y:ly[0]+19,class:'tick'},svg,money(BD[9]));
+  el('text',{x:x1+10,y:ly[1]+4,class:'b',style:'font-size:14px'},svg,narrow?'Neighbor':'Typical neighbor');el('text',{x:x1+10,y:ly[1]+19,class:'tick'},svg,money(BM[9]));
+}
+
+
+/* ---------- special education: plans rising, kinds of needs, cost per child ---------- */
+const IY=['2014-15','2015-16','2016-17','2017-18','2018-19','2019-20','2020-21','2021-22','2022-23','2023-24','2024-25','2025-26'];
+const IS=[
+ {k:'D65',c:'var(--bus)',w:3,v:[12.8,13.2,12.5,13.7,13.4,12.8,13.5,15.6,15.2,17.0,18.1,19.3]},
+ {k:'Illinois',c:'var(--ink)',w:2,dash:'2 4',v:[14.1,14.3,13.9,14.5,15.5,15.0,14.9,16.5,15.3,16.0,16.3,16.7]},
+ {k:'Typical neighbor',c:'var(--down)',w:2,dash:'6 4',v:[14.3,13.4,13.7,13.4,14.6,12.8,13.0,14.5,13.4,14.0,14.6,15.1]}
+];
+function drawIEP(){
+  const host=document.getElementById('cv-iep'),W=Wof(host),narrow=W<520,m={l:40,r:narrow?84:132,t:14,b:28},H=narrow?250:290,x0=m.l,x1=W-m.r,y0=m.t,y1=H-m.b,lo=10,hi=20;
+  const X=i=>x0+i/(IY.length-1)*(x1-x0),Y=v=>y1-(v-lo)/(hi-lo)*(y1-y0);
+  const svg=svgIn(host,W,H,'Share of students with a special education plan, 2014-15 to 2025-26: D65 from 12.8% to 19.3%; Illinois from 14.1% to 16.7%; typical neighbor from 14.3% to 15.1%');
+  [10,12,14,16,18,20].forEach(t=>{el('line',{class:t===lo?'zero':'grid',x1:x0,x2:x1,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:x0-8,y:Y(t)+4,'text-anchor':'end'},svg,t+'%')});
+  IY.forEach((d,i)=>{if(narrow?(i%3&&i!==IY.length-1):i%2)return;el('text',{class:'tick',x:X(i),y:H-8,'text-anchor':'middle'},svg,narrow?"'"+d.slice(5):d)});
+  [...IS].reverse().forEach(s=>el('path',{d:s.v.map((v,i)=>(i?'L':'M')+X(i)+','+Y(v)).join(''),fill:'none',stroke:s.c,'stroke-width':s.w,'stroke-dasharray':s.dash||'','stroke-linejoin':'round','stroke-linecap':'round',opacity:s.k==='D65'?1:.8},svg));
+  IY.forEach((d,i)=>{const g=el('g',{},svg),cw=(x1-x0)/(IY.length-1);el('rect',{x:X(i)-cw/2,y:y0,width:cw,height:y1-y0,fill:'transparent'},g);
+    el('circle',{cx:X(i),cy:Y(IS[0].v[i]),r:3.5,fill:'var(--bus)',stroke:'var(--raised)','stroke-width':1.5},g);
+    hot(g,`<b>${d}</b>: D65 ${IS[0].v[i].toFixed(1)}%<small>Illinois ${IS[1].v[i].toFixed(1)}% · typical neighbor ${IS[2].v[i].toFixed(1)}%</small>`)});
+  const ends=IS.map(s=>({s,y:Y(s.v[s.v.length-1])})).sort((a,b)=>a.y-b.y);
+  for(let i=1;i<ends.length;i++)if(ends[i].y-ends[i-1].y<32)ends[i].y=ends[i-1].y+32;
+  ends.forEach(e=>{const v=e.s.v[e.s.v.length-1];el('text',{x:x1+10,y:e.y+4,class:'b',style:'font-size:13.5px;fill:'+(e.s.k==='D65'?'var(--bus)':e.s.k==='Illinois'?'var(--ink)':'var(--down)')},svg,v.toFixed(1)+'%');
+    el('text',{x:x1+10,y:e.y+18,class:'tick'},svg,narrow&&e.s.k==='Typical neighbor'?'Neighbor':e.s.k)});
+  table('t-iep',['School year','D65','Illinois','Typical neighbor'],IY.map((d,i)=>({cells:[d,IS[0].v[i].toFixed(1)+'%',IS[1].v[i].toFixed(1)+'%',IS[2].v[i].toFixed(1)+'%']})));
+}
+const MIX=[['Learning disability',26.8,30.6],['Developmental delay',20.5,13.7],['Speech or language',19.5,15.7],['Other health',14.3,13.9],['Autism',9.9,14.9],['Emotional',5.3,4.4],['Intellectual',1.3,4.3]];
+function drawMix(){
+  const host=document.getElementById('cv-mix'),W=Wof(host),narrow=W<480,lw=narrow?0:150,x0=lw,x1=W-48,X=v=>x0+v/32*(x1-x0),bh=11,rowH=narrow?52:34,top=narrow?18:4;
+  const H=top+MIX.length*rowH;
+  const svg=svgIn(host,W,H,'Share of students with plans by main need, 2025-26, D65 and Illinois: '+MIX.map(r=>`${r[0]} ${r[1]}% and ${r[2]}%`).join('; '));
+  MIX.forEach(([k,d,s],i)=>{const y=top+i*rowH,g=el('g',{},svg);el('rect',{x:0,y:y-(narrow?18:4),width:W,height:rowH,fill:'transparent'},g);
+    el('text',{x:narrow?0:lw-12,y:narrow?y-5:y+bh+3,'text-anchor':narrow?'start':'end',class:'b',style:'font-size:14px'},g,k);
+    rrect(X(0),y,X(d)-X(0),bh,2,g,{class:'bar grow',fill:'var(--bus)'});rrect(X(0),y+bh+2,X(s)-X(0),bh,2,g,{class:'bar grow',fill:'var(--bar)'});
+    el('text',{x:X(d)+6,y:y+bh-1,style:'font-family:var(--mono);font-size:12px;font-weight:500'},g,d.toFixed(1)+'%');
+    el('text',{x:X(s)+6,y:y+2*bh+1,class:'tick'},g,s.toFixed(1)+'%');
+    hot(g,`<b>${k}</b>: D65 ${d.toFixed(1)}%<small>Illinois ${s.toFixed(1)}%</small>`)});
+  animate(svg,'mix','x');
+}
+const COST={gross:{sub:'Special education spending per child with a plan, before revenue, 2024-25',v:[39096,30080,24766]},net:{sub:'Per child with a plan, after special education aid and a share of general revenue, 2024-25',v:[18713,18594,10223]}};
+let costV='gross';
+function drawCost(){
+  const host=document.getElementById('cv-cost'),W=Wof(host),narrow=W<480,c=COST[costV];
+  document.getElementById('cost-sub').textContent=c.sub;
+  const rows=[['D65',c.v[0],1],['Typical neighbor',c.v[1],0],['Illinois',c.v[2],0]],lw=narrow?0:140,x0=lw,x1=W-(narrow?70:84),X=v=>x0+v/42000*(x1-x0),bh=narrow?26:30,gap=narrow?34:14,top=narrow?20:4;
+  const H=top+rows.length*(bh+gap)-gap+4;
+  const svg=svgIn(host,W,H,c.sub+': '+rows.map(r=>r[0]+' '+money(r[1])).join('; '));
+  rows.forEach(([k,v,us],i)=>{const y=top+i*(bh+gap),g=el('g',{},svg);
+    el('text',{x:narrow?0:lw-12,y:narrow?y-6:y+bh/2+5,'text-anchor':narrow?'start':'end',class:us?'b':'',style:'font-size:15px'},g,k);
+    rrect(X(0),y,X(v)-X(0),bh,3,g,{class:'bar grow',fill:us?'var(--bus)':'var(--bar)'});
+    el('text',{x:X(v)+8,y:y+bh/2+5,style:'font-family:var(--mono);font-size:14px;font-weight:500'},g,money(v));
+    hot(g,`<b>${k}</b>: ${money(v)}<small>${costV==='gross'?'Before revenue':'After revenue'}</small>`)});
+  animate(svg,'cost'+costV,'x');
+}
+if(document.getElementById('f-cost'))wireSeg(document.getElementById('f-cost'),v=>{costV=v;drawCost()});
+
+/* ---------- S9, original: busing per student, D65 against every neighbor ---------- */
+const S9={"years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], "d65": [428.4781, 525.9449, 476.9288, 550.6129, 625.9169, 525.4524, 523.8489, 855.12, 1533.2916, 1736.1709], "nbs": [["Glenview 34", [632.0851, 722.5303, 776.7109, 817.4653, 793.6441, 841.8401, 913.5235, 1289.7609, 1462.5898, 1570.2998]], ["Wilmette 39", [408.5876, 394.9198, 432.747, 474.1355, 496.4957, 439.0244, 380.5491, 558.9275, 681.6682, 760.7306]], ["Oak Park 97", [570.9244, 585.566, 615.0242, 569.8523, 616.3594, 523.25, 318.4367, 793.679, 980.7068, 982.1301]], ["Lincolnwood 74", [841.129, 969.2557, 924.2546, 921.9002, 948.5117, 852.2364, 757.6737, 1067.9062, 1162.1622, 1287.9409]], ["Kenilworth 38", [134.8089, 115.4639, 132.0755, 163.3554, 269.3111, 106.1571, 4.2827, 219.6162, 409.7665, 187.5]], ["Skokie 68", [772.6281, 659.3886, 600.863, 633.7802, 583.3333, 827.4112, 513.4033, 659.0773, 726.1261, 948.88]], ["Winnetka 36", [205.3127, 237.0959, 254.7486, 331.1218, 394.9786, 372.1351, 135.3428, 432.3331, 418.2553, 307.9933]], ["Glencoe 35", [473.0737, 548.1481, 585.1602, 646.372, 678.2979, 655.9865, 485.0746, 560.6936, 659.0164, 771.5694]], ["Park Ridge 64", [489.1328, 578.3557, 624.2725, 663.0342, 718.9039, 629.1544, 720.7971, 966.0619, 768.572, 680.1812]], ["Skokie 73½", [637.0732, 716.5428, 751.604, 746.1045, 762.5, 632.0583, 677.8523, 1054.4933, 1111.9473, 1271.442]], ["East Maine 63", [486.0647, 499.1582, 535.0408, 558.4491, 635.8552, 654.6288, 497.5554, 835.5377, 911.3745, 1040.5702]], ["Skokie 69", [428.6517, 483.432, 573.954, 678.1065, 772.3343, 865.6036, 743.7642, 832.3831, 1032.276, 938.326]], ["Northbrook 27", [510.4167, 416.3454, 467.2825, 623.7942, 798.722, 672.4003, 681.8182, 936.4964, 1204.051, 1727.5427]], ["Northbrook 28", [495.9255, 542.2096, 511.5104, 580.7714, 683.7514, 687.3977, 590.4605, 926.9357, 1022.2584, 1132.973]], ["Northbrook/Glenview 30", [233.5702, 197.3451, 324.4406, 332.4916, 485.9272, 439.2447, 275.974, 463.8027, 593.3014, 725.7418]], ["Niles 71", [312.6177, 603.352, 460.0, 676.3203, 598.3333, 500.0, 299.0354, 478.4615, 612.2137, 731.6693]]], "median": [487.5987, 545.1789, 554.4974, 628.7872, 657.0765, 643.3436, 505.4793, 813.0311, 839.9733, 943.603], "ilelem": [542.1907, 565.3185, 570.6461, 596.9213, 641.8919, 618.6804, 526.4558, 697.3763, 761.5955, 858.4138]};
+function drawBus9(){
+  const host=document.getElementById('cv-bus9'),W=Wof(host),narrow=W<520,m={l:46,r:narrow?84:124,t:16,b:28},H=narrow?260:310,x0=m.l,x1=W-m.r,y0=m.t,y1=H-m.b,max=2000,n=S9.years.length;
+  const X=i=>x0+i/(n-1)*(x1-x0),Y=v=>y1-v/max*(y1-y0),sy=y=>(y-1)+'-'+String(y).slice(2);
+  const svg=svgIn(host,W,H,'Busing spending per student, 2014-15 to 2023-24, D65 and each of its 16 neighbors. D65 rises from $626 in 2018-19 to $1,736 in 2023-24, the highest of 17; the neighbors\' median rises from $657 to $944.');
+  const half=(x1-x0)/(n-1)/2,i21=S9.years.indexOf(2021);
+  el('rect',{x:X(i21)-half,y:y0,width:half*2,height:y1-y0,fill:'var(--card)'},svg);
+  el('text',{x:X(i21),y:y0+11,'text-anchor':'middle',class:'tick',style:'font-size:10px'},svg,'remote/hybrid');
+  [0,500,1000,1500,2000].forEach(t=>{el('line',{class:t?'grid':'zero',x1:x0,x2:x1,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:x0-8,y:Y(t)+4,'text-anchor':'end'},svg,'$'+t.toLocaleString())});
+  S9.years.forEach((yr,i)=>{if(narrow?![0,4,n-1].includes(i):i%2&&i!==n-1)return;el('text',{class:'tick',x:X(i),y:H-8,'text-anchor':'middle'},svg,narrow?"'"+String(yr).slice(2):sy(yr))});
+  const path=a=>a.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+','+Y(v).toFixed(1)).join('');
+  const NP=[];S9.nbs.forEach(([k,a])=>{const p=el('path',{d:path(a),fill:'none',stroke:'var(--bar)','stroke-width':1.2,opacity:.55},svg);NP.push([p,k,a]);p.addEventListener('pointerenter',()=>{p.setAttribute('stroke','var(--ink)');p.setAttribute('opacity',1);p.setAttribute('stroke-width',2)});p.addEventListener('pointerleave',()=>{p.setAttribute('stroke','var(--bar)');p.setAttribute('opacity',.55);p.setAttribute('stroke-width',1.2)});const t=document.createElementNS(NS,'title');t.textContent=k+': '+money(a[n-1])+' in 2023-24';p.appendChild(t)});
+  el('path',{d:path(S9.ilelem),fill:'none',stroke:'var(--ink)','stroke-width':1.5,'stroke-dasharray':'4 4',opacity:.6},svg);
+  el('path',{d:path(S9.median),fill:'none',stroke:'var(--down)','stroke-width':2.2},svg);
+  el('path',{d:path(S9.d65),fill:'none',stroke:'var(--bus)','stroke-width':3,'stroke-linejoin':'round'},svg);
+  const L=n-1,i19=S9.years.indexOf(2019);
+  el('circle',{cx:X(L),cy:Y(S9.d65[L]),r:4.5,fill:'var(--bus)',stroke:'var(--raised)','stroke-width':2},svg);
+  el('circle',{cx:X(i19),cy:Y(S9.d65[i19]),r:4,fill:'var(--bus)',stroke:'var(--raised)','stroke-width':2},svg);
+  el('text',{x:X(i19),y:Y(S9.d65[i19])+20,'text-anchor':'middle',class:'b halo',style:'font-size:12px;fill:var(--bus)'},svg,money(S9.d65[i19]));
+  const labs=[[S9.d65[L],'D65 '+money(S9.d65[L]),'var(--bus)'],[S9.median[L],(narrow?'Median ':'Neighbors\' median ')+money(S9.median[L]),'var(--down)'],[S9.ilelem[L],(narrow?'Ill. ':'Illinois elem. ')+money(S9.ilelem[L]),'var(--muted)']].sort((a,b)=>b[0]-a[0]);
+  let used=[];labs.forEach(([v,t,c])=>{let yy=Y(v)+4;for(const u of used)if(Math.abs(yy-u)<15)yy=u+15;used.push(yy);el('text',{x:X(L)+8,y:yy,class:'b',style:'font-size:12px;fill:'+c},svg,t)});
+  S9.years.forEach((yr,i)=>{const g=el('g',{},svg);el('rect',{x:X(i)-half,y:y0,width:half*2,height:y1-y0,fill:'transparent','pointer-events':'none'},g)});
+  let lit=null;const unlit=()=>{if(lit){lit.setAttribute('stroke','var(--bar)');lit.setAttribute('opacity',.55);lit.setAttribute('stroke-width',1.2);lit=null}};
+  svg.addEventListener('click',e=>{const r=svg.getBoundingClientRect(),px=(e.clientX-r.left)*W/r.width,py=(e.clientY-r.top)*H/r.height;const i=Math.max(0,Math.min(n-1,Math.round((px-x0)/(x1-x0)*(n-1))));
+    let best=null,bd=1e9;NP.forEach(q=>{const dd=Math.abs(Y(q[2][i])-py);if(dd<bd){bd=dd;best=q}});unlit();if(!best||bd>28){tip.hidden=true;return}
+    lit=best[0];lit.setAttribute('stroke','var(--ink)');lit.setAttribute('opacity',1);lit.setAttribute('stroke-width',2);showTip(e,`<b>${best[1]}</b>: ${money(best[2][i])} per student<small>${sy(S9.years[i])}</small>`)});
+  animate(svg,'bus9','y');
+}
+
+/* ---------- 6. savings forecast (M13) ---------- */
+const SAV=[['2026-27',38.0],['2027-28',34.1],['2028-29',18.8],['2029-30',-2.8]];
+function drawSav(){
+  const host=document.getElementById('cv-sav'),W=Wof(host),narrow=W<520,H=narrow?230:260,m={l:44,r:6,t:16,b:28},min=-10,max=40;
+  const n=SAV.length,cw=(W-m.l-m.r)/n,bw=Math.min(76,cw*.56),Y=v=>m.t+(max-v)/(max-min)*(H-m.t-m.b);
+  const svg=svgIn(host,W,H,'Savings at year end in the district\'s no-cuts forecast: '+SAV.map(d=>d[0]+' '+d[1]+' million').join('; '));
+  [-10,0,10,20,30,40].forEach(t=>{el('line',{class:t?'grid':'zero',x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:m.l-8,y:Y(t)+4,'text-anchor':'end'},svg,(t<0?'−$':'$')+Math.abs(t)+'M')});
+  SAV.forEach((d,i)=>{const x=m.l+i*cw+(cw-bw)/2,neg=d[1]<0,g=el('g',{},svg);el('rect',{x:m.l+i*cw,y:m.t,width:cw,height:H-m.t-m.b,fill:'transparent'},g);
+    const b=rrect(x,Y(Math.max(0,d[1])),bw,Math.abs(Y(d[1])-Y(0)),3,g,{class:'bar grow',fill:neg?'var(--neg)':'var(--bar)'});b.dataset.o=neg?'center top':'center bottom';
+    el('text',{x:x+bw/2,y:neg?Y(d[1])+15:Y(d[1])-7,'text-anchor':'middle',class:'tick',style:'fill:var(--ink);font-size:12px'},g,(neg?'−':'')+'$'+Math.abs(d[1]).toFixed(1)+'M');
+    el('text',{x:x+bw/2,y:H-8,'text-anchor':'middle',class:'tick'},g,d[0]);
+    hot(g,`<b>End of ${d[0]}</b>: ${neg?'below zero, ':''}$${Math.abs(d[1]).toFixed(1)} million${neg?' short':''}<small>District forecast, no new cuts, August 2026</small>`)});
+  animate(svg,'sav','y');
+}
+
+/* ---------- budget vs actual, 2022-23 ---------- */
+function drawBva(){
+  const host=document.getElementById('cv-bva'),W=Wof(host),narrow=W<540,lw=narrow?0:210,x1=W-(narrow?86:96),min=-8.5,max=0.3;
+  const X=v=>lw+(v-min)/(max-min)*(x1-lw),Z=X(0),bh=30,rowH=narrow?78:62,top=narrow?26:10;
+  const rows=[{k:'Budget, Sept. 2022',sub:'presented as balanced',v:0.0767,lab:'+$76,738',c:'var(--bar)'},{k:'How the year ended',sub:'district\'s count',v:-7.9,lab:'−$7.9 million',c:'var(--neg)'}];
+  const H=top+rows.length*rowH+24;
+  const svg=svgIn(host,W,H,'2022-23: the budget presented in September 2022 showed a surplus of $76,738; the year ended $7.9 million short.');
+  [-8,-6,-4,-2,0].forEach(t=>{el('line',{class:t?'grid':'zero',x1:X(t),x2:X(t),y1:2,y2:H-20},svg);el('text',{class:'tick',x:X(t),y:H-4,'text-anchor':'middle'},svg,t?('−$'+Math.abs(t)+'M'):'$0')});
+  rows.forEach((r,i)=>{const y=top+i*rowH+(narrow?20:0),g=el('g',{},svg);
+    el('text',{x:narrow?0:lw-14,y:narrow?y-8:y+13,'text-anchor':narrow?'start':'end',class:'b',style:'font-size:15px'},g,r.k);
+    if(!narrow)el('text',{x:lw-14,y:y+29,'text-anchor':'end',class:'tick'},g,r.sub);
+    const a=Math.min(Z,X(r.v)),bb=Math.max(Z,X(r.v));
+    const bar=rrect(a,y,Math.max(bb-a,3),bh,3,g,{class:'bar grow',fill:r.c});bar.dataset.o=r.v<0?'right center':'left center';
+    el('text',{x:r.v<0?a+10:bb+8,y:y+bh/2+5,'text-anchor':'start',class:'b',style:'font-size:15px;fill:'+(r.v<0?'#fff':'var(--ink)')},g,r.lab);
+    hot(g,`<b>${r.k}</b>: ${r.lab}<small>${r.sub}</small>`)});
+  animate(svg,'bva','x');
+}
+
+/* ---------- fine print: fold each chart's notes under "About this chart" ---------- */
+document.querySelectorAll('figure.chart').forEach(f=>{
+  const notes=[...f.children].filter(c=>c.matches('p.note'));
+  if(!notes.length)return;
+  const d=document.createElement('details');d.className='fold';
+  d.innerHTML='<summary>About this chart</summary>';
+  const first=f.querySelector(':scope > details.fold');
+  f.insertBefore(d,first||null);
+  notes.forEach(n=>d.appendChild(n));
+});
+
+/* ---------- E4: enrollment since 2016, D65 and 16 neighbors ---------- */
+const NBY16=[2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+const NB16={"District 65":[7649,7563,7444,7352,6997,6481,6145,6053,5877,5751],"Glenview 34":[4732,4669,4571,4416,4222,4171,4165,4157,4150,4139],"Wilmette 39":[3607,3538,3488,3463,3363,3324,3271,3220,3228,3194],"Oak Park 97":[6007,5981,5926,5860,5571,5483,5396,5437,5404,5311],"Lincolnwood 74":[1161,1167,1176,1182,1183,1162,1136,1145,1129,1128],"Kenilworth 38":[471,450,463,456,448,448,445,454,453,469],"Skokie 68":[1819,1792,1729,1691,1650,1576,1563,1633,1694,1617],"Winnetka 36":[1753,1645,1618,1642,1667,1612,1699,1759,1776,1806],"Glencoe 35":[1175,1195,1168,1174,1192,1204,1210,1202,1216,1164],"Park Ridge 64":[4507,4557,4540,4613,4616,4549,4536,4495,4500,4349],"Skokie 73½":[1010,983,1006,986,996,981,979,961,977,933],"East Maine 63":[3339,3223,3149,3239,3279,3233,3298,3403,3416,3387],"Skokie 69":[1608,1600,1586,1602,1618,1619,1636,1660,1690,1738],"Northbrook 27":[1280,1233,1239,1273,1345,1353,1316,1313,1302,1313],"Northbrook 28":[1746,1757,1761,1757,1771,1749,1755,1761,1748,1741],"Northbrook/Glenview 30":[1122,1153,1173,1178,1204,1228,1224,1212,1216,1177],"Niles 71":[556,545,543,574,574,592,595,577,598,600]};
+const NB_SHORT={'Northbrook/Glenview 30':'N.brook/Glenview 30'};
+function drawNbr(){
+  const host=document.getElementById('cv-nbr'),W=Wof(host),narrow=W<560,names=Object.keys(NB16),ME='District 65',L=NBY16.length-1;
+  const I={};names.forEach(n=>I[n]=NB16[n].map(v=>v/NB16[n][0]*100));
+  const med=NBY16.map((_,k)=>{const a=names.filter(n=>n!==ME).map(n=>I[n][k]).sort((p,q)=>p-q);return (a[7]+a[8])/2});
+  const H=narrow?460:500,m={l:narrow?34:42,r:narrow?128:172,t:30,b:34},ylo=70,yhi=110;
+  const x=y=>m.l+(y-2016)/9*(W-m.l-m.r),yv=v=>m.t+(yhi-v)/(yhi-ylo)*(H-m.t-m.b);
+  const svg=svgIn(host,W,H,'K-8 enrollment as a percentage of fall 2016. District 65: 75% in fall 2025. Median of 16 neighbors: 99%. No neighbor is below 87%.');
+  el('text',{class:'tick',x:m.l,y:14},svg,'↑ % of 2016 enrollment');
+  for(let t=ylo;t<=yhi;t+=10){el('line',{class:t===100?'zero':'grid',x1:m.l,x2:W-m.r,y1:yv(t),y2:yv(t)},svg);el('text',{class:'tick',x:m.l-6,y:yv(t)+4,'text-anchor':'end'},svg,t+'%')}
+  (narrow?[2016,2019,2022,2025]:NBY16).forEach(t=>el('text',{class:'tick',x:x(t),y:H-m.b+18,'text-anchor':'middle'},svg,narrow?t:"'"+String(t).slice(2)));
+  el('text',{class:'tick',x:W-m.r,y:H-4,'text-anchor':'end'},svg,'fall of each school year');
+  const d=a=>a.map((v,k)=>(k?'L':'M')+x(NBY16[k]).toFixed(1)+' '+yv(v).toFixed(1)).join(' ');
+  const P={},gN=el('g',{},svg);
+  names.forEach(n=>{if(n!==ME)P[n]=el('path',{d:d(I[n]),fill:'none',stroke:'var(--bar)','stroke-width':1.5,'stroke-linejoin':'round',opacity:.85},gN)});
+  el('path',{d:d(med),fill:'none',stroke:'var(--ink)','stroke-width':2,'stroke-dasharray':'5 3'},svg);
+  const dp=el('path',{d:d(I[ME]),fill:'none',stroke:'var(--bus)','stroke-width':3.5,'stroke-linejoin':'round','stroke-linecap':'round'},svg);
+  if(!reduce&&!noAnim&&!seen.has('nbr')){const len=dp.getTotalLength();dp.style.strokeDasharray=len;dp.style.strokeDashoffset=len;requestAnimationFrame(()=>requestAnimationFrame(()=>{dp.style.transition='stroke-dashoffset 1.8s ease .3s';dp.style.strokeDashoffset=0}));seen.add('nbr')}
+  const hi=el('path',{fill:'none',stroke:'var(--down)','stroke-width':3,visibility:'hidden','pointer-events':'none'},svg);
+  const items=names.map(n=>({n,v:I[n][L]})).concat([{n:'Median',v:med[L]}]).map(o=>Object.assign(o,{y:yv(o.v)})).sort((a,b)=>a.y-b.y);
+  const gap=narrow?13:15;items.forEach((it,k)=>{it.ly=Math.max(it.y,k?items[k-1].ly+gap:m.t)});
+  const over=items[items.length-1].ly-(H-m.b);if(over>0)items.forEach(it=>it.ly-=over);
+  const labs={},lx=x(2025)+10;
+  items.forEach(it=>{const me=it.n===ME,md=it.n==='Median',g=el('g',{},svg);
+    el('line',{x1:x(2025)+2,y1:it.y,x2:lx-2,y2:it.ly,stroke:'var(--rule)'},g);
+    const nm=me?'District 65':md?'Median neighbor':(narrow?(NB_SHORT[it.n]||it.n):it.n);
+    labs[it.n]=el('text',{x:lx,y:it.ly+4,style:'font-size:'+(narrow?10.5:12.5)+'px;font-weight:'+(me||md?750:500)+';fill:'+(me?'var(--bus)':md?'var(--ink)':'var(--muted)')},g,nm+' '+Math.round(it.v)+'%');
+    if(!me&&!md){g.style.cursor='pointer';g.addEventListener('pointerenter',e=>{if(!isTouch(e))light(it.n)});g.addEventListener('pointerleave',()=>light(null))}});
+  function light(n){names.forEach(k=>{if(P[k])P[k].setAttribute('opacity',n?.3:.85)});Object.entries(labs).forEach(([k,t])=>{if(k!==ME&&k!=='Median'){t.style.fill=k===n?'var(--down)':'var(--muted)';t.style.fontWeight=k===n?750:500}});
+    if(!n){hi.setAttribute('visibility','hidden');return}hi.setAttribute('d',d(I[n]));hi.setAttribute('visibility','visible')}
+  const ov=el('rect',{x:m.l,y:m.t,width:W-m.l-m.r,height:H-m.t-m.b,fill:'transparent'},svg);
+  const pick=e=>{const r=svg.getBoundingClientRect(),sx=(e.clientX-r.left)*W/r.width,sy=(e.clientY-r.top)*H/r.height;
+    let k=Math.round((sx-m.l)/(W-m.l-m.r)*9);k=Math.max(0,Math.min(9,k));let bn=ME,bd=1e9;names.forEach(n=>{const dd=Math.abs(yv(I[n][k])-sy);if(dd<bd){bd=dd;bn=n}});
+    light(bn===ME?null:bn);const a=NB16[bn];
+    showTip(e,`<b>${bn}</b>: ${a[k].toLocaleString()} students in fall ${NBY16[k]}, ${I[bn][k].toFixed(0)}% of 2016<small>2016: ${a[0].toLocaleString()} · 2025: about ${a[L].toLocaleString()} (${((a[L]/a[0]-1)*100).toFixed(1)}%)</small>`)};
+  ov.addEventListener('pointermove',e=>{if(!isTouch(e))pick(e)});ov.addEventListener('click',pick);ov.addEventListener('pointerleave',()=>{tip.hidden=true;light(null)});
+  table('nbr-table',['District','Fall 2016','Fall 2025 (est.)','Change'],names.map(n=>[n,NB16[n][0],NB16[n][L]]).sort((p,q)=>p[2]/p[1]-q[2]/q[1]).map(r=>({us:r[0]===ME,cells:[r[0],r[1].toLocaleString(),r[2].toLocaleString(),((r[2]/r[1]-1)*100).toFixed(1)+'%']})).concat([{cells:['Median of 16 neighbors','','','−0.7%']}]));
+}
+
+/* ---------- E21: young children vs. K-8 students, 17 districts ---------- */
+const KIDS={"rows": [{"name": "District 65", "u5_10": 4782, "u5_20": 3824, "k8_16": 7649, "k8_25": 5751}, {"name": "Glenview 34", "u5_10": 2251, "u5_20": 2137, "k8_16": 4732, "k8_25": 4139}, {"name": "Oak Park 97", "u5_10": 3349, "u5_20": 2859, "k8_16": 6007, "k8_25": 5311}, {"name": "Wilmette 39", "u5_10": 1465, "u5_20": 1325, "k8_16": 3607, "k8_25": 3194}, {"name": "Skokie 68", "u5_10": 1001, "u5_20": 1080, "k8_16": 1819, "k8_25": 1617}, {"name": "Skokie 73\u00bd", "u5_10": 511, "u5_20": 513, "k8_16": 1010, "k8_25": 933}, {"name": "Park Ridge 64", "u5_10": 2004, "u5_20": 2327, "k8_16": 4507, "k8_25": 4349}, {"name": "Lincolnwood 74", "u5_10": 570, "u5_20": 606, "k8_16": 1161, "k8_25": 1128}, {"name": "Glencoe 35", "u5_10": 411, "u5_20": 454, "k8_16": 1175, "k8_25": 1164}, {"name": "Kenilworth 38", "u5_10": 148, "u5_20": 156, "k8_16": 471, "k8_25": 469}, {"name": "Northbrook 28", "u5_10": 659, "u5_20": 664, "k8_16": 1746, "k8_25": 1741}, {"name": "East Maine 63", "u5_10": 2672, "u5_20": 2552, "k8_16": 3339, "k8_25": 3387}, {"name": "Northbrook 27", "u5_10": 482, "u5_20": 539, "k8_16": 1280, "k8_25": 1313}, {"name": "Winnetka 36", "u5_10": 656, "u5_20": 800, "k8_16": 1753, "k8_25": 1806}, {"name": "Northbrook/Glenview 30", "u5_10": 444, "u5_20": 478, "k8_16": 1122, "k8_25": 1177}, {"name": "Niles 71", "u5_10": 254, "u5_20": 286, "k8_16": 556, "k8_25": 600}, {"name": "Skokie 69", "u5_10": 1026, "u5_20": 1000, "k8_16": 1608, "k8_25": 1738}], "il": {"u5_10": 835577, "u5_20": 705616}};
+function drawKids(){
+  const host=document.getElementById('cv-kids'),W=Wof(host),narrow=W<560,pc=(a,b)=>(b/a-1)*100;
+  const rows=KIDS.rows.map(r=>({n:r.name,k:pc(r.u5_10,r.u5_20),e:pc(r.k8_16,r.k8_25),r,me:r.name==='District 65'})).sort((a,b)=>a.k-b.k);
+  rows.push({n:'Illinois',k:pc(KIDS.il.u5_10,KIDS.il.u5_20),ref:1,r:KIDS.il});
+  const lw=narrow?112:176,lo=-30,hi=26,x=v=>lw+(v-lo)/(hi-lo)*(W-8-lw),Z=x(0),rh=narrow?30:32,top=22,bh=(rh-8)/2;
+  const H=top+rows.length*rh+14;
+  const svg=svgIn(host,W,H,'For 17 districts, change in children under 5 (2010 to 2020) and in K-8 students (2016 to 2025). District 65: children −20%, students −25%, the largest drops of all 17. Illinois children −16%.');
+  [-30,-20,-10,0,10,20].forEach(t=>{el('line',{class:t?'grid':'zero',x1:x(t),x2:x(t),y1:top-4,y2:H-4},svg);el('text',{class:'tick',x:x(t),y:12,'text-anchor':'middle'},svg,(t>0?'+':t<0?'−':'')+Math.abs(t)+'%')});
+  const fmt=v=>(v>0?'+':v<0?'−':'')+Math.abs(v).toFixed(Math.abs(v)<1?1:0)+'%';
+  rows.forEach((o,i)=>{const y=top+i*rh+(o.ref?8:0),g=el('g',{},svg);
+    if(o.me)rrect(0,y,W,rh,4,g,{fill:'color-mix(in srgb,var(--bus) 14%,transparent)'});else el('rect',{x:0,y,width:W,height:rh,fill:'transparent'},g);
+    el('text',{x:lw-10,y:y+rh/2+4,'text-anchor':'end',class:o.me?'b':o.ref?'m':'',style:'font-size:'+(narrow?12:13.5)+'px'},g,narrow?o.n.replace('Northbrook/Glenview','Nbk/Glenview'):o.n);
+    const bar=(v,yy,c)=>{const a=Math.min(Z,x(v)),b=Math.max(Z,x(v));const r=rrect(a,yy,Math.max(b-a,1.5),bh,2,g,{class:'bar grow',fill:c});r.dataset.o=v<0?'right center':'left center';
+      const tin=v<0&&a-4-34<lw&&b-a>40;/* no room left of the bar: label inside it */
+      el('text',{x:tin?a+5:v<0?a-4:b+4,y:yy+bh/2+3.5,'text-anchor':tin||v>=0?'start':'end',class:'tick'+(o.me?' b':''),style:'font-size:'+(o.me?11.5:10.5)+'px'+(tin?';fill:'+(c==='var(--bus)'?'var(--bus-ink)':'#fff'):o.me?';fill:var(--ink)':'')},g,fmt(v))};
+    bar(o.k,y+3,'var(--down)');if(!o.ref)bar(o.e,y+5+bh,o.me?'var(--bus)':'var(--bar)');
+    const R=o.r;hot(g,o.ref?`<b>Illinois</b>: children under 5 ${R.u5_10.toLocaleString()} → ${R.u5_20.toLocaleString()} (${fmt(o.k)})`:`<b>${o.n}</b><br>Children under 5: ${R.u5_10.toLocaleString()} → ${R.u5_20.toLocaleString()} (${fmt(o.k)})<br>K-8 students: ${R.k8_16.toLocaleString()} → ${R.k8_25.toLocaleString()} (${fmt(o.e)})`)});
+  animate(svg,'kids','x');
+  table('kids-table',['District','Under 5, 2010','Under 5, 2020','Change','K-8, fall 2016','K-8, 2025 (est.)','Change'],rows.map(o=>({us:o.me,cells:o.ref?[o.n,o.r.u5_10.toLocaleString(),o.r.u5_20.toLocaleString(),fmt(o.k),'','','']:[o.n,o.r.u5_10.toLocaleString(),o.r.u5_20.toLocaleString(),fmt(o.k),o.r.k8_16.toLocaleString(),o.r.k8_25.toLocaleString(),fmt(o.e)]})));
+}
+
+/* ---------- E19: children living in the district vs. K-8 students, 1960-2025 ---------- */
+const E19C=[[1960,10700,0],[1970,11800,0],[1980,8200,0],[1990,7350,0],[2000,8606,1],[2010,8188,1],[2020,8530,1]];
+const E19S={2021:8440,2022:8168,2023:8125,2024:8133};
+const E19E=[[1962,9891],[1966,10787],[1967,10863],[1968,10909],[1976,8413],[1979,7061]];
+const E19Y=[1986,1987,1989,1990,1991,1992,1993,1994,1995,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],E19K=[6082,5962,6163,6311,6459,6612,6655,6689,6865,6923,6949,6945,6834,6711,6661,6421,6248,6130,6132,6237,6434,6643,6874,7079,7192,7296,7460,7649,7563,7444,7352,6997,6481,6145,6053,5877,5751];
+function drawE19(){
+  const host=document.getElementById('cv-e19'),W=Wof(host),narrow=W<560,H=narrow?360:400,m={l:narrow?40:50,r:12,t:54,b:30},x0=1958,x1=2027,ylo=0,yhi=13000;
+  const X=y=>m.l+(y-x0)/(x1-x0)*(W-m.l-m.r),Y=v=>m.t+(yhi-v)/(yhi-ylo)*(H-m.t-m.b);
+  const svg=svgIn(host,W,H,'Children aged 5 to 13 living in the district and K-8 students, 1960 to 2025. 1970 to 1980: children down 30%, students down 35%. Children, 2020 to 2024: down 5%. Students, 2019-20 to 2024-25: down 20%.');
+  const band=(a,b,lab)=>{el('rect',{x:X(a),y:m.t,width:X(b)-X(a),height:H-m.t-m.b,fill:'var(--card)'},svg);el('text',{x:(X(a)+X(b))/2,y:m.t+14,'text-anchor':'middle',class:'tick'},svg,lab)};
+  band(1969.75,1979.75,'1970s');band(2019.75,2025.5,narrow?'now':'since 2020');
+  [0,4000,8000,12000].forEach(t=>{el('line',{class:t?'grid':'zero',x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:m.l-6,y:Y(t)+4,'text-anchor':'end'},svg,t.toLocaleString())});
+  [1960,1970,1980,1990,2000,2010,2020].forEach(t=>{if(!narrow||t%20===0)el('text',{class:'tick',x:X(t),y:H-10,'text-anchor':'middle'},svg,t)});
+  const path=(pts,a)=>el('path',Object.assign({d:pts.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' '),fill:'none','stroke-linejoin':'round'},a),svg);
+  const cx=E19C.map(r=>[r[0]-0.25,r[1]]);
+  path(cx,{stroke:'var(--down)','stroke-width':2.75});
+  path([cx[cx.length-1]].concat(Object.entries(E19S).map(([k,v])=>[+k,v])),{stroke:'var(--down)','stroke-width':2,'stroke-dasharray':'5 3'});
+  const e=E19E,k=E19Y.map((y,i)=>[y,E19K[i]]);
+  path(e.slice(0,4),{stroke:'var(--bus)','stroke-width':2.75});path([e[3],e[4]],{stroke:'var(--bus)','stroke-width':2,'stroke-dasharray':'2 4'});
+  path(e.slice(4),{stroke:'var(--bus)','stroke-width':2.75});path([e[5],k[0]],{stroke:'var(--bus)','stroke-width':2,'stroke-dasharray':'2 4'});
+  path(k.slice(0,-1),{stroke:'var(--bus)','stroke-width':2.75});path(k.slice(-2),{stroke:'var(--bus)','stroke-width':2,'stroke-dasharray':'2 4'});
+  const dot=(cx,cy,c,hollow,html)=>{const g=el('g',{},svg);el('circle',{cx,cy,r:10,fill:'transparent'},g);el('circle',{cx,cy,r:hollow?4:3.8,fill:hollow?'var(--raised)':c,stroke:c,'stroke-width':hollow?2:0},g);hot(g,html)};
+  E19C.forEach(r=>dot(X(r[0]-0.25),Y(r[1]),'var(--down)',!r[2],`<b>${r[2]?'':'About '}${r[1].toLocaleString()} children aged 5–13</b> living in the district, April ${r[0]}<small>${r[2]?'Census count':'Evanston counted; Skokie part estimated'}</small>`));
+  Object.entries(E19S).forEach(([y,v])=>dot(X(+y),Y(v),'var(--down)',1,`<b>About ${v.toLocaleString()} children aged 5–13</b>, ${y}<small>Census Bureau estimate</small>`));
+  e.forEach(r=>dot(X(r[0]),Y(r[1]),'var(--bus)',r[0]===1968,`<b>${r[1].toLocaleString()} students</b>, ${r[0]}<small>${r[0]<1970?'Sum of schools (ETS study)':'The Evanstonian'}</small>`));
+  k.forEach(([y,v],i)=>{if(y%10===9||y===1986||i===k.length-1)dot(X(y),Y(v),'var(--bus)',i===k.length-1,`<b>${i===k.length-1?'About ':''}${v.toLocaleString()} K-8 students</b>, fall ${y}<small>${i===k.length-1?'Estimated from the state count':'Federal count'}</small>`)});
+  const note=(x,y,lines,anchor)=>lines.forEach((t,i)=>el('text',{x,y:y+i*16,'text-anchor':anchor,class:i?'m':'b',style:'font-size:'+(narrow?12:13)+'px'},svg,t));
+  note(X(1981)+4,narrow?Y(12400):Y(12300),narrow?['1970s:','children −30%,','students −35%']:['1970s: children −30%,','students −35%'],'start');
+  note(X(2019.5)-6,Y(3400),narrow?['Children −5%','(2020–24);','students −20%','(2019-20 to 2024-25)']:['Children, 2020 to 2024: −5%','K-8 students, 2019-20 to 2024-25: −20%'],'end');
+}
+
+/* ---------- Foster bus savings estimates (T3) ---------- */
+const FOS=[['Nov. 2020','Transportation director',0.5,0.8],['July 2021','Municipal adviser',2.0,2.0],['Mar. 2022','Night of the vote',3.0,3.0],['Oct. 2023','New district leadership',0.75,0.75]];
+function drawFoster(){
+  const host=document.getElementById('cv-foster'),W=Wof(host),narrow=W<540,H=narrow?260:290,m={l:44,r:8,t:20,b:44},max=4;
+  const n=FOS.length,cw=(W-m.l-m.r)/n,bw=Math.min(72,cw*.55),Y=v=>m.t+(max-v)/max*(H-m.t-m.b);
+  const svg=svgIn(host,W,H,'Expected yearly busing savings from Foster: $0.5 to 0.8 million (Nov. 2020), $2.0 million (July 2021), $3.0 million (March 2022, the night of the vote), $0.75 million (Oct. 2023). The yearly payment is about $3.2 million.');
+  [0,1,2,3,4].forEach(t=>{el('line',{class:t?'grid':'zero',x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:m.l-8,y:Y(t)+4,'text-anchor':'end'},svg,'$'+t+'M')});
+  const yp=Y(3.228);el('line',{x1:m.l,x2:W-m.r,y1:yp,y2:yp,stroke:'var(--neg)','stroke-width':2,'stroke-dasharray':'6 4'},svg);
+  el('text',{x:m.l+6,y:yp-8,class:'b',style:'font-size:13px;fill:var(--neg)'},svg,'Foster\'s yearly payment, about $3.2M');
+  FOS.forEach((d,i)=>{const x=m.l+i*cw+(cw-bw)/2,g=el('g',{},svg),vote=i===2;el('rect',{x:m.l+i*cw,y:m.t,width:cw,height:H-m.t-m.b,fill:'transparent'},g);
+    if(d[2]!==d[3]){rrect(x,Y(d[3]),bw,Y(0)-Y(d[3]),3,g,{class:'bar grow',fill:'var(--bar)',opacity:.45});rrect(x,Y(d[2]),bw,Y(0)-Y(d[2]),3,g,{class:'bar grow',fill:'var(--bar)'})}
+    else rrect(x,Y(d[2]),bw,Y(0)-Y(d[2]),3,g,{class:'bar grow',fill:vote?'var(--bus)':'var(--bar)'});
+    const lab=d[2]===d[3]?'$'+d[2]+'M':'$'+d[2]+'–'+d[3]+'M';
+    const inside=narrow&&vote,lx=narrow&&i===0?Math.max(x+bw/2,m.l+40):x+bw/2;
+    el('text',{x:lx,y:inside?Y(d[3])+17:Y(d[3])-(vote?20:7),'text-anchor':'middle',class:'tick',style:'font-size:12px;fill:'+(inside?'var(--bus-ink);font-weight:500':'var(--ink)')},g,lab);
+    el('text',{x:x+bw/2,y:H-m.b+16,'text-anchor':'middle',class:'tick'},g,d[0]);
+    if(!narrow)el('text',{x:x+bw/2,y:H-m.b+31,'text-anchor':'middle',class:'tick',style:'font-size:10.5px'},g,d[1]);
+    hot(g,`<b>${d[0]}</b>: ${lab} a year<small>${d[1]}</small>`)});
+  animate(svg,'foster','y');
+}
+
+/* ---------- births and kindergarten by class ---------- */
+const BK=[[2015,1046,820],[2016,1023,815],[2017,944,802],[2018,977,762],[2019,977,768],[2020,926,636],[2021,864,634],[2022,864,597],[2023,795,589],[2024,746,546],[2025,723,546]];
+function drawBirths(){
+  const host=document.getElementById('cv-births'),W=Wof(host),narrow=W<540,H=narrow?270:320,m={l:44,r:narrow?62:118,t:26,b:30},max=1100;
+  const X=y=>m.l+(y-2015)/10*(W-m.l-m.r),Y=v=>m.t+(max-v)/max*(H-m.t-m.b);
+  const svg=svgIn(host,W,H,'Births for each kindergarten class fell from 1,046 (class of 2015) to 723 (class of 2025); kindergartners fell from 820 to 546. About 80 kindergartners per 100 births before 2020, about 72 after.');
+  [0,250,500,750,1000].forEach(t=>{el('line',{class:t?'grid':'zero',x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:m.l-6,y:Y(t)+4,'text-anchor':'end'},svg,t.toLocaleString())});
+  BK.forEach((d,i)=>{if(!narrow||i%2===0)el('text',{class:'tick',x:X(d[0]),y:H-8,'text-anchor':'middle'},svg,narrow?"'"+String(d[0]).slice(2):d[0])});
+  el('text',{class:'tick',x:m.l,y:12},svg,'Kindergarten class of …');
+  // gap shading
+  const top=BK.map(d=>X(d[0])+','+Y(d[1])).join(' '),bot=BK.slice().reverse().map(d=>X(d[0])+','+Y(d[2])).join(' ');
+  el('polygon',{points:top+' '+bot,fill:'var(--card-2)',opacity:.7},svg);
+  const xp=X(2019.5);el('line',{x1:xp,x2:xp,y1:m.t,y2:H-m.b,stroke:'var(--faint)','stroke-dasharray':'2 3'},svg);
+  el('text',{x:xp+5,y:m.t+10,class:'tick'},svg,'pandemic');
+  [[1,'var(--bar)'],[2,'var(--bus)']].forEach(([k,c])=>{el('path',{d:BK.map((d,i)=>(i?'L':'M')+X(d[0])+','+Y(d[k])).join(''),fill:'none',stroke:c,'stroke-width':3,'stroke-linejoin':'round'},svg)});
+  BK.forEach(d=>{const g=el('g',{},svg);el('rect',{x:X(d[0])-12,y:m.t,width:24,height:H-m.t-m.b,fill:'transparent'},g);
+    el('circle',{cx:X(d[0]),cy:Y(d[1]),r:3.2,fill:'var(--bar)'},g);el('circle',{cx:X(d[0]),cy:Y(d[2]),r:3.2,fill:'var(--bus)'},g);
+    hot(g,`<b>Kindergarten class of ${d[0]}</b>: ${d[1].toLocaleString()} babies born, ${d[2]} kindergartners<small>${Math.round(d[2]/d[1]*100)} kindergartners per 100 births</small>`)});
+  const L=BK[BK.length-1];
+  el('text',{x:X(2025)+8,y:Y(L[1])+4,class:'b',style:'font-size:13px'},svg,'723 born');
+  el('text',{x:X(2025)+8,y:Y(L[2])+4,class:'b',style:'font-size:13px;fill:var(--bus)'},svg,'546 enrolled');
+  if(!narrow){el('text',{x:X(2025)+8,y:Y(L[1])+20,class:'tick'},svg,'from 1,046');el('text',{x:X(2025)+8,y:Y(L[2])+20,class:'tick'},svg,'from 820');}
+  const ya=Y(250);
+  if(!narrow)el('text',{x:X(2017),y:ya,'text-anchor':'middle',class:'m',style:'font-size:13px'},svg,'about 80 per 100 births');
+  if(!narrow)el('text',{x:X(2022.5),y:ya,'text-anchor':'middle',class:'m',style:'font-size:13px'},svg,'about 72 per 100');
+  table('births-table',['Kindergarten class','Babies born (about 5 years earlier)','D65 kindergartners','Per 100 births'],BK.map(d=>({cells:[d[0],d[1].toLocaleString(),d[2],Math.round(d[2]/d[1]*100)]})));
+}
+
+/* ---------- enrollment, 1986-2025 ---------- */
+const ENR=[[1986,6335],[1987,6178],[1988,6054],[1989,6425],[1990,6547],[1991,6736],[1992,6911],[1993,6860],[1994,6991],[1995,7148],[1996,7124],[1997,7246],[1998,7141],[1999,7149],[2000,7188],[2001,7038],[2002,7003],[2003,6957],[2004,6645],[2005,6468],[2006,6408],[2007,6427],[2008,6563],[2009,6812],[2010,6993],[2011,7271],[2012,7475],[2013,7587],[2014,7655],[2015,7805],[2016,7997],[2017,7913],[2018,7771],[2019,7681],[2020,7254],[2021,6709],[2022,6383],[2023,6273],[2024,6136]];
+function drawEnr(){
+  const host=document.getElementById('cv-enr'),start=1986,W=Wof(host),narrow=W<520,H=narrow?260:320,m={l:46,r:narrow?70:104,t:22,b:28},min=5000,max=8500;
+  const X=y=>m.l+(y-start)/(2025-start)*(W-m.l-m.r),Y=v=>m.t+(max-v)/(max-min)*(H-m.t-m.b);
+  const svg=svgIn(host,W,H,'District 65 enrollment each fall, 1986 to 2025: about 6,300 in 1986, peak 7,997 in 2016, 5,936 in 2025');
+  [5000,6000,7000,8000].forEach(t=>{el('line',{class:'grid',x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:m.l-6,y:Y(t)+4,'text-anchor':'end'},svg,t.toLocaleString())});
+  [1990,2000,2010,2020].forEach(t=>el('text',{class:'tick',x:X(t),y:H-8,'text-anchor':'middle'},svg,t));
+  const d=ENR.map((p,i)=>(i?'L':'M')+X(p[0])+','+Y(p[1])).join('');
+  const path=el('path',{d,fill:'none',stroke:'var(--ink)','stroke-width':2.25,'stroke-linejoin':'round'},svg);
+  el('line',{x1:X(2024),y1:Y(6136),x2:X(2025),y2:Y(5936),stroke:'var(--ink)','stroke-width':1.5,opacity:.5},svg);
+  if(!reduce&&!noAnim&&!seen.has('enr')){const L=path.getTotalLength();path.style.strokeDasharray=L;path.style.strokeDashoffset=L;requestAnimationFrame(()=>requestAnimationFrame(()=>{path.style.transition='stroke-dashoffset 1.6s ease';path.style.strokeDashoffset=0}));seen.add('enr')}
+  ENR.forEach(p=>{const g=el('g',{},svg);el('circle',{cx:X(p[0]),cy:Y(p[1]),r:7,fill:'transparent'},g);el('circle',{cx:X(p[0]),cy:Y(p[1]),r:2.2,fill:'var(--ink)'},g);
+    hot(g,`<b>Fall ${p[0]}</b>: ${p[1].toLocaleString()} students<small>Federal count</small>`)});
+  [[2016,7997,'7,997 in 2016',-12,0],[2025,5936,'5,936 in 2025',0,1]].forEach(([y,v,t,dy,k])=>{const g=el('g',{},svg);
+    el('circle',{cx:X(y),cy:Y(v),r:6,fill:k?'var(--bus)':'var(--ink)',stroke:'var(--raised)','stroke-width':2},g);
+    el('text',{x:k?X(y)+10:X(y),y:k?Y(v)+5:Y(v)+dy,'text-anchor':k?'start':'middle',class:'b',style:'font-size:13.5px'},g,t);
+    hot(g,`<b>Fall ${y}</b>: ${v.toLocaleString()} students<small>${k?'State count':'Federal count'}</small>`)});
+  
+}
+
+/* ---------- source chips ---------- */
+const panel=document.getElementById('srcpanel'),list=document.getElementById('srclist');let lastBtn=null;
+/* tags stay on the line with the word before them: the last word and a run of tags share one no-wrap span */
+function keepWithWord(b){if(b.closest('.nw'))return;const run=[b];let n=b.nextSibling;
+  while(n&&n.nodeType===3&&!n.textContent.trim()&&n.nextSibling&&n.nextSibling.nodeType===1&&n.nextSibling.matches('.src,.c')){run.push(n,n.nextSibling);n=n.nextSibling.nextSibling}
+  const t=b.previousSibling,m=t&&t.nodeType===3&&t.textContent.match(/(\S+)\s$/);if(!m&&run.length<2)return;
+  const w=document.createElement('span');w.className='nw';b.before(w);if(m){t.textContent=t.textContent.slice(0,-m[0].length);w.append(m[1]+' ')}run.forEach(x=>w.appendChild(x))}
+function chips(){document.querySelectorAll('.src:not([data-done]),.c:not([data-done])').forEach(b=>{keepWithWord(b);b.dataset.done=1;if(b.matches('.c'))return;
+  const ids=b.dataset.id.split(' ');b.textContent=ids.length===1?'Source':ids.length+' sources';b.type='button';b.setAttribute('aria-label','Show sources: '+ids.join(', '))})}
+document.addEventListener('click',e=>{const b=e.target.closest('.src');if(!b)return;lastBtn=b;const ids=b.dataset.id.split(' ');
+  list.innerHTML=ids.map(id=>{const s=SRC[id];if(!s)return `<li><span class="sid">${id}</span></li>`;return `<li><span class="sid">${id}</span><span class="t">${s[0]}</span><span class="mm">${s[1]}${s[2]?' · '+s[2]:''}</span>${s[4]?`<span class="mm">${s[4]}</span>`:''}${s[3]?`<a href="${s[3]}" target="_blank" rel="noopener">${s[3].replace(/^https?:\/\//,'').slice(0,70)}${s[3].length>78?'…':''}</a>`:''}</li>`}).join('');
+  document.getElementById('srchd').textContent=ids.length===1?'Source':ids.length+' sources';panel.classList.add('open');panel.setAttribute('aria-hidden','false');document.getElementById('srcclose').focus()});
+function closePanel(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');if(lastBtn)lastBtn.focus()}
+document.getElementById('srcclose').addEventListener('click',closePanel);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('open'))closePanel()});
+
+
+
+/* ---------- draw on first view, redraw on resize ---------- */
+/* ---------- rounds of cuts, made and proposed; the proposed round stacked by kind ---------- */
+function drawCutBars(){
+  const host=document.getElementById('cv-cutbars'),W=Wof(host),narrow=W<520;
+  const D=[['2024',6.5,'39 jobs'],['2025',13.3,'91 jobs'],['2026',6.3,'2 schools']];
+  const P=[['Jobs and benefits',11.8,0,'About 120 jobs, plus a health-plan redesign and less overtime'],
+           [narrow?'Closing 2 schools':'Closing Dewey and Lincolnwood',2.3,1,'Before added busing; about $2.1M after, by the district\'s Nov. 9 estimate. The Oct. 13 plan said $2.9M.'],
+           ['Busing',1.5,0,'Routes, bus aides and other changes, after about $0.3M of added busing for the closures'],
+           [narrow?'Services, supplies':'Services and supplies',2.4,0,'Purchased services, supplies and technology; includes about $0.7M the district calls one-time'],
+           ['Ending Head Start',1.5,0,"Head Start's local share, now planned for 2028-29"]];
+  const H=narrow?310:340,m={t:30,b:narrow?28:44,l:0},labW=narrow?118:236,cr=W-labW,cw=(cr-m.l)/4,bw=Math.min(76,cw*.62),max=21;
+  const Y=v=>m.t+(1-v/max)*(H-m.t-m.b),hgt=v=>Y(0)-Y(v),mono='font-family:var(--mono);font-stretch:100%;font-weight:500';
+  const svg=svgIn(host,W,H,'Cuts in D65 spending: $6.5 million in 2024, $13.3 million in 2025, $6.3 million in 2026, and $19.5 million proposed for 2027-28 and 2028-29: jobs and benefits $11.8 million, closing Dewey and Lincolnwood $2.3 million before added busing (about $2.1 million after), busing $1.5 million, services and supplies $2.4 million, ending Head Start $1.5 million');
+  const cx=i=>m.l+i*cw+cw/2;
+  D.forEach(([t,v,s2],i)=>{const x=cx(i)-bw/2,g=el('g',{},svg);
+    el('rect',{x:cx(i)-cw/2,y:m.t,width:cw,height:H-m.t-m.b,fill:'transparent'},g);
+    rrect(x,Y(v),bw,hgt(v),4,g,{class:'bar grow',fill:'var(--bus)'});
+    el('text',{x:cx(i),y:Y(v)-8,'text-anchor':'middle',class:'b',style:'font-size:'+(narrow?13:15)+'px;'+mono},g,'$'+v+'M');
+    el('text',{x:cx(i),y:H-(narrow?8:24),'text-anchor':'middle',class:'b',style:'font-size:'+(narrow?13:14)+'px'},g,t);
+    if(!narrow)el('text',{x:cx(i),y:H-8,'text-anchor':'middle',class:'tick'},g,s2);
+    hot(g,`<b>${t}</b>: $${v} million, ${i==2?'including closing 2 schools':s2}<small>${i<2?"District's count":"District estimate"}</small>`)});
+  // proposed: one column stacked by kind, labeled at the right
+  const px=cx(3)-bw/2;let c=0;const segs=[];
+  P.forEach(([t,v,hi,note])=>{const y0=Y(c+v),h=hgt(v)-0,g=el('g',{},svg);
+    el('rect',{x:px,y:y0,width:bw,height:h,fill:'var(--bus)',opacity:hi?1:.42,class:'bar grow'},g);
+    segs.push({t,v,hi,note,g,mid:y0+h/2});c+=v});
+  // separators
+  c=0;P.slice(0,-1).forEach(([,v])=>{c+=v;el('line',{x1:px,x2:px+bw,y1:Y(c),y2:Y(c),stroke:'var(--paper)','stroke-width':2},svg)});
+  el('text',{x:cx(3),y:Y(P.reduce((a,p)=>a+p[1],0))-8,'text-anchor':'middle',class:'b',style:'font-size:'+(narrow?13:15)+'px;'+mono},svg,'$19.5M');
+  el('text',{x:cx(3),y:H-(narrow?8:24),'text-anchor':'middle',class:'b',style:'font-size:'+(narrow?13:14)+'px'},svg,'Proposed');
+  if(!narrow)el('text',{x:cx(3),y:H-8,'text-anchor':'middle',class:'tick'},svg,'2027-29');
+  // labels: start at segment middles (top to bottom), push apart so none overlap
+  const lh=narrow?28:17,L=segs.slice().reverse();
+  let ys=L.map(sg=>sg.mid+(narrow?-2:4));for(let k=1;k<ys.length;k++)ys[k]=Math.max(ys[k],ys[k-1]+lh);
+  const over=ys[ys.length-1]-(Y(0)-(narrow?10:4));if(over>0)ys=ys.map(y=>y-over);
+  for(let k=ys.length-2;k>=0;k--)ys[k]=Math.min(ys[k],ys[k+1]-lh);
+  const lx=px+bw+(narrow?10:14);
+  L.forEach((sg,k)=>{const y=ys[k],col=sg.hi?'var(--bus)':'var(--ink)';
+    const ty=narrow?y+2:y-4;if(Math.abs(ty-sg.mid)>3)el('path',{d:`M${px+bw+2},${sg.mid} L${lx-4},${ty}`,fill:'none',stroke:sg.hi?'var(--bus)':'var(--faint)','stroke-width':1},sg.g);
+    if(narrow){el('text',{x:lx,y:y,class:'b',style:'font-size:12px;fill:'+col},sg.g,sg.t);
+               el('text',{x:lx,y:y+13,style:'font-size:11.5px;fill:'+col+';'+mono},sg.g,'$'+sg.v+'M');if(sg.hi)el('text',{x:lx,y:y+26,style:'font-size:11px;fill:'+col},sg.g,'before added busing')}
+    else{const tx=el('text',{x:lx,y:y,class:'b',style:'font-size:13px;fill:'+col},sg.g,sg.t+'  ');
+         el('tspan',{style:mono+';font-size:12.5px'},tx,'$'+sg.v+'M');if(sg.hi)el('text',{x:lx,y:y+16,style:'font-size:12px;fill:'+col},sg.g,'before added busing')}
+    hot(sg.g,`<b>${sg.t}</b>: $${sg.v} million a year<small>${sg.note}</small>`)});
+  el('line',{class:'zero',x1:0,x2:px+bw+6,y1:Y(0),y2:Y(0)},svg);
+  animate(svg,'cutbars','y');
+}
+
+/* ---------- fullness: D65 now against its goal and planners' range ---------- */
+function drawFill(){
+  const host=document.getElementById('cv-fill'),W=Wof(host),narrow=W<520,m={l:4,r:narrow?10:14},X=v=>m.l+v/100*(W-m.l-m.r);
+  const ty=narrow?62:56,th=narrow?40:44,H=ty+th+(narrow?58:48);
+  const svg=svgIn(host,W,H,"D65's elementary schools are about 64% full. Its own goal is 85%; planners elsewhere aim for 80% to 100%.");
+  el('rect',{x:X(80),y:ty-10,width:X(100)-X(80),height:th+20,fill:'var(--card-2, #e9edf0)',rx:3},svg);
+  el('text',{x:X(100),y:ty-18,'text-anchor':'end',class:'tick'},svg,narrow?'planners: 80–100%':"planners' usual range: 80–100%");
+  rrect(X(0),ty,X(100)-X(0),th,5,svg,{fill:'none',stroke:'var(--rule)','stroke-width':1.5});
+  const g=el('g',{},svg);
+  rrect(X(0),ty,X(64)-X(0),th,5,g,{class:'bar grow',fill:'var(--bus)'});
+  el('text',{x:X(64)-10,y:ty+th/2+6,'text-anchor':'end',class:'b',style:'font-size:'+(narrow?17:19)+'px;font-family:var(--mono);font-stretch:100%;font-weight:500;fill:var(--bus-ink)'},g,'64%');
+  el('text',{x:X(0),y:ty-18,class:'b',style:'font-size:14px'},g,'D65 now');
+  hot(g,"<b>D65 now</b>: about 64% of elementary seats filled<small>District's figure, fall 2026</small>");
+  const gg=el('g',{},svg);
+  el('line',{x1:X(85),x2:X(85),y1:ty-6,y2:ty+th+12,stroke:'var(--ink)','stroke-width':2.5},gg);
+  el('text',{x:X(85),y:ty+th+30,'text-anchor':'middle',class:'b',style:'font-size:14px'},gg,narrow?'D65 goal: 85%':"D65's own goal: 85%");
+  hot(gg,"<b>D65's own goal</b>: 85%<small>2022 building study for the master facility plan</small>");
+  [0,50,100].forEach(t=>el('text',{x:X(t),y:ty+th+(narrow?50:46),'text-anchor':t?(t===100?'end':'middle'):'start',class:'tick'},svg,t+'%'));
+  animate(svg,'fill','x');
+}
+
+
+const DRAW={'f-fill':drawFill,'f-cutbars':drawCutBars,'f-bus9':drawBus9,'f-iep':drawIEP,'f-mix':drawMix,'f-cost':drawCost,'f-il':drawIL,'f-grow2':drawGrow2,'f-pace':drawPace,'f-gr':drawGr,'f-bus':drawBus,'f-tax':drawTax,'f-typ':drawTyp,'f-foster':drawFoster,'f-nbr':drawNbr,'f-kids':drawKids,'f-e19':drawE19,'f-rev':drawRev,'f-res':drawRes,'f-cush':drawCush,'f-staff':drawStaff,'f-sped':drawSped};
+const drawn=new Set();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target;t.classList.add('in');
+  if(DRAW[t.id]&&!drawn.has(t.id)){drawn.add(t.id);DRAW[t.id]();chips()}
+  if(t.id==='f-strip')document.getElementById('strip').classList.add('in');
+  io.unobserve(t)}),{rootMargin:'0px 0px -12% 0px',threshold:.05});
+document.querySelectorAll('.rv').forEach(n=>io.observe(n));
+document.querySelectorAll('details.q').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)d.querySelectorAll('figure.chart').forEach(f=>{if(DRAW[f.id]){drawn.add(f.id);DRAW[f.id]();chips()}})}));
+let lastW=innerWidth;
+new ResizeObserver(()=>{if(Math.abs(innerWidth-lastW)<4)return;lastW=innerWidth;noAnim=true;drawn.forEach(id=>DRAW[id]());noAnim=false}).observe(document.body);
+chips();
+
+/* ---------- section nav + progress ---------- */
+const secs=['s1','s2','s3','s4','s5','s6','s7','s8','s9','latest'].map(id=>document.getElementById(id)),links=document.querySelectorAll('.topbar nav a'),prog=document.getElementById('progress');
+const secnav=document.querySelector('.topbar nav');let lastSec;
+/* fade the bar's edges only where more sections are hidden */
+function fades(){const l=secnav.scrollLeft,r=secnav.scrollWidth-secnav.clientWidth-l;secnav.style.setProperty('--fl',l>2?'28px':'0px');secnav.style.setProperty('--fr',r>2?'36px':'0px')}
+secnav.addEventListener('scroll',fades,{passive:true});addEventListener('resize',fades);
+function onScroll(){const y=scrollY+innerHeight*.35;let cur=null;secs.forEach(s=>{if(s.offsetTop<=y)cur=s.id});links.forEach(a=>a.classList.toggle('on',a.dataset.sec===cur));
+  /* keep the current section in view: scroll the bar sideways only, never the page */
+  if(cur!==lastSec){lastSec=cur;const a=secnav.querySelector('a.on');const left=a?Math.max(0,a.offsetLeft-(secnav.clientWidth-a.offsetWidth)/2):0;if(Math.abs(secnav.scrollLeft-left)>1)secnav.scrollTo({left,behavior:reduce?'auto':'smooth'})}
+  const h=document.documentElement.scrollHeight-innerHeight;prog.style.width=(h>0?scrollY/h*100:0)+'%'}
+addEventListener('scroll',onScroll,{passive:true});onScroll();fades();
+
+/* site menu on phones, as on the front door */
+(function(){const mb=document.getElementById('menubtn'),nv=document.getElementById('sitenav');if(!mb||!nv)return;
+  const close=()=>{nv.classList.remove('open');mb.setAttribute('aria-expanded','false')};
+  mb.addEventListener('click',e=>{e.stopPropagation();const o=!nv.classList.contains('open');nv.classList.toggle('open',o);mb.setAttribute('aria-expanded',o?'true':'false')});
+  document.addEventListener('click',e=>{if(!e.target.closest('#sitenav'))close()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});})();
+
+/* on touch screens the chart hints say "Tap" */
+if(matchMedia('(hover:none)').matches)document.querySelectorAll('.hint').forEach(h=>{h.textContent=h.textContent.replace(/^Hover over /,'Tap ').replace(/^Hover /,'Tap ')});
+
+/* ---------- edit mode: type changes straight into the page; they're saved to apply later ---------- */
+(function(){
+  const SEL='.kicker, .part-head h2, main .p, main .big, main .big2, main .ask p, main figure.chart h3, main figure.chart .sub, main figure.chart p.note, main ul.factors li, main .callout, main .latest p, main .latest b';
+  const eb=document.getElementById('editBtn'), bar=document.getElementById('editbar'), cnt=document.getElementById('editcount'), stat=document.getElementById('editstat');
+  const LS='d65edits';
+  function clean(el){const c=el.cloneNode(true);c.querySelectorAll('.src,.c,button,svg').forEach(x=>x.remove());return c.textContent.replace(/\s+/g,' ').trim()}
+  function hash(s){let a=5381;for(let i=0;i<s.length;i++)a=((a<<5)+a+s.charCodeAt(i))|0;return 'e'+(a>>>0).toString(36)}
+  const els=[], seen={};
+  document.querySelectorAll(SEL).forEach(el=>{
+    if(el.closest('.srcpanel,header,.cv,.tw'))return;
+    if(el.parentElement.closest('[data-ek]'))return;
+    const t=clean(el);if(!t)return;
+    let k=hash(t);seen[k]=(seen[k]||0)+1;if(seen[k]>1)k+='-'+seen[k];
+    el.dataset.ek=k;el._orig=t;els.push(el);
+  });
+  const byKey={};els.forEach(el=>byKey[el.dataset.ek]=el);
+  let edits={}, db=null;
+  try{edits=JSON.parse(localStorage.getItem(LS)||'{}')}catch(e){}
+  // drop edits already applied to the page (their original line no longer exists)
+  Object.keys(edits).forEach(k=>{if(!byKey[k])delete edits[k]});
+  function show(el,after){
+    // put the edited words on the page, keeping source buttons at the end
+    const keep=[...el.querySelectorAll(':scope > .src, :scope > .nw > .src')];
+    el.textContent=after+(keep.length?' ':'');keep.forEach(b=>el.appendChild(b));
+    el.classList.add('edited');
+  }
+  function paint(){Object.values(edits).forEach(e=>{const el=byKey[e.key];if(el&&clean(el)!==e.after)show(el,e.after)});count()}
+  function count(){const n=Object.keys(edits).length;cnt.textContent=n===0?'No changes yet':n===1?'1 change saved':n+' changes saved'}
+  function local(){try{localStorage.setItem(LS,JSON.stringify(edits))}catch(e){}}
+  function note(s){stat.textContent=s}
+  async function save(rec){
+    edits[rec.key]=rec;local();count();
+    if(db){try{await db.doc('edits/'+rec.key).set(rec);note('Saved')}catch(e){note('Saved in this browser only')}}
+    else note('Saved in this browser only');
+  }
+  async function drop(key){
+    delete edits[key];local();count();
+    if(db){try{await db.doc('edits/'+key).delete()}catch(e){}}
+  }
+  function onBlur(e){
+    const el=e.target.closest('[data-ek]');if(!el)return;
+    const now=clean(el), k=el.dataset.ek;
+    if(now===el._orig){el.classList.remove('edited');if(edits[k])drop(k);return}
+    if(edits[k]&&edits[k].after===now)return;
+    el.classList.add('edited');
+    const sec=el.closest('section');
+    save({key:k,section:sec?sec.id:'top',before:el._orig,after:now,at:new Date().toISOString()});
+  }
+  function setMode(on){
+    document.body.classList.toggle('editing',on);eb.setAttribute('aria-pressed',on?'true':'false');
+    els.forEach(el=>{if(on){el.setAttribute('contenteditable','true');el.setAttribute('spellcheck','true');el.querySelectorAll('.src,.c').forEach(b=>b.setAttribute('contenteditable','false'))}else{el.removeAttribute('contenteditable')}});
+    if(on)note(db?'Changes save as you go':'Changes save in this browser');
+  }
+  eb.addEventListener('click',()=>setMode(!document.body.classList.contains('editing')));
+  document.getElementById('editdone').addEventListener('click',()=>setMode(false));
+  document.addEventListener('focusout',e=>{if(document.body.classList.contains('editing'))onBlur(e)});
+  document.addEventListener('keydown',e=>{const el=e.target.closest&&e.target.closest('[contenteditable="true"]');if(el&&e.key==='Enter'){e.preventDefault();el.blur()}});
+  document.addEventListener('paste',e=>{const el=e.target.closest&&e.target.closest('[contenteditable="true"]');if(!el)return;e.preventDefault();const t=(e.clipboardData||window.clipboardData).getData('text/plain').replace(/\s+/g,' ');document.execCommand('insertText',false,t)});
+  document.getElementById('editcopy').addEventListener('click',async()=>{
+    const list=Object.values(edits);if(!list.length){note('Nothing to copy yet');return}
+    const txt=list.map(e=>`[${e.section}]\nBEFORE: ${e.before}\nAFTER:  ${e.after}`).join('\n\n');
+    try{await navigator.clipboard.writeText(txt);note('Copied the list of changes')}catch(err){note('Copy blocked. Your changes are still saved')}
+  });
+  paint();
+  // Shared store, so the edits can be read back later
+  (async()=>{try{if(!window.claude||!claude.use)return;const d=await claude.use('db');if(!d)return;db=d;
+    const snap=await db.collection('edits').get();
+    snap.docs.forEach(s=>{const v=s.data();if(v&&v.key&&byKey[v.key])edits[v.key]=v});
+    // anything typed before the store answered gets saved there too
+    for(const e of Object.values(edits)){if(!snap.docs.some(s=>s.id===e.key)){try{await db.doc('edits/'+e.key).set(e)}catch(x){}}}
+    local();paint();if(document.body.classList.contains('editing'))note('Changes save as you go');
+  }catch(e){}})();
+})();
+
+/* back to wherever the reader came from on the site */
+(function(){const names={home:'Main page',charts:'Charts',two:'Two minutes',about:'About',tour:'Tour'};let from=null;try{from=sessionStorage.getItem('d65from')}catch(e){}
+const a=document.getElementById('backlink'),l=document.getElementById('backlbl');if(!a)return;
+if(from&&names[from]){a.href='index.html#'+from;l.textContent=names[from]}
+a.addEventListener('click',()=>{try{sessionStorage.setItem('d65back','1')}catch(e){}});})();
+</script>
+</body>
+</html>
