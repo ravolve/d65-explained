@@ -1,0 +1,19 @@
+{
+  "outputDirectory": "site",
+  "buildCommand": null,
+  "installCommand": null,
+  "framework": null,
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/img/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    }
+  ]
+}
