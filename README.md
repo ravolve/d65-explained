@@ -50,3 +50,5 @@ Get Andy's OK on any wording change; his explicit instructions count as approval
 ## Editing tools
 
 The in-page editor was turned off at launch (Nov. 10, 2026). Edits go through Claude and this repo.
+
+Connected to Vercel on Nov. 10, 2026.
