@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Building repairs · D65 Explained</title>
+<meta name="description" content="D65's schools are old and need a lot of work. What repairs cost, how they tie into the budget and the closures, and why the numbers are hard to pin down.">
+<link rel="canonical" href="https://www.d65explained.com/repairs.html">
+<meta name="theme-color" content="#10171d">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="D65 Explained">
+<meta property="og:title" content="Building repairs · D65 Explained">
+<meta property="og:description" content="D65's schools are old and need a lot of work. What repairs cost, how they tie into the budget and the closures, and why the numbers are hard to pin down.">
+<meta property="og:url" content="https://www.d65explained.com/repairs.html">
+<meta property="og:image" content="https://www.d65explained.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="D65 Explained">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Building repairs · D65 Explained">
+<meta name="twitter:description" content="D65's schools are old and need a lot of work. What repairs cost, how they tie into the budget and the closures, and why the numbers are hard to pin down.">
+<meta name="twitter:image" content="https://www.d65explained.com/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#f6f7f7; --ink:#17222c; --muted:#5a6671; --faint:#8a959f; --rule:#dde2e6; --card:#eceff1; --card-2:#e3e8eb; --raised:#fff;
+  --bus:#f2b705; --bus-ink:#1d1600; --link:#1f4e8c; --neg:#b4472f; --up:#c4590f; --down:#2a6bc2; --bar:#9aa5ae;
+  --sheet:#17222c; --sheet-ink:#f3f5f6; --sheet-link:#f2b705;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Literata",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --col:42rem; --wide:48rem; --site:62rem;
+  color-scheme:light;
+}
+/* dark is the default on screen; print and data-theme="light" stay light */
+@media screen{:root:not([data-theme="light"]){
+  --paper:#10171d; --ink:#e4e9ee; --muted:#a0acb7; --faint:#6d7a86; --rule:#26313b; --card:#172129; --card-2:#1e2a33; --raised:#151f27;
+  --link:#8fb8ee; --neg:#e2795f; --up:#e0823a; --down:#4f8fe0; --bar:#5a6875; --sheet:#05090c; --sheet-ink:#e4e9ee; color-scheme:dark;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:44px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:19px;line-height:1.62;overflow-x:hidden}
+a{color:var(--link)}
+:focus-visible{outline:2px solid var(--link);outline-offset:3px;border-radius:4px}
+h1,h2,h3{margin:0;text-wrap:balance}
+
+/* top bar + site header */
+.part{scroll-margin-top:-24px}
+.chart{scroll-margin-top:16px}
+.topbar{position:sticky;top:0;z-index:30;background:var(--card);border-bottom:1px solid var(--rule);font-family:var(--display)}
+.topbar .in{max-width:var(--site);margin:0 auto;height:40px;display:flex;align-items:center;gap:12px;padding:0 max(18px,env(safe-area-inset-left,0px))}
+.topbar .back{display:inline-flex;align-items:center;gap:6px;flex:none;font-family:var(--display);font-stretch:88%;font-weight:700;font-size:14px;color:var(--ink);text-decoration:none;border:1.5px solid var(--rule);border-radius:999px;padding:5px 12px 5px 10px;white-space:nowrap}
+.topbar .back:hover{border-color:var(--ink)}
+.topbar .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:var(--bus);color:var(--bus-ink);padding:2px 8px;border-radius:3px;white-space:nowrap}
+.topbar nav{position:relative;display:flex;gap:2px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;--fl:0px;--fr:0px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 var(--fl),#000 calc(100% - var(--fr)),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 var(--fl),#000 calc(100% - var(--fr)),transparent 100%)}
+.topbar nav::-webkit-scrollbar{display:none}
+.topbar nav a{text-decoration:none;color:var(--muted);padding:4px 9px;border-radius:6px;white-space:nowrap;font-stretch:88%;font-size:14px;font-weight:600}
+.topbar nav a.on{color:var(--ink);background:var(--paper)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--bus);width:0}
+.site{position:relative;z-index:40;border-bottom:1px solid var(--rule)}
+.sitenav{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.sitenav a{font-family:var(--display);font-stretch:88%;font-weight:650;font-size:15px;color:var(--muted);text-decoration:none;padding:8px 11px;border-radius:8px;white-space:nowrap}
+.sitenav a:hover{color:var(--ink)}
+.sitenav a[aria-current="page"]{color:var(--bus-ink);background:var(--bus)}
+.site .brand{white-space:nowrap;flex:none}
+.site .in{max-width:var(--site);margin:0 auto;min-height:56px;display:flex;align-items:center;gap:12px;padding:0 max(18px,env(safe-area-inset-left,0px))}
+.brand{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:18px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:9px;padding:6px 0;margin-right:auto}
+.brand::before{content:"";width:12px;height:12px;border-radius:3px;background:var(--bus)}
+.menubtn{display:none;font-family:var(--display);font-stretch:88%;font-weight:700;font-size:15px;color:var(--ink);border:1.5px solid var(--rule);background:var(--raised);border-radius:999px;padding:8px 14px;cursor:pointer;min-height:40px}
+@media (max-width:700px){
+  .menubtn{display:inline-flex}
+  .sitenav{display:none;position:absolute;top:56px;right:12px;left:12px;margin:0;flex-direction:column;align-items:stretch;overflow:visible;background:var(--raised);border:1px solid var(--rule);border-radius:14px;padding:8px;box-shadow:0 14px 40px rgba(0,0,0,.14)}
+  .sitenav.open{display:flex}
+  .sitenav a{font-size:17px;padding:12px 14px;text-align:left}
+}
+
+/* story column */
+main{padding:0 max(16px,env(safe-area-inset-left,0px)) 40px}
+.col{max-width:var(--col);margin:0 auto}
+.wide{max-width:var(--wide);margin:0 auto}
+.opener{max-width:var(--col);margin:0 auto;padding:clamp(28px,5vw,52px) 0 0;display:grid;gap:12px}
+.opener h1{font-family:var(--display);font-stretch:78%;font-weight:800;line-height:1.02;font-size:clamp(36px,6vw,56px)}
+.opener .dek{margin:0;font-size:clamp(19px,2.3vw,22px);line-height:1.45;color:var(--muted)}
+.opener + section.part{padding-top:48px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0}
+.opener .prev{font-family:var(--display);font-stretch:88%;font-size:16px;color:var(--muted);text-decoration:none}
+.opener .prev:hover{color:var(--ink)}
+
+section.part{padding:72px 0 24px}
+.part-head{max-width:var(--col);margin:0 auto 34px;display:grid;gap:10px}
+.part-num{font-family:var(--display);font-stretch:78%;font-weight:800;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
+.part-num::before{content:"";width:28px;height:3px;background:var(--bus)}
+.part-head h2{font-family:var(--display);font-stretch:78%;font-weight:800;font-size:clamp(34px,5.4vw,54px);line-height:1}
+
+.p{max-width:var(--col);margin:0 auto 22px;font-size:clamp(19px,2.1vw,21px);line-height:1.6;text-wrap:pretty}
+.p.lead{font-family:var(--display);font-stretch:84%;font-weight:700;font-size:clamp(25px,3.4vw,32px);line-height:1.2;margin-top:44px;margin-bottom:26px}
+.p.turn{font-style:italic;color:var(--muted)}
+.p b{font-family:var(--display);font-stretch:88%;font-weight:720}
+
+/* the reader's voice */
+.ask{max-width:var(--col);margin:40px auto 34px;display:flex;justify-content:flex-end}
+.ask p{margin:0;position:relative;max-width:30rem;font-family:var(--display);font-stretch:88%;font-weight:680;font-size:clamp(19px,2.2vw,22px);line-height:1.25;background:var(--card-2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule);border-radius:22px 22px 6px 22px;padding:15px 20px}
+.ask p::before{content:"You";position:absolute;top:-20px;right:6px;font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* charts */
+figure.chart{max-width:var(--wide);margin:36px auto 34px;background:var(--raised);border:1px solid var(--rule);border-radius:14px;padding:clamp(18px,3.4vw,30px);display:grid;gap:14px;min-width:0}
+.chart h3{font-family:var(--display);font-stretch:82%;font-weight:780;font-size:clamp(22px,3vw,28px);line-height:1.12}
+.chart .sub{margin:-6px 0 0;font-family:var(--display);font-stretch:90%;font-size:16px;color:var(--muted);line-height:1.35}
+.seg{display:inline-flex;flex-wrap:wrap;background:var(--card);border-radius:999px;padding:3px;gap:2px;justify-self:start}
+.seg button{font:650 14.5px/1 var(--display);font-stretch:90%;border:0;background:transparent;color:var(--muted);padding:9px 14px;border-radius:999px;cursor:pointer;min-height:36px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper);box-shadow:none}
+.cv{min-width:0;position:relative}
+.cv svg{display:block;width:100%;height:auto;overflow:visible}
+.cv text{font-family:var(--display);font-stretch:90%;fill:var(--ink);font-size:14px}
+.cv .m{fill:var(--muted)}
+.cv .tick{font-family:var(--mono);font-stretch:100%;font-size:11px;fill:var(--muted)}
+.cv .b{font-weight:750}
+.cv text.halo{paint-order:stroke;stroke:var(--raised);stroke-width:4px;stroke-linejoin:round}
+.cv .grid{stroke:color-mix(in srgb,var(--ink) 9%,transparent);stroke-width:1}
+.cv .zero{stroke:var(--faint);stroke-width:1.25}
+.cv .refl{stroke:var(--ink);stroke-width:1.25;stroke-dasharray:3 3;opacity:.7}
+.cv .hot{cursor:pointer;outline:none}
+.cv .hot:hover .bar,.cv .hot:focus-visible .bar{filter:brightness(1.08)}
+.cv .hot:focus-visible{outline:2px solid var(--link)}
+.cv .grow{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);font-size:12px;color:var(--muted);margin:0;padding:0;list-style:none}
+.key li{display:flex;gap:7px;align-items:center}
+.key i{width:14px;height:10px;border-radius:2px;display:inline-block}
+.chart .note{margin:0;font-family:var(--display);font-stretch:94%;font-size:14.5px;line-height:1.5;color:var(--muted)}
+.chart .say{margin:0;font-size:18px;line-height:1.55}
+.fold{border-top:1px solid var(--rule);padding-top:4px}
+.fold summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:12px;color:var(--muted);padding:6px 0;display:inline-flex;gap:8px}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary::before{content:"+"}
+.fold[open] summary::before{content:"–"}
+.tw{overflow-x:auto}
+.tw table{border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums;min-width:100%;font-family:var(--display);font-stretch:92%}
+.tw th,.tw td{text-align:left;padding:5px 10px;border-bottom:1px solid var(--rule);white-space:nowrap}
+.tw th{font-weight:700}
+.tw td:not(:first-child),.tw th:not(:first-child){text-align:right}
+#t-capyr td:last-child,#t-capyr th:last-child,#t-cappct td:last-child,#t-cappct th:last-child{text-align:left;white-space:normal;min-width:10rem}
+.tw tr.us td{font-weight:750;background:color-mix(in srgb,var(--bus) 18%,transparent)}
+
+/* source chips + panel */
+.src{display:inline-flex;align-items:center;vertical-align:2px;margin-left:4px;font-family:var(--mono);font-size:11px;line-height:1;color:var(--muted);background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:3px 5px;cursor:pointer;white-space:nowrap}
+.src:hover{color:var(--ink);border-color:var(--faint)}
+/* "Our calculation" / "District estimate": plain labels with a small mark, not boxed like the clickable Sources tag */
+.c{display:inline-flex;align-items:center;gap:6px;margin-left:6px;font-family:var(--display);font-stretch:90%;font-style:italic;font-size:14px;line-height:1.2;white-space:nowrap;color:var(--muted)}
+.c::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.c.est::before{background:none;box-shadow:inset 0 0 0 1.5px var(--muted)}
+.srcpanel{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--sheet);color:var(--sheet-ink);border-top:3px solid var(--bus);max-height:70vh;overflow:auto;padding:16px max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));transform:translateY(105%);transition:transform .22s ease;visibility:hidden}
+.srcpanel.open{transform:none;visibility:visible}
+.srcpanel .in{max-width:var(--col);margin:0 auto;display:grid;gap:12px}
+.srcpanel .hd{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;color:var(--sheet-link)}
+.srcpanel button{background:transparent;border:1px solid currentColor;color:var(--sheet-ink);font-family:var(--mono);font-size:12px;padding:6px 10px;border-radius:3px;cursor:pointer}
+.srcpanel ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.srcpanel li{display:grid;gap:2px;border-left:2px solid rgba(255,255,255,.25);padding-left:12px}
+.srcpanel .sid{font-family:var(--mono);font-size:11px;opacity:.7}
+.srcpanel .t{font-family:var(--display);font-stretch:88%;font-size:17px;font-weight:700;line-height:1.25}
+.srcpanel .mm{font-size:14px;opacity:.85}
+.srcpanel a{color:var(--sheet-link);font-size:14px;overflow-wrap:anywhere}
+
+/* tooltip */
+.tip{position:fixed;z-index:60;max-width:270px;background:var(--sheet);color:var(--sheet-ink);border-radius:8px;padding:8px 11px;font-family:var(--display);font-stretch:90%;font-size:14px;line-height:1.35;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.tip small{display:block;font-family:var(--mono);font-size:11px;opacity:.75;margin-top:3px}
+
+
+/* next */
+.next{max-width:var(--col);margin:40px auto 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:center;text-decoration:none;color:var(--ink);border:1.5px dashed var(--rule);border-radius:14px;padding:18px 20px}
+.next small{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.next b{font-family:var(--display);font-stretch:84%;font-weight:740;font-size:clamp(20px,2.5vw,24px);line-height:1.15}
+.next i{grid-row:1/span 2;grid-column:2;font-style:normal;font-family:var(--mono);font-size:12px;color:var(--muted)}
+footer{max-width:var(--col);margin:48px auto 0;border-top:1px solid var(--rule);padding:16px 0 40px;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.6}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(10px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.strip span,.cv .grow{transition:none}.srcpanel{transition:none}}
+@media (max-width:520px){body{font-size:18px}.ask p::before{right:4px}}
+
+/* section 4 */
+.grow2{max-width:var(--col);margin:6px auto 30px}
+figure.chart > *,details.q .a > *{min-width:0}
+.key i.dash{height:0;width:18px;border-top:2px dashed var(--ink);border-radius:0;opacity:.7}
+.key i.tk{width:3px;height:14px;border-radius:0;background:var(--ink);opacity:.55}
+figure.chart details.fold > p.note{margin:2px 0 10px}
+figure.chart details.fold + details.fold{border-top:0;padding-top:0;margin-top:-12px}
+details.q figure.chart{margin:6px 0 4px;max-width:none}
+
+
+
+</style>
+<style>
+/* additions */
+.big{max-width:var(--col);margin:64px auto 22px;font-family:var(--display);font-stretch:78%;font-weight:800;font-size:clamp(30px,4.6vw,44px);line-height:1.04;text-wrap:balance}
+.nw{white-space:nowrap}
+
+figure.chart details.fold > p.note{margin:2px 0 10px}
+figure.chart details.fold + details.fold{border-top:0;padding-top:0}
+/* buttons: the same as the front door's */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;border:0;cursor:pointer;font-family:var(--display);font-stretch:88%;font-weight:750;font-size:17px;line-height:1.2;text-decoration:none;white-space:nowrap}
+.btn.yel{background:var(--bus);color:var(--bus-ink)}
+.btn.out{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--rule)}
+@media (hover:hover){.btn.out:hover{box-shadow:inset 0 0 0 1.5px var(--faint)}}
+/* S5: a way onward at the end */
+.endnav{max-width:var(--col);margin:56px auto 0;padding-top:26px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:10px}
+</style>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<div class="site"><div class="in">
+  <a class="brand" href="index.html#home">D65 Explained</a>
+  <button type="button" class="menubtn" id="menubtn" aria-expanded="false" aria-controls="sitenav">Menu</button>
+  <nav class="sitenav" id="sitenav" aria-label="Main">
+    <a href="story.html">The story</a>
+    <a href="index.html#two">Two minutes</a>
+    <a href="index.html#charts">Charts</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#tour">Tour</a>
+  </nav>
+</div></div>
+<header class="topbar">
+  <div class="in">
+    <a class="back" href="index.html#home"><span aria-hidden="true">←</span> <span>Main page</span></a>
+    <nav aria-label="Sections"></nav>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+
+<div class="opener">
+  <h1>Building repairs</h1>
+  <p class="dek">D65's schools are old, and they need a lot of work. We'll talk about the costs, and why numbers are hard to pin down.</p>
+</div>
+
+<!-- ============ 1 ============ -->
+<section class="part" id="s1" aria-labelledby="s1-h">
+  <div class="part-head rv"><span class="part-num">1 · The buildings</span><h2 id="s1-h">Old buildings that need a lot of repairs.</h2></div>
+
+  <p class="p rv">D65 has 16 school buildings, averaging 76 years old. Nationally, the average public school's main building is about 49 years old. <button class="src" data-id="S972 S983"></button></p>
+  <p class="p rv">The district says only 3 of the 16 are in "good" condition. <button class="src" data-id="S972"></button></p>
+
+  <div class="ask rv"><p>What kind of repairs do they need?</p></div>
+  <p class="p rv">The big parts of a building that wear out over time: roofs, windows, and heating and cooling systems. <button class="src" data-id="S755"></button></p>
+  <p class="p rv">This year, the district did a study to assess how much work each school needs, what kind of work, and what year it should be done. More on that in a moment. <button class="src" data-id="S755"></button></p>
+
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="part" id="s2" aria-labelledby="s2-h">
+  <div class="part-head rv"><span class="part-num">2 · The money</span><h2 id="s2-h">For years, D65 spent very little on building improvements.</h2></div>
+
+  <p class="p rv">From 2020-21 through 2024-25, D65 spent about $1.1 million a year on building improvements. <button class="src" data-id="S755"></button> <span class="c calc">Our calculation</span></p>
+  <p class="p rv">The district's building study concluded it should be spending $20.6 million a year. That's a common rule of thumb: each year, set aside about 4% of what it would cost to rebuild your buildings. <button class="src" data-id="S755"></button></p>
+
+  <p class="p rv">D65 has been spending much less than neighbors. From 2014-15 through 2023-24, it spent about $330 a year per student. The typical neighbor spent about $2,500. <button class="src" data-id="S866 S870"></button> <span class="c calc">Our calculation</span></p>
+
+  <figure class="chart rv" id="f-capnb">
+    <h3>Over 10 years, D65 spent less per student than its 16 neighbor districts and the state and national averages</h3>
+    <p class="sub">Construction and renovation spending per student per year, average of 2014-15 through 2023-24</p>
+    <div class="cv" id="cv-capnb"></div>
+    <p class="note">Census Bureau school finance survey: construction spending (which includes renovating and improving buildings), added up over 10 years and divided by the sum of each year's fall enrollment. Equipment and land aren't included. Many neighbors' totals include large projects paid for with voter-approved borrowing, which make some years much higher than others. The figures run through 2023-24, so they include little of Foster, D65's new school, which opened in August 2026. If Foster's cost, about $45 million, were added to D65's 10 years, D65 would rank third-lowest, ahead of the two Northbrook districts. That isn't a full comparison, because the neighbors' spending after 2023-24 isn't in the data yet. No public data set compares building age or condition across these districts. The dashed line marks the typical neighbor: the median of the 16, about $2,520. <button class="src" data-id="S866 S870 S108"></button> <span class="c calc">Our calculation</span></p>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="t-capnb"></div></details>
+  </figure>
+
+  <div class="ask rv"><p>Do districts really follow the 4% rule of thumb?</p></div>
+  <p class="p rv">Typically, no. Across the country, districts spend about 2.4% a year, versus the 4% rule of thumb. <button class="src" data-id="S980 S982"></button> <span class="c calc">Our calculation</span></p>
+  <p class="p rv">But D65 has spent much less than that. <button class="src" data-id="S755 S866 S870"></button> <span class="c calc">Our calculation</span></p>
+
+  <figure class="chart rv" id="f-cappct">
+    <h3>The rule of thumb says 4% a year. D65 has spent well under 1%.</h3>
+    <p class="sub">Annual spend on building improvements, as a share of what buildings would cost to rebuild</p>
+    <div class="cv" id="cv-cappct"></div>
+    <p class="note">The 4% rule of thumb is the one the district's building study uses, from the 2025 State of Our Schools report. The U.S. figure comes from the same report: districts spend about $82 billion a year on building improvements, about $56 billion less than 4% would call for. That works out to about 2.4%. D65's share is a range because the two available counts of its spending differ. The low end, 0.2%, uses the building study's count of past improvements, about $1.1 million a year from 2020-21 through 2024-25. That count may leave out some work paid for from other funds. The high end, 0.5%, uses the Census Bureau's count of D65's construction spending, about $2.4 million a year from 2014-15 through 2023-24, which is closer to how the national figure is counted. Both are divided by the study's rebuilding cost of about $516 million. The study's own condition table values the buildings higher, at about $710 million; on that basis D65's share would be lower still. <button class="src" data-id="S755 S980 S982 S866 S870"></button> <span class="c calc">Our calculation</span></p>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="t-cappct"></div></details>
+  </figure>
+
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="part" id="s3" aria-labelledby="s3-h">
+  <div class="part-head rv"><span class="part-num">3 · The gap</span><h2 id="s3-h">By putting off repairs, D65 now has a long, costly to-do list.</h2></div>
+
+  <p class="p rv">A district building study, done this year, lists the repairs and replacements each school needs, with a cost and a year for each. <button class="src" data-id="S755"></button></p>
+  <p class="p rv">That list calls for D65 to spend about $41 million a year for 10 years, across all the buildings. <button class="src" data-id="S755"></button> <span class="c calc">Our calculation</span></p>
+
+  <div class="ask rv"><p>Wait. Didn't the study say we need to spend about $20 million a year?</p></div>
+  <p class="p rv">That's just the rule of thumb. <button class="src" data-id="S755"></button></p>
+  <p class="p rv">The $41 million is what it would take to catch up, and keep up, over 10 years. That number also includes repairs for two schools that have closed and two more the district proposes closing. <button class="src" data-id="S755"></button></p>
+
+  <div class="ask rv"><p>So what's the plan?</p></div>
+  <p class="p rv">The chart below shows what D65 plans to spend on building improvements in coming years. This year, $6.9 million, then working up to $8.3 million annually. <button class="src" data-id="S972"></button> <span class="c est">District estimate</span></p>
+  <p class="p rv">The district also plans to borrow about $9 million in health and life safety bonds for work in 2027 and 2028. <button class="src" data-id="S985"></button> <span class="c est">District estimate</span></p>
+  <p class="p rv">Note how far short the plan falls of both the rule of thumb and the study's catch-up number. <button class="src" data-id="S755 S972"></button> <span class="c calc">Our calculation</span></p>
+
+  <figure class="chart rv" id="f-capyr">
+    <h3>D65 plans to increase spending on buildings, but far less than its study recommends</h3>
+    <p class="sub">Spending on building improvements and repairs, millions of dollars a year</p>
+    <div class="cv" id="cv-capyr"></div>
+    <p class="note">The first five bars are what the district's building study lists as facility improvements for each fiscal year. 2025-26 is the district's budget for building work last school year, not counting the construction of Foster, its new school ($26.8 million); the year-end figure hasn't been published. 2026-27 through 2031-32 are the building budget in the district's corrected forecast of Nov. 9. The past and planned figures come from different documents and may not count exactly the same things. Health and life safety work is paid from a separate fund and isn't included; the district plans to borrow about $9 million for it, for work in the summers of 2027 and 2028. The rule of thumb is 4% of the study's rebuilding cost of about $516 million, or $400 a square foot. The study's own condition table values the buildings at $550 a square foot; 4% of that would be about $28 million a year. The catch-up number adds up the repairs and replacements the study lists for 2027 through 2036, about $410 million, divided by 10. Its prices start at 2025 levels and rise 4.5% a year, and it includes Bessie Rhodes and Kingsley, which have closed, and Dewey and Lincolnwood, which the district proposes closing. Its years are uneven: 2034 alone comes to about $132 million. <button class="src" data-id="S755 S984 S972 S985"></button> <span class="c calc">Our calculation</span> <span class="c est">District estimate</span></p>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="t-capyr"></div></details>
+  </figure>
+
+  <p class="big rv">Even at the plan's higher budget, most of the study's list wouldn't get done at this pace.</p>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="part" id="s4" aria-labelledby="s4-h">
+  <div class="part-head rv"><span class="part-num">4 · The closures</span><h2 id="s4-h">What closing Dewey and Lincolnwood means for repairs.</h2></div>
+
+  <p class="p rv">The district says it will keep both buildings. They "will not be sold, leased, or repurposed in the short term." <button class="src" data-id="S165"></button></p>
+  <p class="p rv">Longer term, it says Dewey could serve as a "swing school," holding students while another school is rebuilt or renovated. It calls the Lincolnwood campus an "ideal site for a potential renovate or rebuild." <button class="src" data-id="S165"></button></p>
+
+  <div class="ask rv"><p>How much repair work would be avoided by closing them?</p></div>
+  <p class="p rv">The district says closing the two schools would avoid $58 million in repairs over 20 years. That's about $3 million a year. <button class="src" data-id="S165"></button> <span class="c est">District estimate</span> <span class="c calc">Our calculation</span></p>
+
+  <figure class="chart rv" id="f-capdl">
+    <h3>Repairs the study lists for Dewey and Lincolnwood come in lumps</h3>
+    <p class="sub">Repair and replacement work the district's building study lists for the two schools, by year, millions</p>
+    <div class="cv" id="cv-capdl"></div>
+    <p class="note">From the study's table of costs by building and year, 2027 through 2046. Years with no entry are shown as zero. Costs start at 2025 prices and rise 4.5% a year, so later years include inflation. Over the 20 years, the two schools' listed work adds up to about $56 million, or $2.8 million a year. The district's figure, $58 million, is close; it didn't show how it was counted. The study doesn't say whether its years are calendar or school years. <button class="src" data-id="S755 S972"></button> <span class="c calc">Our calculation</span></p>
+    <details class="fold"><summary>See the numbers</summary><div class="tw" id="t-capdl"></div></details>
+  </figure>
+
+  <div class="ask rv"><p>Does that $3 million a year saved account for the cost of keeping the empty buildings?</p></div>
+  <p class="p rv">The district didn't say. Its $58 million is close to the study's full repair list for the two buildings, which suggests it doesn't. <button class="src" data-id="S165 S755"></button> <span class="c calc">Our calculation</span></p>
+
+  <div class="ask rv"><p>So what does it cost to keep the empty buildings?</p></div>
+  <p class="p rv">The district hasn't said.</p>
+  <p class="p rv">Day-to-day costs, like heat, insurance and security, appear to be counted elsewhere. When the district lowered its yearly savings from closing the two schools, from $2.9 million to $2.3 million, part of the reason was that insurance and upkeep continue on buildings it keeps. After added busing costs, it puts the savings at about $2.1 million a year. <button class="src" data-id="S799 S972"></button> <span class="c est">District estimate</span></p>
+  <p class="p rv">It hasn't said what bigger repairs an empty building would still need, such as a new roof.</p>
+</section>
+
+
+<nav class="endnav" aria-label="Keep going">
+  <a class="btn yel" href="index.html#home"><span aria-hidden="true">←</span> Main page</a>
+  <a class="btn out" href="story.html">Read the story</a>
+</nav>
+
+</main>
+
+
+<div class="srcpanel" id="srcpanel" role="dialog" aria-label="Sources" aria-hidden="true"><div class="in"><div class="hd"><span id="srchd">Sources</span><button type="button" id="srcclose">Close</button></div><ul id="srclist"></ul></div></div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+const SRC={
+ S004:["Structural Deficit Reduction Plan (district web page)", "District 65", "2024–2026", "https://www.district65.net/about/budget-finance/structural-deficit-reduction-plan", "Phases I to III: Phase I $6.5 million and 39 full-time employees; Phase II total; Phase III closures"],
+ S108:["A new chapter: hundreds celebrate Foster School ribbon-cutting, marking historic return to 5th Ward","Daily Northwestern","Aug. 10, 2026","https://dailynorthwestern.com/2026/08/10/top-stories/a-new-chapter-hundreds-celebrate-foster-school-ribbon-cutting-marking-historic-return-to-5th-ward/"],
+ S165:["A Sustainable Path Forward: A Comprehensive Solution to the Structural Deficit","District 65","Oct. 13, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14549463"],
+ S189:["Financial Sustainability Presentation, \"A Sustainable Path Forward\"","District 65","Sept. 14, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14421838"],
+ S750:["Recent District 65 financial projections overstated spending by millions, CFO says","Evanston RoundTable","Oct. 25, 2026","https://evanstonroundtable.com/2026/10/25/district-65-financial-projections-error/"],
+ S753:["Financial Projection Assumptions: five-year planning framework","District 65 Data Hub","Oct. 2026","https://www.district65.net/fs/resource-manager/view/f46b781e-cebd-4512-8e00-b7e0be839e95"],
+ S755:["Evanston/Skokie School District 65 Facility Master Plan (revised)","Studio GC for District 65","July 10, 2026","https://www.district65.net/fs/resource-manager/view/8798205e-7e0c-46d5-b1ec-c9bf2967b425","$598.2 million for 17 buildings, 2027–2075, at 2025 prices raised 4.5% a year (pp. 22–23); past facility improvements by year (p. 24); $20,648,400 a year recommended for maintenance (p. 25); building-by-building HVAC options, geothermal listed as recommended"],
+ S771:["Board meeting video captions, Oct. 26, 2026","District 65","Oct. 26, 2026","https://www.youtube.com/watch?v=wEtvtG_NquI"],
+ S799:["Capital error put at $27.35 million; Foster lease payments left out; closure savings revised","Evanston RoundTable","Nov. 5, 2026","https://evanstonroundtable.com/2026/11/05/district-65-now-says-financial-projection-off-by-27-35-million-school-closure-savings-less-than-previously-forecasted/"],
+ S866:["Annual Survey of School System Finances: individual school system data, FY2015–FY2023","U.S. Census Bureau","2017–2025","https://www2.census.gov/programs-surveys/school-finances/tables/"],
+ S870:["Annual Survey of School System Finances, 2024: individual school system data","U.S. Census Bureau","2026","https://www2.census.gov/programs-surveys/school-finances/tables/2024/secondary-education-finance/elsec24.xlsx"],
+ S971:["Video captions, Committee of the Whole, Nov. 9, 2026 (YouTube)","District 65","Nov. 9, 2026","https://www.youtube.com/watch?v=xaG2Iv5dVrk","Discussion only; no vote on the plan"],
+ S972:["Financial Sustainability Presentation, Board Committee (slides)","District 65","Nov. 9, 2026","https://meetings.boardbook.org/Documents/FileViewerOrPublic/1247?file=14665119","Revised plan totals, closure savings, corrected forecast"],
+ S980:["K-12 facilities need $90B to close maintenance, capital gap (on the 2025 State of Our Schools report)","K-12 Dive","Jan. 2026","https://www.k12dive.com/news/k-12-facilities-need-90b-to-close-maintenance-capital-gap/809509/","Districts $56B a year short on capital investment and $34B on maintenance; best practice 4% capital plus 3% maintenance and operations"],
+ S981:["How Investing in Healthy Schools Pays Off (on the 2025 State of Our Schools report)","Facilitiesnet","2026","https://www.facilitiesnet.com/educationalfacilities/article/How-Investing-in-Healthy-Schools-Pays-Off--20890","U.S. public K-12 school facilities average about 40 years old"],
+ S982:["$90B school funding gap highlights urgent modernization needs (on the 2025 State of Our Schools report)","Construction Owners","Jan. 6, 2026","https://www.constructionowners.com/news/90b-school-funding-gap-highlights-urgent-modernization-needs","U.S. spends about $82 billion a year on capital improvements, $56 billion short of what is needed"],
+ S983:["Survey: the average public school's main building is 49 years old (on National Center for Education Statistics findings)","K-12 Dive","Feb. 2024","https://www.k12dive.com/news/public-school-infrastructure-age-nces/707580/","NCES survey of public schools, December 2023: the average main instructional building is 49 years old"],
+ S985:["Buildings & Grounds Update and Future Planning (presentation)","District 65","Sept. 14, 2026","","Summer 2027 and 2028 work; estimated health/life safety bonds needed: $9 million, with an estimated district match of $8.3 million"],
+ S984:["Monthly Financial Report, April 2026 (Fund 64, capital projects)","District 65","May 18, 2026 board meeting","","FY26 (2025-26) budget: $1,639,453 for districtwide building alterations; $26,810,000 for building Foster School"],
+};
+/* ---------- helpers ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(tag,a,parent,text){const n=document.createElementNS(NS,tag);for(const k in a)n.setAttribute(k,a[k]);if(text!=null)n.textContent=text;if(parent)parent.appendChild(n);return n}
+function svgIn(host,W,H,label){host.innerHTML='';const s=el('svg',{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:'img','aria-label':label});host.appendChild(s);return s}
+const Wof=h=>Math.max(280,Math.round(h.clientWidth));
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const tip=document.getElementById('tip');
+function showTip(e,html){tip.innerHTML=html;tip.hidden=false;let x,y;if(e.clientX!=null&&(e.type.startsWith('pointer')||(e.type==='click'&&(e.clientX||e.clientY)))){x=e.clientX;y=e.clientY}else{const r=e.currentTarget.getBoundingClientRect();x=r.left+r.width/2;y=r.top}const w=tip.offsetWidth,h=tip.offsetHeight;tip.style.left=Math.max(8,Math.min(innerWidth-w-8,x-w/2))+'px';let tp=y-h-14;if(tp<52)tp=y+18;tip.style.top=Math.max(8,Math.min(innerHeight-h-8,tp))+'px'}
+/* on phones, a swipe over a chart scrolls the page; details show only on a deliberate tap */
+const isTouch=e=>e.pointerType==='touch'||e.pointerType==='pen';
+addEventListener('scroll',()=>{if(!tip.hidden)tip.hidden=true},{passive:true});
+document.addEventListener('pointerdown',e=>{if(!tip.hidden&&!(e.target.closest&&e.target.closest('.hot')))tip.hidden=true});
+function hot(g,html){g.setAttribute('class','hot');g.setAttribute('tabindex','0');g.addEventListener('pointermove',e=>{if(!isTouch(e))showTip(e,html)});g.addEventListener('click',e=>{showTip(e,html)});g.addEventListener('pointerleave',()=>tip.hidden=true);g.addEventListener('focus',e=>showTip(e,html));g.addEventListener('blur',()=>tip.hidden=true)}
+function rrect(x,y,w,h,r,parent,a){r=Math.max(0,Math.min(r,w/2,h/2));return el('rect',Object.assign({x,y,width:Math.max(w,0.5),height:h,rx:r},a),parent)}
+/* grow animation: bars scale from their baseline the first time a chart is seen */
+const seen=new Set();
+let noAnim=false;
+function animate(svg,key,axis){if(reduce||noAnim||seen.has(key))return;svg.querySelectorAll('.grow').forEach(b=>{b.style.transformBox='fill-box';b.style.transformOrigin=b.dataset.o||(axis==='x'?'left center':'center bottom');b.style.transform=axis==='x'?'scaleX(0)':'scaleY(0)';b.style.transition='none'});requestAnimationFrame(()=>requestAnimationFrame(()=>svg.querySelectorAll('.grow').forEach((b,i)=>{b.style.transition='transform .9s cubic-bezier(.2,.7,.2,1) '+(i*35)+'ms';b.style.transform='none'})));seen.add(key)}
+function table(id,head,rows,usIdx){document.getElementById(id).innerHTML='<table><thead><tr>'+head.map(h=>`<th>${h}</th>`).join('')+'</tr></thead><tbody>'+rows.map((r,i)=>`<tr${r.us?' class="us"':''}>`+r.cells.map(c=>`<td>${c}</td>`).join('')+'</tr>').join('')+'</tbody></table>'}
+
+
+
+const CAPNB=[["Kenilworth 38", 5751, 2.73], ["Northbrook/Glenview 30", 5275, 6.34], ["Skokie 69", 4815, 8.42], ["Glenview 34", 3620, 16.66], ["Lincolnwood 74", 3399, 4.2], ["Glencoe 35", 3271, 3.93], ["Winnetka 36", 3054, 5.24], ["Niles 71", 2911, 1.77], ["East Maine 63", 2129, 7.49], ["Wilmette 39", 1771, 6.25], ["Park Ridge 64", 1764, 8.21], ["Oak Park 97", 1716, 10.1], ["Skokie 68", 1582, 2.81], ["Skokie 73½", 1231, 1.32], ["Northbrook 28", 715, 1.29], ["Northbrook 27", 667, 0.87], ["District 65", 327, 2.4]];
+const CAPNBREF=[["Illinois", 1244, 2410.06], ["U.S.", 1296, 61690.3]];
+const CAPDL=[[2027, 1.3, 6.4], [2028, 4.8, 0], [2029, 0.7, 1.2], [2030, 0.1, 1.0], [2031, 1.4, 2.3], [2032, 1.2, 0.7], [2033, 1.4, 0.9], [2034, 6.7, 10.5], [2035, 2.4, 1.0], [2036, 1.4, 1.9], [2037, 0.6, 1.4], [2038, 0, 0], [2039, 0, 0], [2040, 1.1, 4.1], [2041, 0, 0], [2042, 0, 0], [2043, 0, 0], [2044, 0, 0], [2045, 1.3, 0.1], [2046, 0, 0]];
+/* ---------- building spending by year: past (study) and planned (Nov. 9 forecast) ---------- */
+const CAPP=[['2020-21',0],['2021-22',1.083],['2022-23',3.100],['2023-24',0.311],['2024-25',1.176]];
+const CAPF=[['2025-26',1.64,'Budget, not counting Foster'],['2026-27',6.86],['2027-28',7.24],['2028-29',8.26],['2029-30',8.29],['2030-31',8.32],['2031-32',8.34]];
+const CAPREC=20.648, CAPCU=40.96;
+function drawCapYr(){
+  const host=document.getElementById('cv-capyr'),W=Wof(host),narrow=W<680,H=narrow?290:340,m={l:44,r:8,t:18,b:narrow?44:52},max=45;
+  const all=CAPP.map(d=>({k:d[0],v:d[1],past:1})).concat(CAPF.map(d=>({k:d[0],v:d[1],past:0,note:d[2]})));
+  const gapw=narrow?10:18,n=all.length,cw=(W-m.l-m.r-gapw)/n,bw=Math.min(44,cw*.7),Y=v=>m.t+(max-v)/max*(H-m.t-m.b);
+  const xc=i=>m.l+i*cw+cw/2+(i>=CAPP.length?gapw:0);
+  const svg=svgIn(host,W,H,'D65 spending on its buildings, millions a year. Past, from the building study: 2021 $0; 2022 $1.1M; 2023 $3.1M; 2024 $0.3M; 2025 $1.2M. Last school year, 2025-26: $1.6M budgeted, not counting Foster. Planned: 2026-27 $6.9M rising to $8.3M in 2031-32. The rule of thumb is about $20.6M a year; the study\'s catch-up number for 2027 to 2036 is about $41M a year.');
+  // the planned years sit on a faint panel, so past and future read apart without a divider
+  const px0=xc(CAPP.length)-cw/2+2;
+  rrect(px0,m.t-6,W-m.r-px0,Y(0)-m.t+6,8,svg,{fill:'var(--card)',opacity:.7});
+  [0,10,20,30,40].forEach(t=>{el('line',{class:t?'grid':'zero',x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:m.l-8,y:Y(t)+4,'text-anchor':'end'},svg,'$'+t+'M')});
+  // two reference lines, each labeled where it starts
+  const yr=Y(CAPREC),yc=Y(CAPCU),cx0=xc(CAPP.length+2)-cw/2+4;
+  el('line',{x1:xc(CAPP.length+1)-cw/2+4,x2:W-m.r,y1:yr,y2:yr,stroke:'var(--ink)','stroke-width':1.5,'stroke-dasharray':'5 4',opacity:.75},svg);
+  el('line',{x1:cx0,x2:W-m.r,y1:yc,y2:yc,stroke:'var(--neg)','stroke-width':2,'stroke-dasharray':'9 4 2 4'},svg);
+  const lab=(x,y,b,s)=>{const t=el('text',{x,y,'text-anchor':'end',class:'halo',style:'font-size:'+(narrow?12.5:13.5)+'px'},svg);el('tspan',{style:'font-weight:750'},t,b);el('tspan',{class:'m'},t,s);return t};
+  lab(W-m.r-2,yr-8,'Rule of thumb ',narrow?'$20.6M':'· about $20.6M a year');
+  lab(W-m.r-2,yc-8,'Catch-up ',narrow?'$41M':'· about $41M a year, 2027 to 2036');
+  all.forEach((d,i)=>{const x=xc(i)-bw/2,g=el('g',{},svg);
+    el('rect',{x:xc(i)-cw/2,y:m.t,width:cw,height:H-m.t-m.b,fill:'transparent'},g);
+    if(d.v>0)rrect(x,Y(d.v),bw,Y(0)-Y(d.v),4,g,{class:'bar grow',fill:d.past?'var(--bar)':'var(--bus)',opacity:d.note?.6:1});
+    else el('line',{x1:x,x2:x+bw,y1:Y(0)-1,y2:Y(0)-1,stroke:'var(--bar)','stroke-width':2},g);
+    const vl=d.v===0?'$0':'$'+d.v.toFixed(1)+'M';
+    if((narrow?[2,n-1]:[2,4,CAPP.length,CAPP.length+1,n-1]).includes(i))el('text',{x:xc(i),y:Y(d.v)-7,'text-anchor':'middle',class:'tick',style:'fill:var(--ink);font-size:'+(narrow?11:12)+'px'},g,vl);
+    if(!narrow){el('text',{x:xc(i),y:H-30,'text-anchor':'middle',class:'tick',style:'font-size:11.5px'},g,d.k);
+      if(d.note)el('text',{x:xc(i),y:H-17,'text-anchor':'middle',class:'tick',style:'font-size:10.5px'},g,'budget')}
+    hot(g,`<b>${d.k}</b>: ${d.v?'$'+d.v.toFixed(1)+' million':'$0'}<small>${d.past?'Facility improvements, as the building study lists them':(d.note||'Planned, in the district\'s corrected Nov. 9 forecast')+'<br>$'+(CAPREC-d.v).toFixed(1)+'M below the rule of thumb'+(i>=CAPP.length+2?'<br>$'+(CAPCU-d.v).toFixed(1)+'M below the catch-up number':'')}</small>`)});
+  const gx=(a,b)=>(xc(a)+xc(b))/2;
+  if(narrow){el('text',{x:gx(0,CAPP.length-1),y:H-24,'text-anchor':'middle',class:'b',style:'font-size:12.5px'},svg,'Spent');
+    el('text',{x:gx(0,CAPP.length-1),y:H-8,'text-anchor':'middle',class:'tick'},svg,'FY2021–25');
+    el('text',{x:gx(CAPP.length,n-1),y:H-24,'text-anchor':'middle',class:'b',style:'font-size:12.5px'},svg,'Planned');
+    el('text',{x:gx(CAPP.length,n-1),y:H-8,'text-anchor':'middle',class:'tick'},svg,'FY2026–32')}
+  else{el('text',{x:gx(0,CAPP.length-1),y:H-2,'text-anchor':'middle',class:'b',style:'font-size:12.5px'},svg,'Spent');
+    el('text',{x:gx(CAPP.length,n-1),y:H-2,'text-anchor':'middle',class:'b',style:'font-size:12.5px'},svg,'Planned')}
+  animate(svg,'capyr','y');
+  table('t-capyr',['Year','Millions','What it is'],all.map(d=>({cells:[d.k,'$'+d.v.toFixed(2)+'M',d.past?'Spent (building study)':(d.note||'Planned (Nov. 9 forecast)')]})).concat([{cells:['Each year','$20.65M','Rule of thumb: 4% of rebuilding cost']},{cells:['Each year, 2027 to 2036','$40.96M','The study\'s catch-up number']}]));
+}
+
+
+/* ---------- shared: horizontal "measure" rows (label, sublabel, bar, value) ---------- */
+function drawRows(id,rows,max,ticks,fmt,alt,tableHead,tableRows){
+  const host=document.getElementById('cv-'+id),W=Wof(host),narrow=W<540,lw=narrow?0:200,vw=narrow?92:112;
+  const x0=lw,x1=W-vw,X=v=>x0+v/max*(x1-x0);
+  const bh=narrow?24:28,gap=narrow?46:22,top=narrow?30:8;
+  const H=top+rows.length*(bh+gap)-gap+30;
+  const svg=svgIn(host,W,H,alt);
+  ticks.forEach(t=>{if(narrow)rows.forEach((d,i)=>{const y=top+i*(bh+gap);el('line',{class:t?'grid':'zero',x1:X(t),x2:X(t),y1:y-4,y2:y+bh+(i===rows.length-1?10:4)},svg)});
+    else el('line',{class:t?'grid':'zero',x1:X(t),x2:X(t),y1:top-6,y2:H-24},svg);
+    el('text',{class:'tick',x:X(t),y:H-6,'text-anchor':'middle'},svg,fmt(t))});
+  rows.forEach((d,i)=>{const y=top+i*(bh+gap),g=el('g',{},svg);
+    el('rect',{x:0,y:y-(narrow?28:gap/2),width:W,height:bh+(narrow?32:gap),fill:'transparent'},g);
+    if(narrow){el('text',{x:0,y:y-9,class:'b',style:'font-size:14px'},g,d.k);}
+    else{el('text',{x:lw-14,y:y+bh/2-1,'text-anchor':'end',class:'b',style:'font-size:15px'},g,d.k);el('text',{x:lw-14,y:y+bh/2+15,'text-anchor':'end',class:'tick'},g,d.s)}
+    if(d.style==='rule')rrect(X(0),y,X(d.v)-X(0),bh,3,g,{class:'bar grow',fill:'color-mix(in srgb,var(--bus) 10%,transparent)',stroke:'var(--bus)','stroke-width':1.5,'stroke-dasharray':'4 3'});
+    else{const c=d.style==='plan'||d.style==='me'?'var(--bus)':'var(--bar)';
+      if(d.hi)rrect(X(0),y,Math.max(3,X(d.hi)-X(0)),bh,3,g,{class:'bar grow',fill:c,opacity:.4});
+      rrect(X(0),y,Math.max(3,X(d.v)-X(0)),bh,3,g,{class:'bar grow',fill:c,opacity:d.style==='list'?.55:1})}
+    const end=X(d.hi||d.v);
+    el('text',{x:end+8,y:y+bh/2+6,style:'font-family:var(--mono);font-size:'+(narrow?13:14)+'px;font-weight:500;fill:var(--ink)'},g,d.lab);
+    hot(g,`<b>${d.k}</b>: ${d.lab}<small>${d.tip}</small>`)});
+  animate(svg,id,'x');
+  table('t-'+id,tableHead,tableRows);
+}
+
+/* ---------- share of rebuilding cost spent each year ---------- */
+const CAPPCT=[
+ {k:'Rule of thumb',s:'4% of rebuilding cost a year',v:4,lab:'4%',style:'rule',tip:'The rule of thumb the building study uses, from the 2025 State of Our Schools report'},
+ {k:'Average U.S. district',s:'What it actually spends',v:2.4,lab:'about 2.4%',tip:'About $82 billion a year, against about $138 billion at 4%'},
+ {k:'District 65',s:'What it has spent',v:0.22,hi:0.47,lab:'0.2%–0.5%',style:'me',tip:'0.2%: the building study\'s count, about $1.1 million a year, 2020-21 to 2024-25<br>0.5%: the Census Bureau\'s count, about $2.4 million a year, 2014-15 to 2023-24<br>Both divided by a rebuilding cost of about $516 million'}];
+function drawCapPct(){
+  drawRows('cappct',CAPPCT,4.6,[0,1,2,3,4],t=>t+'%','Share of buildings\' rebuilding cost spent each year on improvements: rule of thumb 4%; average U.S. district about 2.4%; District 65 0.2% to 0.5%.',
+    ['','Share each year','Basis'],
+    [{cells:['Rule of thumb','4%','From the 2025 State of Our Schools report']},{cells:['Average U.S. district','about 2.4%','$82B spent a year vs. about $138B at 4%']},{us:1,cells:['District 65, building study\'s count','0.2%','$1.1M a year ÷ $516M']},{us:1,cells:['District 65, Census count','0.5%','$2.4M a year ÷ $516M']}]);
+}
+
+/* ---------- neighbors: construction spending per student ---------- */
+const CAPNBMED=(()=>{const v=CAPNB.filter(d=>d[0]!=='District 65').map(d=>d[1]).sort((a,b)=>a-b),h=v.length/2;return Math.round(v.length%2?v[Math.floor(h)]:(v[h-1]+v[h])/2)})();
+function drawCapNb(){
+  const host=document.getElementById('cv-capnb'),W=Wof(host),narrow=W<540,lw=narrow?0:170,vw=66,max=6000;
+  const all=CAPNB.concat([null]).concat(CAPNBREF);
+  const bh=narrow?12:14,gap=narrow?20:8,rowH=bh+gap,top=narrow?56:30,H=top+all.length*rowH+24;
+  const x0=lw,x1=W-vw,X=v=>x0+v/max*(x1-x0);
+  const svg=svgIn(host,W,H,'Construction spending per student per year, 2014-15 to 2023-24: '+CAPNB.map(d=>d[0]+' $'+d[1].toLocaleString()).join('; ')+'. Illinois $1,244; U.S. $1,296.');
+  [0,2000,4000,6000].forEach(t=>{el('line',{class:t?'grid':'zero',x1:X(t),x2:X(t),y1:top-4,y2:H-22},svg);el('text',{class:'tick',x:X(t),y:H-4,'text-anchor':'middle'},svg,t?'$'+(t/1000)+'K':'$0')});
+  {const xm=X(CAPNBMED),yEnd=top+CAPNB.length*rowH-gap/2;
+   el('line',{x1:xm,x2:xm,y1:top-8,y2:yEnd,stroke:'var(--ink)','stroke-width':1.5,'stroke-dasharray':'5 4',opacity:.8},svg);
+   const t=el('text',{x:narrow?xm-4:xm,y:top-14,'text-anchor':narrow?'start':'middle',class:'halo',style:'font-size:'+(narrow?12.5:13.5)+'px'},svg);
+   el('tspan',{style:'font-weight:750'},t,'Typical neighbor ');el('tspan',{class:'m'},t,'$'+CAPNBMED.toLocaleString())}
+  all.forEach((d,i)=>{if(!d)return;const y=top+i*rowH,me=d[0]==='District 65',ref=CAPNBREF.includes(d),g=el('g',{},svg);
+    el('rect',{x:0,y:y-(narrow?16:gap/2),width:W,height:rowH,fill:'transparent'},g);
+    el('text',{x:narrow?0:lw-10,y:narrow?y-4:y+bh/2+5,'text-anchor':narrow?'start':'end',class:(me?'b ':'')+'halo',style:'font-size:'+(narrow?12.5:13.5)+'px'+(ref?';fill:var(--muted)':'')},g,d[0]);
+    rrect(X(0),y,Math.max(2,X(d[1])-X(0)),bh,3,g,{class:'bar grow',fill:me?'var(--bus)':'var(--bar)',opacity:ref?.45:1});
+    el('text',{x:X(d[1])+6,y:y+bh/2+4,class:'tick halo'+(me?' b':''),style:me?'fill:var(--ink);font-size:12.5px':'font-size:12px'},g,'$'+d[1].toLocaleString());
+    hot(g,`<b>${d[0]}</b>: $${d[1].toLocaleString()} per student a year<small>${ref?'Average':'About $'+d[2].toFixed(1)+' million a year in all'}, 2014-15 to 2023-24</small>`)});
+  animate(svg,'capnb','x');
+  table('t-capnb',['','Per student, per year','Total per year'],CAPNB.concat(CAPNBREF).map(d=>({us:d[0]==='District 65',cells:[d[0],'$'+d[1].toLocaleString(),d[0]==='Illinois'||d[0]==='U.S.'?'':'$'+d[2].toFixed(1)+'M']})).concat([{cells:['Typical neighbor (median of the 16)','$'+CAPNBMED.toLocaleString(),'']}]));
+}
+
+/* ---------- Dewey + Lincolnwood: listed work by year vs. whole-district budget ---------- */
+function drawCapDl(){
+  const host=document.getElementById('cv-capdl'),W=Wof(host),narrow=W<680,H=narrow?270:310,m={l:40,r:6,t:40,b:30},max=18;
+  const n=CAPDL.length,cw=(W-m.l-m.r)/n,bw=Math.min(26,cw*.66),Y=v=>m.t+(max-v)/max*(H-m.t-m.b),xc=i=>m.l+i*cw+cw/2;
+  const svg=svgIn(host,W,H,'Repair work the study lists for Dewey and Lincolnwood, by year, millions: '+CAPDL.map(d=>d[0]+' $'+(d[1]+d[2]).toFixed(1)+'M').join('; ')+'.');
+  [0,5,10,15].forEach(t=>{el('line',{class:t?'grid':'zero',x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t)},svg);el('text',{class:'tick',x:m.l-8,y:Y(t)+4,'text-anchor':'end'},svg,'$'+t+'M')});
+  // legend
+  const lg=[['var(--bus)','Lincolnwood'],['color-mix(in srgb,var(--bus) 55%,var(--bar))','Dewey']];let lx=0;
+  lg.forEach(([c,t])=>{rrect(lx,4,12,10,2,svg,{fill:c});el('text',{x:lx+17,y:13,class:'tick',style:'font-size:12.5px'},svg,t);lx+=17+t.length*7.6+18});
+  CAPDL.forEach(([y,dw,ln],i)=>{const g=el('g',{},svg),x=xc(i)-bw/2,tot=dw+ln;
+    el('rect',{x:xc(i)-cw/2,y:m.t,width:cw,height:H-m.t-m.b,fill:'transparent'},g);
+    if(ln>0)rrect(x,Y(ln),bw,Y(0)-Y(ln),2,g,{class:'bar grow',fill:'var(--bus)'});
+    if(dw>0)rrect(x,Y(ln+dw),bw,Y(ln)-Y(ln+dw)-1,2,g,{class:'bar grow',fill:'color-mix(in srgb,var(--bus) 55%,var(--bar))'});
+    if(narrow?tot>=5:tot>0)el('text',{x:xc(i),y:Y(tot)-6,'text-anchor':'middle',class:'tick',style:'fill:var(--ink);font-size:'+(narrow?10.5:11.5)+'px'},g,'$'+tot.toFixed(1));
+    if(!narrow||i%3===0)el('text',{x:xc(i),y:H-10,'text-anchor':'middle',class:'tick',style:'font-size:'+(narrow?10.5:11)+'px'},g,narrow?"'"+String(y).slice(2):y);
+    hot(g,`<b>${y}</b>: $${tot.toFixed(1)} million listed<small>Lincolnwood $${ln.toFixed(1)}M · Dewey $${dw.toFixed(1)}M</small>`)});
+  animate(svg,'capdl','y');
+  const sum=CAPDL.reduce((a,d)=>a+d[1]+d[2],0);
+  table('t-capdl',['Year','Lincolnwood','Dewey','Both'],CAPDL.map(d=>({cells:[d[0],'$'+d[2].toFixed(1)+'M','$'+d[1].toFixed(1)+'M','$'+(d[1]+d[2]).toFixed(1)+'M']})).concat([{cells:['2027–2046','$'+CAPDL.reduce((a,d)=>a+d[2],0).toFixed(1)+'M','$'+CAPDL.reduce((a,d)=>a+d[1],0).toFixed(1)+'M','$'+sum.toFixed(1)+'M']}]));
+}
+
+const DRAW={'f-capyr':drawCapYr,'f-cappct':drawCapPct,'f-capnb':drawCapNb,'f-capdl':drawCapDl};
+/* ---------- fine print: fold each chart's notes under "About this chart" ---------- */
+document.querySelectorAll('figure.chart').forEach(f=>{
+  const notes=[...f.children].filter(c=>c.matches('p.note'));
+  if(!notes.length)return;
+  const d=document.createElement('details');d.className='fold';
+  d.innerHTML='<summary>About this chart</summary>';
+  const first=f.querySelector(':scope > details.fold');
+  f.insertBefore(d,first||null);
+  notes.forEach(n=>d.appendChild(n));
+});
+
+/* ---------- source chips ---------- */
+const panel=document.getElementById('srcpanel'),list=document.getElementById('srclist');let lastBtn=null;
+/* tags stay on the line with the word before them: the last word and a run of tags share one no-wrap span */
+function keepWithWord(b){if(b.closest('.nw'))return;const run=[b];let n=b.nextSibling;
+  while(n&&n.nodeType===3&&!n.textContent.trim()&&n.nextSibling&&n.nextSibling.nodeType===1&&n.nextSibling.matches('.src')){run.push(n,n.nextSibling);n=n.nextSibling.nextSibling}
+  const t=b.previousSibling,m=t&&t.nodeType===3&&t.textContent.match(/(\S+)\s$/);if(!m&&run.length<2)return;
+  const w=document.createElement('span');w.className='nw';b.before(w);if(m){t.textContent=t.textContent.slice(0,-m[0].length);w.append(m[1]+' ')}run.forEach(x=>w.appendChild(x))}
+function chips(){document.querySelectorAll('.src:not([data-done]),.c:not([data-done])').forEach(b=>{if(b.matches('.src'))keepWithWord(b);b.dataset.done=1;if(b.matches('.c'))return;
+  const ids=b.dataset.id.split(' ');b.textContent=ids.length===1?'Source':ids.length+' sources';b.type='button';b.setAttribute('aria-label','Show sources: '+ids.join(', '))})}
+document.addEventListener('click',e=>{const b=e.target.closest('.src');if(!b)return;lastBtn=b;const ids=b.dataset.id.split(' ');
+  list.innerHTML=ids.map(id=>{const s=SRC[id];if(!s)return `<li><span class="sid">${id}</span></li>`;return `<li><span class="sid">${id}</span><span class="t">${s[0]}</span><span class="mm">${s[1]}${s[2]?' · '+s[2]:''}</span>${s[4]?`<span class="mm">${s[4]}</span>`:''}${s[3]?`<a href="${s[3]}" target="_blank" rel="noopener">${s[3].replace(/^https?:\/\//,'').slice(0,70)}${s[3].length>78?'…':''}</a>`:''}</li>`}).join('');
+  document.getElementById('srchd').textContent=ids.length===1?'Source':ids.length+' sources';panel.classList.add('open');panel.setAttribute('aria-hidden','false');document.getElementById('srcclose').focus()});
+function closePanel(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');if(lastBtn)lastBtn.focus()}
+document.getElementById('srcclose').addEventListener('click',closePanel);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('open'))closePanel()});
+
+
+
+
+const drawn=new Set();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target;t.classList.add('in');
+  if(DRAW[t.id]&&!drawn.has(t.id)){drawn.add(t.id);DRAW[t.id]();chips()}
+  io.unobserve(t)}),{rootMargin:'0px 0px -12% 0px',threshold:.05});
+document.querySelectorAll('.rv').forEach(n=>io.observe(n));
+let lastW=innerWidth;
+let rzT=0;new ResizeObserver(()=>{clearTimeout(rzT);rzT=setTimeout(()=>requestAnimationFrame(()=>{if(Math.abs(innerWidth-lastW)<4)return;lastW=innerWidth;noAnim=true;drawn.forEach(id=>DRAW[id]());noAnim=false}),120)}).observe(document.body);
+chips();
+
+/* ---------- section nav + progress ---------- */
+const secs=['s1','s2','s3','s4'].map(id=>document.getElementById(id)).filter(Boolean),links=document.querySelectorAll('.topbar nav a'),prog=document.getElementById('progress');
+const secnav=document.querySelector('.topbar nav');let lastSec;
+/* fade the bar's edges only where more sections are hidden */
+function fades(){const l=secnav.scrollLeft,r=secnav.scrollWidth-secnav.clientWidth-l;secnav.style.setProperty('--fl',l>2?'28px':'0px');secnav.style.setProperty('--fr',r>2?'36px':'0px')}
+secnav.addEventListener('scroll',fades,{passive:true});addEventListener('resize',()=>{fades();onScroll()});
+function onScroll(){const y=scrollY+innerHeight*.35;let cur=null;secs.forEach(s=>{if(s.offsetTop<=y)cur=s.id});links.forEach(a=>a.classList.toggle('on',a.dataset.sec===cur));
+  /* keep the current section in view: scroll the bar sideways only, never the page */
+  if(cur!==lastSec){lastSec=cur;const a=secnav.querySelector('a.on');const left=a?Math.max(0,a.offsetLeft-(secnav.clientWidth-a.offsetWidth)/2):0;if(Math.abs(secnav.scrollLeft-left)>1)secnav.scrollTo({left,behavior:reduce?'auto':'smooth'})}
+  const h=document.documentElement.scrollHeight-innerHeight;prog.style.width=(h>0?scrollY/h*100:0)+'%'}
+addEventListener('scroll',onScroll,{passive:true});onScroll();fades();
+
+/* site menu on phones, as on the front door */
+(function(){const mb=document.getElementById('menubtn'),nv=document.getElementById('sitenav');if(!mb||!nv)return;
+  const close=()=>{nv.classList.remove('open');mb.setAttribute('aria-expanded','false')};
+  mb.addEventListener('click',e=>{e.stopPropagation();const o=!nv.classList.contains('open');nv.classList.toggle('open',o);mb.setAttribute('aria-expanded',o?'true':'false')});
+  document.addEventListener('click',e=>{if(!e.target.closest('#sitenav'))close()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});})();
+
+
+</script>
+</body>
+</html>

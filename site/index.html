@@ -326,6 +326,21 @@ a.choice{text-decoration:none}
 .kinds li+li::before{content:" · ";color:var(--faint)}
 .behind .lede{margin:0;font-size:clamp(18px,2.1vw,21px);line-height:1.5}
 html:not(.editor) #editBtn{display:none!important}
+.deepbar{margin-top:14px;border:1px solid var(--rule);border-radius:14px;background:var(--raised);color:var(--ink)}
+.deepbar summary{list-style:none;display:flex;align-items:center;gap:18px;padding:16px 22px;cursor:pointer;border-radius:14px}
+.deepbar summary::-webkit-details-marker{display:none}
+.deepbar summary:hover .dg,.deepbar[open] .dg{color:var(--ink)}
+.deepbar summary:focus-visible{outline:2px solid var(--bus);outline-offset:2px}
+.deepbar .dk{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:22px}
+.deepbar .dt{flex:1;color:var(--muted);font-size:16px}
+.deepbar .dg{display:inline-flex;align-items:center;gap:6px;font-family:var(--display);font-weight:750;font-size:16px;white-space:nowrap;color:var(--muted)}
+.deepbar .chev{width:16px;height:16px;transition:transform .2s}
+.deepbar[open] .chev{transform:rotate(180deg)}
+.deepmenu{list-style:none;display:flex;flex-wrap:wrap;gap:4px;margin:0;padding:0 11px 12px}
+.deepmenu a{display:inline-flex;align-items:center;gap:9px;font-family:var(--display);font-stretch:88%;font-weight:650;font-size:15px;color:var(--muted);text-decoration:none;padding:8px 11px;border-radius:8px}
+.deepmenu a::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--bus);flex:none}
+.deepmenu a:hover{color:var(--ink);background:var(--card)}
+@media (max-width:700px){.deepbar summary{flex-wrap:wrap;gap:4px 12px;padding:14px 18px}.deepbar .dt{flex-basis:100%;order:3;font-size:15px}.deepbar .dg{margin-left:auto}.deepmenu{padding:0 8px 10px}}
 </style>
 <script>/* editing tools show only for the author: visit with #edit once (or tap the logo 5 times on the main page); #public turns them off */
 (function(){try{localStorage.removeItem('d65editor')}catch(e){}})();</script>
@@ -453,6 +468,13 @@ html:not(.editor) #editBtn{display:none!important}
       <span class="go">See them <span aria-hidden="true">→</span></span>
     </button>
   </div>
+
+  <details class="deepbar">
+    <summary><span class="dk">Go deeper</span><span class="dt">Topics beyond the main story</span><span class="dg">Topics <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+    <ul class="deepmenu">
+      <li><a href="repairs.html">Building repairs</a></li>
+    </ul>
+  </details>
 
   <div class="promise">
     <div><b>Sourced</b><span>Every fact traces to a public document you can open.</span></div>
