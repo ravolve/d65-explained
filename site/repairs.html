@@ -198,6 +198,12 @@ details.q figure.chart{margin:6px 0 4px;max-width:none}
 /* additions */
 .big{max-width:var(--col);margin:64px auto 22px;font-family:var(--display);font-stretch:78%;font-weight:800;font-size:clamp(30px,4.6vw,44px);line-height:1.04;text-wrap:balance}
 .nw{white-space:nowrap}
+.wrapup{max-width:var(--col);margin:52px auto 0;border-top:3px solid var(--bus);background:var(--card);border-radius:0 0 14px 14px;padding:20px 22px 22px;display:grid;gap:14px}
+.wrapup h3{font-family:var(--display);font-stretch:82%;font-weight:780;font-size:clamp(21px,2.6vw,25px);line-height:1.15;margin:0}
+.wrapup ol{margin:0;padding-left:1.3em;display:grid;gap:12px}
+.wrapup li{font-size:clamp(17px,1.9vw,19px);line-height:1.5;padding-left:4px}
+.wrapup li::marker{font-family:var(--display);font-weight:800;color:var(--bus)}
+.wrapup li b{font-family:var(--display);font-stretch:88%;font-weight:720}
 
 figure.chart details.fold > p.note{margin:2px 0 10px}
 figure.chart details.fold + details.fold{border-top:0;padding-top:0}
@@ -336,6 +342,14 @@ figure.chart details.fold + details.fold{border-top:0;padding-top:0}
   <p class="p rv">The district hasn't said.</p>
   <p class="p rv">Day-to-day costs, like heat, insurance and security, appear to be counted elsewhere. When the district lowered its yearly savings from closing the two schools, from $2.9 million to $2.3 million, part of the reason was that insurance and upkeep continue on buildings it keeps. After added busing costs, it puts the savings at about $2.1 million a year. <button class="src" data-id="S799 S972"></button> <span class="c est">District estimate</span></p>
   <p class="p rv">It hasn't said what bigger repairs an empty building would still need, such as a new roof.</p>
+
+  <aside class="wrapup rv" aria-labelledby="wrapup-h">
+    <h3 id="wrapup-h">Why these numbers are hard to pin down</h3>
+    <ol>
+      <li><b>They're long-range estimates.</b> The study projects costs a decade out, prices rise every year, and a few big years drive the totals. <button class="src" data-id="S755"></button></li>
+      <li><b>Closing a school doesn't end its costs.</b> The district plans to keep both buildings and hasn't said what they'll cost to keep. <button class="src" data-id="S165"></button></li>
+    </ol>
+  </aside>
 </section>
 
 
