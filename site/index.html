@@ -350,7 +350,7 @@ html:not(.editor) #editBtn{display:none!important}
 <body>
 <div class="editbar" id="editbar" role="region" aria-label="Edit mode"><span><b>Edit mode.</b> Click any line and type. Enter or click away to save.</span><span id="editcount">No changes yet</span><span class="es" id="editstat"></span><button type="button" class="ghost" id="editcopy">Copy list</button><button type="button" id="editdone">Done</button></div>
 <header class="bar"><div class="in">
-  <button type="button" class="brand" data-go="home" aria-label="D65 Explained, main page">D65 Explained</button>
+  <button type="button" class="brand" translate="no" data-go="home" aria-label="D65 Explained, main page">D65 Explained</button>
   <button type="button" class="menubtn" id="menubtn" aria-expanded="false" aria-controls="nav">Menu</button>
   <nav class="nav" id="nav" aria-label="Main">
     <a class="story" href="story.html">The story</a>
@@ -358,6 +358,7 @@ html:not(.editor) #editBtn{display:none!important}
     <button type="button" data-go="charts">Charts</button>
     <button type="button" data-go="about">About</button>
     <button type="button" data-go="tour">Tour</button>
+    <a class="es-link" href="https://www-d65explained-com.translate.goog/?_x_tr_sl=en&amp;_x_tr_tl=es&amp;_x_tr_hl=es" lang="es" hreflang="es" translate="no" title="Traducción automática de Google">Español</a>
     <button type="button" class="editbtn" id="editBtn" aria-pressed="false">Edit text</button>
   </nav>
 </div></header>
@@ -414,7 +415,7 @@ html:not(.editor) #editBtn{display:none!important}
           <div class="reveal" data-r="0"><b>900+</b><span>sources gathered and catalogued</span></div>
         </div>
         <ul class="kinds reveal" data-r="1" aria-label="Where the facts come from">
-          <li>D65 budgets and audits</li><li>Board packets</li><li>Board meeting transcripts</li><li>Illinois State Board of Education</li><li>U.S. Census Bureau</li><li>National Center for Education Statistics</li><li>Illinois Department of Revenue</li><li>Illinois General Assembly</li><li>U.S. Attorney's Office</li><li>Lincoln Institute of Land Policy</li><li>Evanston RoundTable</li><li>Daily Northwestern</li><li>The Evanstonian</li><li>WTTW</li><li>Residents' analyses</li>
+          <li>D65 budgets and audits</li><li>Board packets</li><li>Board meeting transcripts</li><li>Illinois State Board of Education</li><li>U.S. Census Bureau</li><li>National Center for Education Statistics</li><li>Illinois Department of Revenue</li><li>Illinois General Assembly</li><li>U.S. Attorney's Office</li><li>Lincoln Institute of Land Policy</li><li translate="no">Evanston RoundTable</li><li translate="no">Daily Northwestern</li><li translate="no">The Evanstonian</li><li translate="no">WTTW</li><li>Residents' analyses</li>
         </ul>
         <p class="lede reveal" data-r="2">Every fact has a Sources tag. Tap it to see the document behind it. Estimates are labeled, so you know what's on the record and what isn't. <span class="tags"><span class="c est">District estimate</span> <span class="c calc">Our calculation</span></span></p>
       </div>
@@ -665,7 +666,7 @@ const panel=document.getElementById('srcpanel'),list=document.getElementById('sr
 document.querySelectorAll('.src').forEach(b=>{const t=b.previousSibling,m=t&&t.nodeType===3&&t.textContent.match(/(\S+)\s$/);if(!m||b.closest('.nw,.tags'))return;const w=document.createElement('span');w.className='nw';b.before(w);t.textContent=t.textContent.slice(0,-m[0].length);w.append(m[1]+' ',b)});
 document.querySelectorAll('.src[data-id]').forEach(b=>{const ids=b.dataset.id.split(' ');b.textContent=ids.length===1?'Source':ids.length+' sources';b.type='button';b.setAttribute('aria-label','Show sources: '+ids.join(', '))});
 document.addEventListener('click',e=>{const b=e.target.closest('.src[data-id]');if(!b)return;lastBtn=b;const ids=b.dataset.id.split(' ');
-  list.innerHTML=ids.map(id=>{const s=SRC[id];if(!s)return `<li><span class="sid">${id}</span></li>`;return `<li><span class="sid">${id}</span><span class="t">${s[0]}</span><span class="mm">${s[1]}${s[2]?' · '+s[2]:''}</span>${s[4]?`<span class="mm">${s[4]}</span>`:''}${s[3]?`<a href="${s[3]}" target="_blank" rel="noopener">${s[3].replace(/^https?:\/\//,'').slice(0,70)}${s[3].length>78?'…':''}</a>`:''}</li>`}).join('');
+  list.innerHTML=ids.map(id=>{const s=SRC[id];if(!s)return `<li><span class="sid">${id}</span></li>`;return `<li><span class="sid">${id}</span><span class="t">${s[0]}</span><span class="mm"><span translate="no">${s[1]}</span>${s[2]?' · '+s[2]:''}</span>${s[4]?`<span class="mm">${s[4]}</span>`:''}${s[3]?`<a href="${s[3]}" target="_blank" rel="noopener">${s[3].replace(/^https?:\/\//,'').slice(0,70)}${s[3].length>78?'…':''}</a>`:''}</li>`}).join('');
   document.getElementById('srchd').textContent=ids.length===1?'Source':ids.length+' sources';panel.classList.add('open');panel.setAttribute('aria-hidden','false');document.getElementById('srcclose').focus()});
 function closePanel(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');if(lastBtn)lastBtn.focus()}
 document.getElementById('srcclose').addEventListener('click',closePanel);
@@ -751,5 +752,6 @@ show(start&&document.getElementById('v-'+start)?start:(store('d65fdSeen')?'home'
   }catch(e){}})();
 })();
 </script>
+<script>document.querySelectorAll("a.es-link").forEach(function(a){a.addEventListener("click",function(){var h=location.hash;a.href=a.href.split("#")[0]+(h||"")})});</script>
 </body>
 </html>

@@ -349,7 +349,7 @@ figure.slim h3{font-size:19px}
 
 
 <div class="site"><div class="in">
-  <a class="brand" href="index.html#home">D65 Explained</a>
+  <a class="brand" translate="no" href="index.html#home">D65 Explained</a>
   <button type="button" class="menubtn" id="menubtn" aria-expanded="false" aria-controls="sitenav">Menu</button>
   <nav class="sitenav" id="sitenav" aria-label="Main">
     <a href="story.html" aria-current="page">The story</a>
@@ -357,6 +357,7 @@ figure.slim h3{font-size:19px}
     <a href="index.html#charts">Charts</a>
     <a href="index.html#about">About</a>
     <a href="index.html#tour">Tour</a>
+    <a class="es-link" href="https://www-d65explained-com.translate.goog/story.html?_x_tr_sl=en&amp;_x_tr_tl=es&amp;_x_tr_hl=es" lang="es" hreflang="es" translate="no" title="Traducción automática de Google">Español</a>
   </nav>
 </div></div>
 <header class="topbar">
@@ -713,7 +714,7 @@ figure.slim h3{font-size:19px}
   <p class="p rv">About $2.1 million a year for the two, after added busing. That's real money, but about a tenth of the proposed cuts. The district says closing them would also let it cut about $1 million a year in teaching jobs. <button class="src" data-id="S972 S971"></button> <span class="c est">District estimate</span></p>
 
   <div class="ask rv"><p>Why these two schools?</p></div>
-  <p class="p rv">The district says the middle-school areas they're in, Haven and Nichols, have each lost about a third of their students in ten years. Nearby schools have room for the rest. <button class="src" data-id="S165"></button></p>
+  <p class="p rv">The district says the middle-school areas they're in, <span translate="no">Haven</span> and Nichols, have each lost about a third of their students in ten years. Nearby schools have room for the rest. <button class="src" data-id="S165"></button></p>
   <p class="p rv">Even after the closures, the remaining schools would be about three-quarters full, short of the district's 85% goal. <button class="src" data-id="S972 S934"></button> <span class="c est">District estimate</span></p>
 
   <div class="ask rv"><p>What do people who oppose the closures say?</p></div>
@@ -822,7 +823,7 @@ figure.slim h3{font-size:19px}
 
 <section class="part" id="latest" aria-labelledby="latest-h">
   <div class="part-head rv"><span class="part-num">The latest</span><h2 id="latest-h">What's changed since this was written</h2></div>
-  <p class="latest rv"><b>Nov. 9, 2026</b>The board discussed the plan but did not vote. A vote is expected Nov. 16. At some board members' request, the district modeled closing King Arts instead, and said it is keeping its recommendation to close Dewey and Lincolnwood. The board also approved, 7-0, an agreement that keeps school-age child care. <button class="src" data-id="S971 S972"></button></p>
+  <p class="latest rv"><b>Nov. 9, 2026</b>The board discussed the plan but did not vote. A vote is expected Nov. 16. At some board members' request, the district modeled closing <span translate="no">King Arts</span> instead, and said it is keeping its recommendation to close Dewey and Lincolnwood. The board also approved, 7-0, an agreement that keeps school-age child care. <button class="src" data-id="S971 S972"></button></p>
 </section>
 
 <nav class="endnav" aria-label="Keep going">
@@ -1612,7 +1613,7 @@ function keepWithWord(b){if(b.closest('.nw'))return;const run=[b];let n=b.nextSi
 function chips(){document.querySelectorAll('.src:not([data-done]),.c:not([data-done])').forEach(b=>{keepWithWord(b);b.dataset.done=1;if(b.matches('.c'))return;
   const ids=b.dataset.id.split(' ');b.textContent=ids.length===1?'Source':ids.length+' sources';b.type='button';b.setAttribute('aria-label','Show sources: '+ids.join(', '))})}
 document.addEventListener('click',e=>{const b=e.target.closest('.src');if(!b)return;lastBtn=b;const ids=b.dataset.id.split(' ');
-  list.innerHTML=ids.map(id=>{const s=SRC[id];if(!s)return `<li><span class="sid">${id}</span></li>`;return `<li><span class="sid">${id}</span><span class="t">${s[0]}</span><span class="mm">${s[1]}${s[2]?' · '+s[2]:''}</span>${s[4]?`<span class="mm">${s[4]}</span>`:''}${s[3]?`<a href="${s[3]}" target="_blank" rel="noopener">${s[3].replace(/^https?:\/\//,'').slice(0,70)}${s[3].length>78?'…':''}</a>`:''}</li>`}).join('');
+  list.innerHTML=ids.map(id=>{const s=SRC[id];if(!s)return `<li><span class="sid">${id}</span></li>`;return `<li><span class="sid">${id}</span><span class="t">${s[0]}</span><span class="mm"><span translate="no">${s[1]}</span>${s[2]?' · '+s[2]:''}</span>${s[4]?`<span class="mm">${s[4]}</span>`:''}${s[3]?`<a href="${s[3]}" target="_blank" rel="noopener">${s[3].replace(/^https?:\/\//,'').slice(0,70)}${s[3].length>78?'…':''}</a>`:''}</li>`}).join('');
   document.getElementById('srchd').textContent=ids.length===1?'Source':ids.length+' sources';panel.classList.add('open');panel.setAttribute('aria-hidden','false');document.getElementById('srcclose').focus()});
 function closePanel(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');if(lastBtn)lastBtn.focus()}
 document.getElementById('srcclose').addEventListener('click',closePanel);
@@ -1804,5 +1805,6 @@ const a=document.getElementById('backlink'),l=document.getElementById('backlbl')
 if(from&&names[from]){a.href='index.html#'+from;l.textContent=names[from]}
 a.addEventListener('click',()=>{try{sessionStorage.setItem('d65back','1')}catch(e){}});})();
 </script>
+<script>document.querySelectorAll("a.es-link").forEach(function(a){a.addEventListener("click",function(){var h=location.hash;a.href=a.href.split("#")[0]+(h||"")})});</script>
 </body>
 </html>
